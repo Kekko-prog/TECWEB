@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appunti Tecnologie Web - HTML</title>
+  <style>
+:root {
+  --bg-color: #ffffff;
+  --text-color: #24292f;
+  --heading-color: #1f2328;
+  --border-color: #d0d7de;
+  --code-bg: #f6f8fa;
+  --accent-color: #0969da;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-color);
+  background-color: #f6f8fa;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #24292e;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.top-bar h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.print-btn {
+  background: #2ea44f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.print-btn:hover {
+  background: #2c974b;
+  transform: translateY(-1px);
+}
+
+.tips-box {
+  background: #fff8c5;
+  color: #573a08;
+  border-left: 5px solid #d4a72c;
+  padding: 14px 20px;
+  font-size: 14px;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.document-container {
+  max-width: 900px;
+  margin: 20px auto 60px auto;
+  background: white;
+  padding: 50px 60px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  font-weight: 600;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--border-color);
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+hr {
+  height: 2px;
+  background-color: var(--border-color);
+  border: none;
+  margin: 28px 0;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  border: 1px solid #e1e4e8;
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+  display: table;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+th {
+  background-color: #f6f8fa;
+  font-weight: 600;
+}
+
+tr:nth-child(even) td {
+  background-color: #fafbfc;
+}
+
+blockquote {
+  border-left: 4px solid #0969da;
+  padding: 10px 18px;
+  margin: 18px 0;
+  background: #f0f7ff;
+  color: #1f2328;
+  border-radius: 0 6px 6px 0;
+}
+
+ul, ol {
+  padding-left: 28px;
+  margin-bottom: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Stili Ottimizzati per Stampa & PDF */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .document-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Evita che i titoli rimangano orfani a fine pagina */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000000 !important;
+  }
+
+  /* Evita tagli a metà per tabelle, blocchi di codice, liste e citazioni */
+  pre, code, table, blockquote, tr, ul, ol, dl {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  pre {
+    border: 1px solid #d0d7de !important;
+    background: #f6f8fa !important;
+    color: #000 !important;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  th {
+    background-color: #f0f2f5 !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  blockquote {
+    border-left: 4px solid #0969da !important;
+    background: #f0f7ff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="top-bar no-print">
+    <h2>Appunti Tecnologie Web - HTML</h2>
+    <button class="print-btn" onclick="window.print()">🖨️ Stampa / Salva in PDF</button>
+  </div>
+  
+  <div class="tips-box no-print">
+    <strong>💡 Per una stampa perfetta (senza scritte o tagli strani):</strong><br>
+    Nella schermata di stampa del browser:
+    <br>• <strong>Deseleziona</strong> <em>"Intestazioni e piè di pagina"</em> (toglie la data, il link del file e il percorso dai bordi).
+    <br>• <strong>Seleziona</strong> <em>"Grafica di sfondo"</em> (mantiene i colori e i box formattati).
+  </div>
+
+  <main class="document-container">
+    <h1>HTML - Architettura Web e HyperText Markup Language</h1>
+<hr />
+<h2>1. Architettura del Web &amp; Protocollo HTTP</h2>
+<h3>Internet vs World Wide Web (WWW)</h3>
+<p>Spesso usati come sinonimi nel linguaggio comune, <strong>Internet</strong> e <strong>Web</strong> rappresentano due concetti distinti:</p>
+<ul>
+<li><strong>Internet</strong>: Rete globale di computer e dispositivi interconnessi che comunicano attraverso la suite di protocolli Internet (<strong>TCP/IP</strong>). Le sue origini risalgono al progetto <strong>ARPANET</strong> del 1969. Su Internet poggiano numerosi servizi (Web, posta elettronica, trasferimento file, streaming, ecc.).</li>
+<li><strong>World Wide Web (WWW)</strong>: Un sottoinsieme di Internet, ideato nei primi anni '90 da <strong>Sir Tim Berners-Lee</strong> al CERN. Si tratta di un sistema informativo composto da documenti ipertestuali interconnessi tra loro tramite collegamenti (<strong>hyperlinks</strong>).</li>
+<li>I due componenti fondamentali del Web sono:</li>
+<li><strong>HTTP</strong> (<em>HyperText Transfer Protocol</em>): Il protocollo di comunicazione per trasferire risorse.</li>
+<li><strong>HTML</strong> (<em>HyperText Markup Language</em>): Il formato standard con cui sono scritti e strutturati i documenti ipertestuali.</li>
+</ul>
+<pre><code class="language-text">+--------------------------------------------------------+
+|                      INTERNET                          |
+|  (Infrastruttura globale di rete TCP/IP - dal 1969)    |
+|                                                        |
+|   +-----------------------+     +------------------+   |
+|   |  World Wide Web (WWW) |     |  Altri Servizi   |   |
+|   |  - HTTP / HTTPS       |     |  - Email (SMTP)  |   |
+|   |  - HTML Documents     |     |  - SSH / FTP     |   |
+|   +-----------------------+     +------------------+   |
++--------------------------------------------------------+
+</code></pre>
+<h3>Documenti Ipertestuali (Hypertexts)</h3>
+<p>A differenza dei testi tradizionali (sequenze lineari di caratteri), gli <strong>ipertesti</strong> contengono puntatori interattivi (<strong>link</strong> o collegamenti ipertestuali) verso altre risorse (altri ipertesti, documenti multimediali, file binari). La navigazione non è rigidamente sequenziale, ma reticolare.</p>
+<hr />
+<h3>Architettura di una Full-Stack Web Application</h3>
+<p>Una moderna applicazione web è basata sul modello <strong>Client-Server</strong>:</p>
+<pre><code class="language-text">[ Web Browser ]  &lt;======== (mostly) HTTP ========&gt;  [ Web Server(s) ]
+  (Front-End)                                          (Back-End)
+</code></pre>
+<ul>
+<li><strong>Front-End (Client)</strong>: Ciò che viene eseguito all'interno del browser dell'utente. Si occupa della presentazione, dell'interfaccia utente (UI) e dell'interazione diretta.</li>
+<li><em>Tecnologie principali</em>: HTML5, CSS3, JavaScript (TypeScript), framework/librerie (React, Angular, Vue, Bootstrap, Vite, Sass).</li>
+<li><strong>Back-End (Server)</strong>: L'ambiente server in cui risiedono la logica di business, l'accesso ai database, l'autenticazione e la gestione delle richieste.</li>
+<li><em>Tecnologie principali</em>: Node.js, Express, Spring, Python (Django, Flask), PHP, Web Server HTTP (Nginx, Apache).</li>
+</ul>
+<hr />
+<h3>Il Protocollo HTTP (HyperText Transfer Protocol)</h3>
+<p>HTTP è un <strong>protocollo di livello applicativo</strong> che poggia sullo stack <strong>TCP/IP</strong>. È il canale portante del World Wide Web.</p>
+<h4>Caratteristiche Fondamentali:</h4>
+<ol>
+<li><strong>Modello Request/Response</strong>: Il client (es. browser) apre una connessione ed invia una richiesta HTTP; il server elabora e restituisce una risposta HTTP.</li>
+<li><strong>Statelessness (Assenza di stato)</strong>: Ogni richiesta è completamente autonoma e indipendente dalle precedenti. Il server non memorizza alcuna informazione sulle richieste passate del client. Per implementare sessioni o mantenere l'autenticazione si usano meccanismi aggiuntivi come i <strong>cookie</strong>, i <strong>token JWT</strong> o il local storage.</li>
+</ol>
+<h4>Struttura dei Messaggi HTTP:</h4>
+<pre><code class="language-text">               MESSAGGIO HTTP REQUEST
++------------------------------------------------------+
+|  Verb (Metodo)  |  URI (Percorso)  |  HTTP Version   |  &lt;- Request Line
++------------------------------------------------------+
+|  Request Headers (coppie Nome: Valore)               |
++------------------------------------------------------+
+|  [Riga Vuota / Blank Line]                           |
++------------------------------------------------------+
+|  Request Body (opzionale, es. dati form / payload)   |
++------------------------------------------------------+
+
+               MESSAGGIO HTTP RESPONSE
++------------------------------------------------------+
+|  HTTP Version   |  Status Code   |   Status Message  |  &lt;- Status Line
++------------------------------------------------------+
+|  Response Headers (coppie Nome: Valore)              |
++------------------------------------------------------+
+|  [Riga Vuota / Blank Line]                           |
++------------------------------------------------------+
+|  Response Body (il contenuto restituito: HTML, JSON) |
++------------------------------------------------------+
+</code></pre>
+<h4>Esempio di Richiesta HTTP (Request):</h4>
+<pre><code class="language-http">GET /wisdom/grain.txt HTTP/1.1
+Host: bookofprogramming.com
+User-Agent: Mozilla/5.0
+Accept: text/plain
+Accept-Language: en-us
+Connection: keep-alive
+</code></pre>
+<h4>Esempio di Risposta HTTP (Response):</h4>
+<pre><code class="language-http">HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 153
+
+Fu-Tzu said: 'When you cut against the grain of the wood, much strength is needed. When you program against the grain of a problem, much code is needed.'
+</code></pre>
+<h4>Metodi (Verbi) HTTP Principali:</h4>
+<ul>
+<li><strong><code>GET</code></strong>: Richiede una rappresentazione della risorsa specificata (non deve modificare lo stato del server).</li>
+<li><strong><code>POST</code></strong>: Invia dati alla risorsa specificata per crearla o elaborarla.</li>
+<li><strong><code>PUT</code></strong>: Sostituisce interamente la risorsa bersaglio con il payload inviato.</li>
+<li><strong><code>DELETE</code></strong>: Rimuove la risorsa specificata.</li>
+</ul>
+<h4>Classi dei Codici di Stato HTTP (Response Status Codes):</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Intervallo</th>
+<th style="text-align: left;">Categoria</th>
+<th style="text-align: left;">Descrizione ed Esempi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>100-199</code></strong></td>
+<td style="text-align: left;"><strong>Informational</strong></td>
+<td style="text-align: left;">Richiesta ricevuta, elaborazione in corso (<code>100 Continue</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>200-299</code></strong></td>
+<td style="text-align: left;"><strong>Success</strong></td>
+<td style="text-align: left;">Azione completata con successo (<code>200 OK</code>, <code>201 Created</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>300-399</code></strong></td>
+<td style="text-align: left;"><strong>Redirection</strong></td>
+<td style="text-align: left;">Ulteriori azioni richieste per completare la richiesta (<code>301 Moved Permanently</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>400-499</code></strong></td>
+<td style="text-align: left;"><strong>Client Error</strong></td>
+<td style="text-align: left;">Errore causato dal client (<code>400 Bad Request</code>, <code>403 Forbidden</code>, <code>404 Not Found</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>500-599</code></strong></td>
+<td style="text-align: left;"><strong>Server Error</strong></td>
+<td style="text-align: left;">Il server ha riscontrato un errore interno (<code>500 Internal Server Error</code>, <code>503 Service Unavailable</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Ciclo di Navigazione Web: Cosa succede digitando un URL?</h3>
+<p>Quando un utente inserisce un indirizzo nel browser (es. <code>http://example.com/dir/file.txt</code>):</p>
+<pre><code class="language-text">Browser                           Server DNS                     Server HTTP
+   |                                  |                               |
+   | 1. Risoluzione: example.com?     |                               |
+   |---------------------------------&gt;|                               |
+   | 2. Risposta IP: 93.184.216.34    |                               |
+   |&lt;---------------------------------|                               |
+   |                                                                  |
+   | 3. Apertura connessione TCP (handshake sulla porta 80 o 443)     |
+   |-----------------------------------------------------------------&gt;|
+   | 4. Invio HTTP Request: GET /dir/file.txt                         |
+   |-----------------------------------------------------------------&gt;|
+   | 5. Ricezione HTTP Response: 200 OK (con dati / HTML)             |
+   |&lt;-----------------------------------------------------------------|
+   | 6. Parsing del documento e rendering a schermo                   |
+</code></pre>
+<hr />
+<h3>Anatomia Completa di un URL (Uniform Resource Locator)</h3>
+<p>Un URL identifica in modo univoco una risorsa disponibile su una rete.</p>
+<pre><code class="language-text">https://www.informatica.it:4242/corsi/tecweb.html?key1=val1&amp;key2=val2#some-id
+\___/   \________________/\___/\________________/\__________________/\______/
+  |             |           |          |                  |              |
+Schema     Domain Name    Porta     Percorso       Query Parameters    Anchor
+(Protocol)   (Host)                  (Path)                           (Frammento)
+</code></pre>
+<ol>
+<li><strong>Schema (Protocollo)</strong>: Specifica il protocollo per accedere alla risorsa. I più comuni sono <code>http</code> e <code>https</code>.</li>
+<li><strong>HTTPS</strong> (<em>HTTP Secure</em>): HTTP cifrato tramite <strong>TLS</strong> (<em>Transport Layer Security</em>), fondamentale per impedire intercettazioni (man-in-the-middle) e manomissioni.</li>
+<li><strong>Domain Name (Nome di Dominio)</strong>: L'indirizzo logico del server che ospita la risorsa. È gerarchico e si legge da destra verso sinistra:</li>
+<li><strong>TLD</strong> (<em>Top Level Domain</em>): estensione primaria (<code>.it</code>, <code>.com</code>, <code>.org</code>), gestita da <strong>IANA</strong>.</li>
+<li><strong>SLD</strong> (<em>Secondary Level Domain</em>): nome dell'organizzazione o servizio (es. <code>informatica</code>).</li>
+<li><strong>Subdomains</strong>: prefissi opzionali per organizzare sezioni del dominio (es. <code>www.</code>, <code>blog.mozilla.org</code>, <code>informatica.dieti.unina.it</code>).</li>
+<li><strong>Porta (Port)</strong>: Porta TCP di destinazione sul server. Può essere omessa se standard:</li>
+<li>Porta di default per HTTP: <strong><code>80</code></strong></li>
+<li>Porta di default per HTTPS: <strong><code>443</code></strong></li>
+<li>Se il server ascolta su una porta non convenzionale (es. <code>:3000</code>, <code>:4242</code>), va esplicitata.</li>
+<li><strong>Path (Percorso)</strong>: Percorso logico del file all'interno del filesystem del server, calcolato rispetto alla <strong>Document Root</strong> (<code>web root</code>).</li>
+<li>Il server isola i file accessibili solo dentro la Document Root (es. <code>/var/www/html</code>) per questioni di sicurezza, impedendo l'accesso ad altre cartelle di sistema.</li>
+<li><strong>Query Parameters</strong>: Parametri addizionali inviati al server (dopo il punto interrogativo <code>?</code>).</li>
+<li><strong>URL Anchor (Frammento)</strong>: Riferimento a una sezione interna della pagina (preceduto da <code>#</code>).</li>
+</ol>
+<h4>Cartelle e <code>index.html</code></h4>
+<p>Cosa succede se l'URL termina con una cartella anziché un file specifico (es. <code>http://example.com/corsi/</code>)?
+- Il web server cerca ed eroga automaticamente il file predefinito della cartella: solitamente <strong><code>index.html</code></strong> (o <code>home.html</code>, <code>default.html</code>).
+- Se nessun file di indice è presente, a seconda della configurazione il server restituirà un errore (<code>403 Forbidden</code> / <code>404 Not Found</code>) oppure mostrerà un elenco dei file presenti nella directory (<em>Directory Indexing</em>).</p>
+<hr />
+<h2>2. Introduzione ad HTML (HyperText Markup Language)</h2>
+<h3>Cos'è HTML?</h3>
+<p>HTML è il linguaggio di marcatura standard del World Wide Web. Non è un linguaggio di programmazione procedurale o orientato agli oggetti, ma un <strong>linguaggio di marcatura dichiarativo</strong>.
+Attraverso un insieme di <strong>annotazioni</strong> (chiamate <strong>tag</strong>), HTML descrive:
+- La <strong>struttura</strong> gerarchica del documento.
+- Il <strong>ruolo semantico</strong> delle varie componenti (titoli, paragrafi, tabelle, form, link, sezioni).
+- Le <strong>relazioni</strong> tra le parti del contenuto.</p>
+<h4>Evoluzione dello Standard:</h4>
+<ul>
+<li>HTML 1.0 (1993) $\rightarrow$ HTML 2 (1995) $\rightarrow$ HTML 3 (1997) $\rightarrow$ HTML 4 (1999) $\rightarrow$ HTML 5 (2014).</li>
+<li>Dal 2019 lo sviluppo è governato dal <strong>WHATWG</strong> sotto il nome di <strong>HTML Living Standard</strong> (uno standard vivente e in costante aggiornamento, non più rigidamente suddiviso in versioni monolitiche).</li>
+</ul>
+<hr />
+<h3>Anatomia di un Elemento HTML</h3>
+<p>I tag sono delimitati da parentesi angolari <code>&lt; &gt;</code>. Un elemento HTML standard è costituito da:</p>
+<pre><code class="language-html">&lt;tagName attribute1=&quot;value1&quot; attribute2&gt; Testo o contenuto &lt;/tagName&gt;
+\______/ \____________________________/ \________________/ \________/
+    |                   |                       |               |
+Tag di apertura    Attributi                Contenuto      Tag di chiusura
+</code></pre>
+<ul>
+<li><strong>Tag di apertura</strong>: include il nome del tag e gli eventuali attributi (coppie <code>chiave="valore"</code> o flag booleani).</li>
+<li><strong>Contenuto</strong>: il testo o altri tag annidati all'interno dell'elemento.</li>
+<li><strong>Tag di chiusura</strong>: uguale al tag di apertura ma preceduto da uno slash <code>/</code>.</li>
+<li><strong>Elementi Void (Self-closing)</strong>: Elementi che per definizione non possono contenere figli o testo. Non richiedono un tag di chiusura separato (es. <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;meta&gt;</code>).</li>
+</ul>
+<hr />
+<h3>Struttura Base di un Documento HTML5</h3>
+<p>Ogni file HTML valido presenta la seguente impalcatura minima:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;it&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+    &lt;title&gt;Titolo della Scheda&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Questo è un commento: viene ignorato dal browser --&gt;
+    &lt;h1&gt;Benvenuti su HTML&lt;/h1&gt;
+    &lt;p&gt;Questo è il corpo visibile della pagina.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h4>Componenti Chiave:</h4>
+<ol>
+<li><code>&lt;!DOCTYPE html&gt;</code>: Dichiarazione preliminare obbligatoria. Non è un tag HTML, ma un'istruzione che comunica al browser di eseguire il rendering del documento secondo lo standard moderno <strong>HTML5</strong> (evitando la modalità retrocompatibile nota come <em>quirks mode</em>).</li>
+<li><code>&lt;html lang="it"&gt;</code>: L'elemento radice che racchiude l'intero documento. L'attributo <code>lang</code> è fondamentale per i motori di ricerca, i sintetizzatori vocali (screen reader) e l'accessibilità.</li>
+<li><code>&lt;head&gt;</code>: Contenitore dei <strong>metadati</strong> (dati che descrivono il documento). Non vengono mostrati all'interno della pagina web, ma sono usati da browser, motori di ricerca e social network.</li>
+<li><code>&lt;title&gt;</code>: Elemento obbligatorio; definisce il titolo visualizzato sulla scheda del browser e nei risultati di ricerca.</li>
+<li><code>&lt;meta charset="UTF-8"&gt;</code>: Specifica la codifica dei caratteri Unicode (supporta accenti, simboli ed emoji).</li>
+<li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>: Imposta la larghezza del viewport pari a quella del dispositivo, disattivando lo zoom artificiale su mobile (requisito base del Responsive Web Design).</li>
+<li><code>&lt;meta name="description" content="..."&gt;</code>: Breve estratto usato dai motori di ricerca come snippet nei risultati (SEO).</li>
+<li><code>&lt;meta name="keywords" content="..."&gt;</code>: Parole chiave relative al contenuto.</li>
+<li><code>&lt;meta name="author" content="..."&gt;</code>: Autore del documento.</li>
+<li><code>&lt;meta http-equiv="refresh" content="30"&gt;</code>: Ordina al browser di ricaricare automaticamente la pagina ogni 30 secondi.</li>
+<li><code>&lt;body&gt;</code>: Contiene l'intero contenuto informativo visibile all'utente a schermo (testi, immagini, layout, pulsanti).</li>
+<li><strong>Commenti</strong>: Delimitati da <code>&lt;!--</code> e <code>--&gt;</code>. Vengono ignorati durante il rendering e servono per documentare il codice o disattivare temporaneamente porzioni di pagina.</li>
+</ol>
+<hr />
+<h3>Il Documento HTML come Albero (DOM Tree)</h3>
+<p>Un documento HTML non è un semplice file di testo piatto: il browser analizza la gerarchia dei tag e crea in memoria una struttura ad albero ad oggetti nota come <strong>DOM (Document Object Model)</strong>:</p>
+<pre><code class="language-text">                 +--------+
+                 |  html  |
+                 +----+---+
+                      |
+        +-------------+-------------+
+        |                           |
+    +---+----+                  +---+----+
+    |  head  |                  |  body  |
+    +---+----+                  +---+----+
+        |                           |
+  +-----+-----+               +-----+-----+
+  |           |               |           |
++---+---+   +----+----+     +---+---+   +----+----+
+| title |   |  meta   |     | main  |   | footer  |
++-------+   +---------+     +---+---+   +----+----+
+                                |            |
+                            +---+----+     +---+---+
+                            |article |     |   p   |
+                            +---+----+     +-------+
+                                |
+                          +-----+-----+
+                          |           |
+                        +---+---+   +---+---+
+                        |  h1   |   |   p   |
+                        +-------+   +-------+
+</code></pre>
+<p>Ogni nodo dell'albero rappresenta un elemento HTML, con relazioni di parentela ben definite (<em>genitore</em>, <em>figlio</em>, <em>fratelli</em>).</p>
+<hr />
+<h2>3. Testo, Intestazioni e Semantica Inline</h2>
+<h3>Intestazioni (Headings)</h3>
+<p>HTML mette a disposizione 6 livelli di intestazione, da <code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code>:</p>
+<pre><code class="language-html">&lt;h1&gt;Intestazione di primo livello (Titolo principale)&lt;/h1&gt;
+&lt;h2&gt;Intestazione di secondo livello (Sezione)&lt;/h2&gt;
+&lt;h3&gt;Intestazione di terzo livello (Sottosezione)&lt;/h3&gt;
+&lt;h4&gt;Intestazione di quarto livello&lt;/h4&gt;
+&lt;h5&gt;Intestazione di quinto livello&lt;/h5&gt;
+&lt;h6&gt;Intestazione di sesto livello&lt;/h6&gt;
+</code></pre>
+<blockquote>
+<p>[!IMPORTANT]
+Non usare le intestazioni per ingrandire il testo: per quello si usa il CSS. Le intestazioni hanno un valore <strong>semantico e gerarchico</strong>. Una pagina dovrebbe contenere un solo <code>&lt;h1&gt;</code> principale per favorire l'indicizzazione nei motori di ricerca (SEO) e la navigazione assistita.</p>
+</blockquote>
+<hr />
+<h3>Paragrafi (<code>&lt;p&gt;</code>)</h3>
+<p>Il tag <code>&lt;p&gt;</code> rappresenta un paragrafo di testo. Nel rendering predefinito del browser, gli elementi <code>&lt;p&gt;</code> sono di tipo <strong>block-level</strong>: iniziano sempre su una nuova riga e lasciano un margine verticale sopra e sotto.</p>
+<pre><code class="language-html">&lt;p&gt;Questo è il primo paragrafo del testo.&lt;/p&gt;
+&lt;p&gt;Questo è il secondo paragrafo, separato dal precedente.&lt;/p&gt;
+</code></pre>
+<hr />
+<h3>Formattazione Semantica del Testo (Inline Elements)</h3>
+<p>HTML distingue tra la formattazione puramente visiva e la formattazione <strong>semantica</strong>, che arricchisce il significato del testo:</p>
+<ul>
+<li><strong><code>&lt;em&gt;</code></strong> (<em>Emphasis</em>): Esprime un'enfasi sul contenuto (rende solitamente il testo in corsivo).</li>
+<li><strong><code>&lt;strong&gt;</code></strong> (<em>Strong Importance</em>): Esprime una rilevanza, serietà o urgenza notevole (rende solitamente il testo in grassetto).</li>
+<li><strong><code>&lt;br /&gt;</code></strong> (<em>Line Break</em>): Spezza la riga e forza l'andata a capo senza creare un nuovo paragrafo logico. È un tag void.</li>
+<li><strong><code>&lt;abbr title="..."&gt;</code></strong>: Definisce una sigla, acronimo o abbreviazione. L'attributo <code>title</code> contiene l'espansione testuale, visibile come tooltip posizionando il cursore sopra la sigla.</li>
+<li><strong><code>&lt;del&gt;</code></strong> (<em>Deleted Text</em>): Indica testo rimosso dal documento (visualizzato barrato).</li>
+<li><strong><code>&lt;ins&gt;</code></strong> (<em>Inserted Text</em>): Indica testo inserito in una revisione successiva (visualizzato sottolineato).</li>
+</ul>
+<pre><code class="language-html">&lt;p&gt;
+  Il linguaggio &lt;abbr title=&quot;HyperText Markup Language&quot;&gt;HTML&lt;/abbr&gt; 
+  fornisce semantica a livello di testo.&lt;br /&gt;
+  Possiamo esprimere &lt;strong&gt;forte importanza&lt;/strong&gt; oppure 
+  &lt;em&gt;enfatizzare parole chiave&lt;/em&gt;.
+  Inoltre possiamo marcare testo &lt;del&gt;eliminato&lt;/del&gt; e testo &lt;ins&gt;aggiunto&lt;/ins&gt;.
+&lt;/p&gt;
+</code></pre>
+<hr />
+<h3>Caratteri Riservati ed Entità HTML (Character References)</h3>
+<p>Alcuni caratteri hanno un significato sintattico speciale in HTML (ad esempio <code>&lt;</code> e <code>&gt;</code> per i tag, o <code>&amp;</code> per le entità). Se si provasse a scrivere direttamente:</p>
+<pre><code class="language-html">&lt;!-- ERRORE: il browser confonde &lt;x con l'inizio di un tag non valido --&gt;
+&lt;p&gt;Se 3 &lt; x e y &gt; 6 allora procedi&lt;/p&gt;
+</code></pre>
+<p>Per visualizzare questi caratteri in sicurezza occorre ricorrere alle <strong>Entità HTML</strong> (o <em>Character References</em>), che possono essere definite per nome (<code>&amp;nome;</code>) o per codice numerico (<code>&amp;#numero;</code>):</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Simbolo</th>
+<th style="text-align: left;">Descrizione</th>
+<th style="text-align: left;">Entità per Nome</th>
+<th style="text-align: left;">Entità Numerica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code></code></td>
+<td style="text-align: left;">Spazio non separabile (<em>Non-breaking space</em>)</td>
+<td style="text-align: left;"><code>&amp;nbsp;</code></td>
+<td style="text-align: left;"><code>&amp;#160;</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&lt;</code></td>
+<td style="text-align: left;">Minore di (<em>Less than</em>)</td>
+<td style="text-align: left;"><code>&amp;lt;</code></td>
+<td style="text-align: left;"><code>&amp;#60;</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&gt;</code></td>
+<td style="text-align: left;">Maggiore di (<em>Greater than</em>)</td>
+<td style="text-align: left;"><code>&amp;gt;</code></td>
+<td style="text-align: left;"><code>&amp;#62;</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&amp;</code></td>
+<td style="text-align: left;">E commerciale (<em>Ampersand</em>)</td>
+<td style="text-align: left;"><code>&amp;amp;</code></td>
+<td style="text-align: left;"><code>&amp;#38;</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>"</code></td>
+<td style="text-align: left;">Virgolette doppie (<em>Double quote</em>)</td>
+<td style="text-align: left;"><code>&amp;quot;</code></td>
+<td style="text-align: left;"><code>&amp;#34;</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>'</code></td>
+<td style="text-align: left;">Apostrofo / Virgoletta singola (<em>Apostrophe</em>)</td>
+<td style="text-align: left;"><code>&amp;apos;</code></td>
+<td style="text-align: left;"><code>&amp;#39;</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>©</code></td>
+<td style="text-align: left;">Simbolo del Copyright</td>
+<td style="text-align: left;"><code>&amp;copy;</code></td>
+<td style="text-align: left;"><code>&amp;#169;</code></td>
+</tr>
+</tbody>
+</table>
+<h4>Esempio Corretto:</h4>
+<pre><code class="language-html">&lt;p&gt;Se 3 &amp;lt; x e y &amp;gt; 6 allora procedi &amp;amp; stampa il risultato.&lt;/p&gt;
+</code></pre>
+<hr />
+<h2>4. Collegamenti Ipertestuali (Hyperlinks) &amp; URL</h2>
+<h3>Il Tag di Ancoraggio <code>&lt;a&gt;</code> e l'Attributo <code>href</code></h3>
+<p>I link sono il meccanismo fondante del Web. Si definiscono tramite il tag <code>&lt;a&gt;</code> (<em>anchor</em>) e l'attributo principale <code>href</code> (<em>Hypertext Reference</em>), che specifica la destinazione:</p>
+<pre><code class="language-html">&lt;a href=&quot;https://www.unina.it&quot;&gt;Visita il sito di Ateneo&lt;/a&gt;
+</code></pre>
+<hr />
+<h3>URL Assoluti vs URL Relativi</h3>
+<p>Quando si specifica il valore dell'attributo <code>href</code>, si possono usare due tipologie di percorsi:</p>
+<ol>
+<li><strong>URL Assoluti</strong>: Contengono lo schema (<code>http://</code> o <code>https://</code>) e l'hostname del server. Includono tutte le informazioni necessarie per raggiungere la risorsa da qualsiasi posizione.</li>
+<li>
+<p>Da preferire obbligatoriamente quando si collegano <strong>risorse esterne</strong> al proprio sito web.
+   <code>html
+   &lt;a href="https://developer.mozilla.org/en-US/"&gt;MDN Web Docs&lt;/a&gt;</code></p>
+</li>
+<li>
+<p><strong>URL Relativi</strong>: Non specificano né protocollo né dominio; il percorso viene calcolato dal browser a partire dalla posizione del documento corrente.</p>
+</li>
+<li>Da preferire per collegare pagine <strong>interne alla stessa applicazione web</strong>: se l'applicazione viene spostata su un altro dominio o porta (es. da <code>localhost:3000</code> a <code>produzione.com</code>), tutti i link rimangono perfettamente funzionanti.</li>
+</ol>
+<hr />
+<h3>Risoluzione dei Percorsi Relativi: Regole ed Esempi</h3>
+<p>La risoluzione dei percorsi relativi segue regole precise a seconda del primo carattere:</p>
+<ul>
+<li><strong>Se inizia con <code>/</code> (Root-relative)</strong>: Il percorso è relativo alla radice del server (<code>Document Root</code>). Sostituisce l'intero path precedente.</li>
+<li><strong>Se NON inizia con <code>/</code> (Document-relative)</strong>: Il percorso è relativo alla cartella in cui si trova il file corrente; sostituisce solo l'ultimo segmento del percorso.</li>
+<li><strong>Segmento <code>.</code> (punto singolo)</strong>: Rappresenta la cartella corrente.</li>
+<li><strong>Segmento <code>..</code> (doppio punto)</strong>: Rappresenta la cartella genitore (sale di un livello nell'albero delle directory).</li>
+</ul>
+<h4>Esempio Pratico:</h4>
+<p>Supponiamo che la pagina corrente abbia l'URL:
+<code>http://bookofprogramming.com/a/b/c/hello.html</code></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Valore dell'attributo <code>href</code></th>
+<th style="text-align: left;">Risultato Calcolato dal Browser</th>
+<th style="text-align: left;">Spiegazione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>page.html</code></td>
+<td style="text-align: left;"><code>http://bookofprogramming.com/a/b/c/page.html</code></td>
+<td style="text-align: left;">Sostituisce solo <code>hello.html</code> nella stessa cartella.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/index.html</code></td>
+<td style="text-align: left;"><code>http://bookofprogramming.com/index.html</code></td>
+<td style="text-align: left;">Inizia con <code>/</code>: riparte dalla radice del dominio.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>./index.html</code></td>
+<td style="text-align: left;"><code>http://bookofprogramming.com/a/b/c/index.html</code></td>
+<td style="text-align: left;"><code>.</code> indica la cartella corrente <code>c/</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>../foo.html</code></td>
+<td style="text-align: left;"><code>http://bookofprogramming.com/a/b/foo.html</code></td>
+<td style="text-align: left;">Sale di un livello: esce da <code>c/</code> ed entra in <code>b/</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>../../pic.jpg</code></td>
+<td style="text-align: left;"><code>http://bookofprogramming.com/a/pic.jpg</code></td>
+<td style="text-align: left;">Sale di due livelli: esce da <code>c/</code> e da <code>b/</code>, arrivando in <code>a/</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>./../../pic.jpg</code></td>
+<td style="text-align: left;"><code>http://bookofprogramming.com/a/pic.jpg</code></td>
+<td style="text-align: left;">Equivalente al precedente.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>L'Attributo <code>target</code></h3>
+<p>L'attributo <code>target</code> indica dove visualizzare il documento collegato:</p>
+<ul>
+<li><strong><code>target="_self"</code></strong> <em>(default)</em>: Apre la pagina collegata nella <strong>stessa</strong> scheda o finestra del browser.</li>
+<li><strong><code>target="_blank"</code></strong>: Apre la pagina collegata in una <strong>nuova scheda</strong> (o nuova finestra).</li>
+</ul>
+<pre><code class="language-html">&lt;a href=&quot;guida.html&quot; target=&quot;_self&quot;&gt;Apri guida nella stessa scheda&lt;/a&gt;
+&lt;a href=&quot;https://google.com&quot; target=&quot;_blank&quot;&gt;Apri motore di ricerca in una nuova scheda&lt;/a&gt;
+</code></pre>
+<hr />
+<h3>Segnalibri Interni: Attributo <code>id</code> e Frammenti URL (<code>#anchor</code>)</h3>
+<p>L'attributo globale <code>id</code> assegna un identificatore univoco ad un elemento HTML. È possibile creare collegamenti che scorrono la pagina direttamente fino all'elemento bersaglio aggiungendo <code>#id</code> all'URL:</p>
+<pre><code class="language-html">&lt;!-- Elemento bersaglio posizionato in basso nella pagina --&gt;
+&lt;h2 id=&quot;capitolo-3&quot;&gt;Capitolo 3: I Form&lt;/h2&gt;
+&lt;p&gt;Contenuto approfondito del capitolo...&lt;/p&gt;
+
+&lt;!-- Link per saltare direttamente al capitolo (segnalibro interno) --&gt;
+&lt;a href=&quot;#capitolo-3&quot;&gt;Vai al Capitolo 3&lt;/a&gt;
+
+&lt;!-- Link da un'altra pagina esterna verso lo specifico paragrafo --&gt;
+&lt;a href=&quot;https://miosito.it/guida.html#capitolo-3&quot;&gt;Vedi Capitolo 3 nella Guida&lt;/a&gt;
+</code></pre>
+<hr />
+<h2>5. Tabelle</h2>
+<p>Le tabelle HTML vengono utilizzate per organizzare dati bidimensionali in righe e colonne.</p>
+<h3>Tag Fondamentali:</h3>
+<ul>
+<li><strong><code>&lt;table&gt;</code></strong>: Contenitore generale della tabella.</li>
+<li><strong><code>&lt;caption&gt;</code></strong>: Didascalia o titolo descrittivo della tabella (opzionale ma consigliato per l'accessibilità).</li>
+<li><strong><code>&lt;tr&gt;</code></strong> (<em>Table Row</em>): Definisce una riga della tabella.</li>
+<li><strong><code>&lt;th&gt;</code></strong> (<em>Table Header</em>): Cella di intestazione (il testo appare centrato e in grassetto per default).</li>
+<li><strong><code>&lt;td&gt;</code></strong> (<em>Table Data</em>): Cella standard contenente i dati.</li>
+</ul>
+<h4>Esempio:</h4>
+<pre><code class="language-html">&lt;table&gt;
+  &lt;caption&gt;Riepilogo Esami Universitari&lt;/caption&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Materia&lt;/th&gt;
+    &lt;th&gt;Crediti (CFU)&lt;/th&gt;
+    &lt;th&gt;Voto&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Tecnologie Web&lt;/td&gt;
+    &lt;td&gt;9&lt;/td&gt;
+    &lt;td&gt;30&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Ingegneria del Software&lt;/td&gt;
+    &lt;td&gt;9&lt;/td&gt;
+    &lt;td&gt;28&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+<hr />
+<h2>6. Liste</h2>
+<p>HTML definisce tre distinte tipologie di liste in base allo scopo semantico:</p>
+<h3>1. Liste Ordinate (<code>&lt;ol&gt;</code>)</h3>
+<p>Usate quando l'ordine degli elementi è significativo (elenchi numerati, sequenze temporali, passaggi di un algoritmo). Gli elementi interni sono racchiusi nel tag <code>&lt;li&gt;</code> (<em>List Item</em>).</p>
+<pre><code class="language-html">&lt;ol&gt;
+  &lt;li&gt;Scarica l'ambiente di sviluppo&lt;/li&gt;
+  &lt;li&gt;Installa Node.js&lt;/li&gt;
+  &lt;li&gt;Esegui il server di sviluppo&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h3>2. Liste Non Ordinate (<code>&lt;ul&gt;</code>)</h3>
+<p>Usate per elenchi puntati in cui l'ordine degli elementi non altera il significato del contenuto.</p>
+<pre><code class="language-html">&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h3>3. Liste di Descrizione (<code>&lt;dl&gt;</code>)</h3>
+<p>Ideali per glossari, dizionari o coppie chiave-descrizione.
+- <strong><code>&lt;dt&gt;</code></strong> (<em>Description Term</em>): Il termine o concetto da definire.
+- <strong><code>&lt;dd&gt;</code></strong> (<em>Description Details</em>): La spiegazione o descrizione associata al termine.</p>
+<pre><code class="language-html">&lt;dl&gt;
+  &lt;dt&gt;Data&lt;/dt&gt;
+  &lt;dd&gt;Insieme di bit strutturati che assumono forme complesse.&lt;/dd&gt;
+
+  &lt;dt&gt;Control&lt;/dt&gt;
+  &lt;dd&gt;Flusso di semplici istruzioni che governano l'elaborazione dei dati.&lt;/dd&gt;
+&lt;/dl&gt;
+</code></pre>
+<hr />
+<h2>7. Elementi Multimediali: Immagini</h2>
+<h3>Il Tag <code>&lt;img&gt;</code> e i suoi Attributi</h3>
+<p>Il tag <code>&lt;img&gt;</code> è utilizzato per incorporare immagini all'interno di un documento HTML. È un <strong>void element</strong> (non ha tag di chiusura né contenuto testuale al suo interno).</p>
+<pre><code class="language-html">&lt;img src=&quot;avatar.jpg&quot; alt=&quot;Ritratto del Maestro Fu-Tzu&quot; width=&quot;300&quot; height=&quot;200&quot; /&gt;
+</code></pre>
+<ul>
+<li><strong><code>src</code></strong> (<em>Source</em>): L'attributo obbligatorio che specifica l'URL (assoluto o relativo) dell'immagine da includere.</li>
+<li><strong><code>alt</code></strong> (<em>Alternative Text</em>): Testo alternativo mostrato nel caso in cui l'immagine non possa essere caricata, ed essenziale per i software di sintesi vocale (accessibilità per non vedenti) e per l'indicizzazione dei motori di ricerca.</li>
+<li><strong><code>width</code></strong> e <strong><code>height</code></strong>: Specificano le dimensioni grafiche dell'immagine (in pixel).</li>
+</ul>
+<hr />
+<h3>Dietro le Quinte: Come il Browser Carica le Immagini</h3>
+<p>I file HTML non incorporano fisicamente i file grafici o multimediali al loro interno: contengono unicamente dei riferimenti URL.</p>
+<pre><code class="language-text">Browser                                                          Server Web
+   |                                                                  |
+   | 1. Richiesta HTTP GET /pagina.html                               |
+   |-----------------------------------------------------------------&gt;|
+   | 2. Risposta HTTP 200 OK (invia il codice sorgente HTML)          |
+   |&lt;-----------------------------------------------------------------|
+   |                                                                  |
+   | 3. Il browser esegue il parsing del documento dall'alto al basso |
+   |    ... incontra il tag &lt;img src=&quot;pic.jpg&quot;&gt; ...                   |
+   |                                                                  |
+   | 4. Richiesta HTTP GET /pic.jpg (richiesta separata!)             |
+   |-----------------------------------------------------------------&gt;|
+   | 5. Risposta HTTP 200 OK (invia i byte binari dell'immagine)       |
+   |&lt;-----------------------------------------------------------------|
+   | 6. Rendering finale della pagina completa di grafica              |
+</code></pre>
+<blockquote>
+<p>[!NOTE]
+Ogni risorsa esterna linkata nel codice HTML (immagini, fogli di stile CSS, file JavaScript, font) comporta l'emissione di ulteriori <strong>richieste HTTP GET</strong> verso il server da parte del browser.</p>
+</blockquote>
+<hr />
+<h2>8. Attributi Globali HTML</h2>
+<p>Mentre alcuni attributi sono specifici di determinati elementi (es. <code>href</code> per i link o <code>src</code> per le immagini), gli <strong>attributi globali</strong> possono essere applicati a <strong>qualsiasi</strong> elemento HTML:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Attributo</th>
+<th style="text-align: left;">Funzione</th>
+<th style="text-align: left;">Esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>id</code></strong></td>
+<td style="text-align: left;">Identificatore <strong>univoco</strong> all'interno dell'intero documento. Usato per collegamenti interni (<code>#</code>), selettori CSS e manipolazione JavaScript.</td>
+<td style="text-align: left;"><code>&lt;div id="navbar"&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>class</code></strong></td>
+<td style="text-align: left;">Assegna una o più classi CSS (separate da spazio) per categorizzare e applicare stili agli elementi.</td>
+<td style="text-align: left;"><code>&lt;button class="btn btn-primary"&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>style</code></strong></td>
+<td style="text-align: left;">Specifica stili CSS direttamente in linea sull'elemento.</td>
+<td style="text-align: left;"><code>&lt;p style="color: blue;"&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>lang</code></strong></td>
+<td style="text-align: left;">Specifica la lingua utilizzata nel contenuto dell'elemento (sovrascrive quella globale definita in <code>&lt;html&gt;</code>).</td>
+<td style="text-align: left;"><code>&lt;span lang="en"&gt;Hello&lt;/span&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>title</code></strong></td>
+<td style="text-align: left;">Fornisce un testo di chiarimento visualizzato come tooltip al passaggio del cursore.</td>
+<td style="text-align: left;"><code>&lt;abbr title="World Wide Web"&gt;WWW&lt;/abbr&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>9. Form &amp; Raccolta Dati</h2>
+<p>I form (o moduli) costituiscono il principale strumento con cui un'applicazione web acquisisce input e interazioni dall'utente per inviarli al server.</p>
+<h3>Il Tag <code>&lt;form&gt;</code></h3>
+<p>L'elemento <code>&lt;form&gt;</code> fa da contenitore per tutti i controlli interattivi (campi di testo, pulsanti, checkbox, ecc.).</p>
+<pre><code class="language-html">&lt;form action=&quot;/login-handler.html&quot; method=&quot;POST&quot;&gt;
+  &lt;!-- controlli del form --&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;Invia&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li><strong><code>action</code></strong>: L'URL dello script o del servizio server incaricato di elaborare i dati inviati. Se omesso, i dati vengono reinviati alla pagina corrente.</li>
+<li><strong><code>method</code></strong>: Il metodo HTTP da impiegare per la sottomissione. I due valori principali sono <strong><code>GET</code></strong> e <strong><code>POST</code></strong>.</li>
+</ul>
+<hr />
+<h3>Meccanismo di Sottomissione: Nome e Valore (<code>name=value</code>)</h3>
+<pre><code class="language-text">name1=value1 &amp; name2=value2 &amp; ... &amp; nameN=valueN
+</code></pre>
+<ul>
+<li><strong><code>name</code></strong>: L'attributo assegnato all'elemento di input (diventa la <strong>chiave</strong>). Se un controllo non possiede l'attributo <code>name</code>, il suo valore <strong>non</strong> verrà incluso nell'invio!</li>
+<li><strong><code>value</code></strong>: Il contenuto digitato o selezionato dall'utente all'atto della sottomissione.</li>
+</ul>
+<hr />
+<h3>Metodi di Invio a Confronto: <code>GET</code> vs <code>POST</code></h3>
+<h4>1. Sottomissione con <code>GET</code> (Default)</h4>
+<p>Con il metodo <code>GET</code>, le coppie chiave-valore vengono serializzate ed <strong>appese direttamente all'URL</strong> dell'action, separate dal carattere <code>?</code>:</p>
+<pre><code class="language-text">/handler.html?msg=Hello&amp;num=42
+</code></pre>
+<ul>
+<li><strong>Richiesta generata</strong>:
+  <code>http
+  GET /handler.html?msg=Hello&amp;num=42 HTTP/1.1
+  Host: 127.0.0.1:3000
+  User-Agent: Mozilla/5.0</code></li>
+<li><strong>Caratteristiche</strong>:</li>
+<li>I dati sono visibili in chiaro nella barra degli indirizzi del browser.</li>
+<li>La richiesta può essere memorizzata nei segnalibri (bookmark) e nella cronologia del browser.</li>
+<li>Può essere memorizzata nella cache del browser o dei proxy.</li>
+<li>Non è adatta per trasmettere dati sensibili (come le password) né per payload voluminosi (gli URL hanno limiti massimi di lunghezza).</li>
+<li>Ideale per operazioni di <strong>ricerca</strong> e <strong>filtraggio</strong>.</li>
+</ul>
+<h4>2. Sottomissione con <code>POST</code></h4>
+<p>Con il metodo <code>POST</code>, i dati non vengono inseriti nell'URL, ma nel <strong>corpo della richiesta HTTP</strong> (<em>Request Body</em>):</p>
+<ul>
+<li><strong>Richiesta generata</strong>:
+  ```http
+  POST /handler.html HTTP/1.1
+  Host: 127.0.0.1:3000
+  User-Agent: Mozilla/5.0
+  Content-Type: application/x-www-form-urlencoded</li>
+</ul>
+<p>msg=Hello&amp;num=42
+  <code>``
+- **Caratteristiche**:
+  - L'URL rimane pulito (</code>/handler.html`).
+  - I dati non compaiono nella cronologia né nei preferiti del browser.
+  - Supporta grandi quantità di dati (upload di file, immagini, testi estesi).
+  - Obbligatorio per dati sensibili (credenziali di accesso) o azioni che alterano lo stato del server (creazione di record, pagamenti).</p>
+<hr />
+<h3>URL Encoding (Percent-Encoding)</h3>
+<p>Gli URL ammettono unicamente un sottoinsieme ristretto di caratteri ASCII. Caratteri speciali (spazi, simboli di controllo o delimitatori come <code>&amp;</code>, <code>=</code>, <code>?</code>) devono essere codificati secondo il formato <strong><code>%XX</code></strong>, dove <code>XX</code> è il valore esadecimale del codice ASCII del carattere.
+Lo spazio viene comunemente convertito nel simbolo <code>+</code> o nella tripletta <code>%20</code>.</p>
+<h4>Esempio:</h4>
+<p>Se l'utente scrive nel campo <code>msg</code> il valore <code>Tom &amp; Jerry</code>, la serializzazione prodotta sarà:</p>
+<pre><code class="language-text">msg=Tom+%26+Jerry
+</code></pre>
+<p><em>(poiché <code>&amp;</code> corrisponde all'esadecimale <code>26</code>)</em>.</p>
+<h4>Tabella dei Codici ASCII Comuni per URL Encoding:</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Carattere</th>
+<th style="text-align: center;">Decimale</th>
+<th style="text-align: center;">Esadecimale (Codifica URL)</th>
+<th style="text-align: left;">Descrizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code></code> <em>(spazio)</em></td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"><code>%20</code> oppure <code>+</code></td>
+<td style="text-align: left;">Space</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>!</code></td>
+<td style="text-align: center;">33</td>
+<td style="text-align: center;"><code>%21</code></td>
+<td style="text-align: left;">Punto esclamativo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>"</code></td>
+<td style="text-align: center;">34</td>
+<td style="text-align: center;"><code>%22</code></td>
+<td style="text-align: left;">Doppie virgolette</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>#</code></td>
+<td style="text-align: center;">35</td>
+<td style="text-align: center;"><code>%23</code></td>
+<td style="text-align: left;">Cancelletto (<em>Hash</em>)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>$</code></td>
+<td style="text-align: center;">36</td>
+<td style="text-align: center;"><code>%24</code></td>
+<td style="text-align: left;">Simbolo del dollaro</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>%</code></td>
+<td style="text-align: center;">37</td>
+<td style="text-align: center;"><code>%25</code></td>
+<td style="text-align: left;">Simbolo percentuale</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>&amp;</code></td>
+<td style="text-align: center;">38</td>
+<td style="text-align: center;"><code>%26</code></td>
+<td style="text-align: left;">E commerciale (<em>Ampersand</em>)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>'</code></td>
+<td style="text-align: center;">39</td>
+<td style="text-align: center;"><code>%27</code></td>
+<td style="text-align: left;">Apostrofo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>(</code> / <code>)</code></td>
+<td style="text-align: center;">40 / 41</td>
+<td style="text-align: center;"><code>%28</code> / <code>%29</code></td>
+<td style="text-align: left;">Parentesi tonde aperta / chiusa</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*</code></td>
+<td style="text-align: center;">42</td>
+<td style="text-align: center;"><code>%2A</code></td>
+<td style="text-align: left;">Asterisco</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>+</code></td>
+<td style="text-align: center;">43</td>
+<td style="text-align: center;"><code>%2B</code></td>
+<td style="text-align: left;">Simbolo più</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>,</code></td>
+<td style="text-align: center;">44</td>
+<td style="text-align: center;"><code>%2C</code></td>
+<td style="text-align: left;">Virgola</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>-</code></td>
+<td style="text-align: center;">45</td>
+<td style="text-align: center;"><code>%2D</code></td>
+<td style="text-align: left;">Trattino (<em>Minus</em>)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.</code></td>
+<td style="text-align: center;">46</td>
+<td style="text-align: center;"><code>%2E</code></td>
+<td style="text-align: left;">Punto fermo</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>/</code></td>
+<td style="text-align: center;">47</td>
+<td style="text-align: center;"><code>%2F</code></td>
+<td style="text-align: left;">Barra slash</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>[</code> / <code>]</code></td>
+<td style="text-align: center;">91 / 93</td>
+<td style="text-align: center;"><code>%5B</code> / <code>%5D</code></td>
+<td style="text-align: left;">Parentesi quadre aperta / chiusa</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\</code></td>
+<td style="text-align: center;">92</td>
+<td style="text-align: center;"><code>%5C</code></td>
+<td style="text-align: left;">Barra inversa (<em>Backslash</em>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Controlli di Input: Tipi di <code>&lt;input&gt;</code></h3>
+<p>Il tag <code>&lt;input&gt;</code> è l'elemento più versatile dei form. La sua veste grafica e la logica di inserimento sono determinate dall'attributo <strong><code>type</code></strong>:</p>
+<pre><code class="language-html">&lt;!-- Testo a riga singola --&gt;
+&lt;input type=&quot;text&quot; name=&quot;username&quot; placeholder=&quot;Inserisci il tuo nome&quot; /&gt;
+
+&lt;!-- Password: i caratteri inseriti vengono mascherati con pallini o asterischi --&gt;
+&lt;input type=&quot;password&quot; name=&quot;pwd&quot; /&gt;
+
+&lt;!-- Valore numerico (fornisce controlli di incremento/decremento) --&gt;
+&lt;input type=&quot;number&quot; name=&quot;age&quot; min=&quot;18&quot; max=&quot;99&quot; /&gt;
+
+&lt;!-- Indirizzo email con validazione automatica del formato --&gt;
+&lt;input type=&quot;email&quot; name=&quot;user_email&quot; /&gt;
+
+&lt;!-- Date e orari con selettori grafici nativi del browser --&gt;
+&lt;input type=&quot;date&quot; name=&quot;birthdate&quot; /&gt;
+&lt;input type=&quot;time&quot; name=&quot;appointment&quot; /&gt;
+&lt;input type=&quot;datetime-local&quot; name=&quot;meeting&quot; /&gt;
+&lt;input type=&quot;week&quot; name=&quot;work_week&quot; /&gt;
+&lt;input type=&quot;month&quot; name=&quot;expiry_month&quot; /&gt;
+
+&lt;!-- Selettore grafico di colore --&gt;
+&lt;input type=&quot;color&quot; name=&quot;fav_color&quot; /&gt;
+
+&lt;!-- Caricamento di file dal dispositivo --&gt;
+&lt;input type=&quot;file&quot; name=&quot;attachment&quot; /&gt;
+
+&lt;!-- Cursore per intervalli numerici --&gt;
+&lt;input type=&quot;range&quot; name=&quot;volume&quot; min=&quot;0&quot; max=&quot;100&quot; /&gt;
+
+&lt;!-- Pulsante di sottomissione predefinito --&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Invia Modulo&quot; /&gt;
+
+&lt;!-- Pulsante generico per interazione con JavaScript --&gt;
+&lt;input type=&quot;button&quot; value=&quot;Cliccami&quot; /&gt;
+</code></pre>
+<hr />
+<h3>Checkbox vs Radio Buttons</h3>
+<p>Entrambi consentono di selezionare opzioni, ma rispondono a logiche differenti:</p>
+<h4>1. Checkbox (<code>type="checkbox"</code>)</h4>
+<p>Permette la selezione <strong>multipla</strong> (0, 1 o più scelte indipendenti).
+- Se una casella non viene selezionata, non invia nulla.
+- Se più caselle con lo stesso <code>name</code> vengono spuntate, il browser accoda ciascuna selezione.</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;p&gt;Quali esami intendi sostenere?&lt;/p&gt;
+  &lt;input type=&quot;checkbox&quot; name=&quot;exams&quot; value=&quot;web&quot; id=&quot;cb_web&quot; /&gt;
+  &lt;label for=&quot;cb_web&quot;&gt;Tecnologie Web&lt;/label&gt;&lt;br /&gt;
+
+  &lt;input type=&quot;checkbox&quot; name=&quot;exams&quot; value=&quot;pl2&quot; id=&quot;cb_pl2&quot; /&gt;
+  &lt;label for=&quot;cb_pl2&quot;&gt;Linguaggi di Programmazione II&lt;/label&gt;&lt;br /&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;Invia&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li><strong>Se entrambe le caselle sono selezionate</strong>, la stringa inviata sarà:<br />
+<code>exams=web&amp;exams=pl2</code></li>
+<li><strong>Se nessuna è selezionata</strong>: la stringa inviata sarà vuota (<code>""</code>).</li>
+</ul>
+<h4>2. Radio Button (<code>type="radio"</code>)</h4>
+<p>Permette la scelta <strong>esclusiva</strong> di <strong>una sola opzione</strong> all'interno di un gruppo prestabilito.
+- Per raggruppare i pulsanti radio e renderli mutualmente esclusivi, <strong>devono condividere lo stesso attributo <code>name</code></strong>.</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;p&gt;Qual è il tuo corso preferito?&lt;/p&gt;
+  &lt;input type=&quot;radio&quot; name=&quot;fav&quot; value=&quot;web&quot; id=&quot;r_web&quot; checked /&gt;
+  &lt;label for=&quot;r_web&quot;&gt;Tecnologie Web&lt;/label&gt;&lt;br /&gt;
+
+  &lt;input type=&quot;radio&quot; name=&quot;fav&quot; value=&quot;net&quot; id=&quot;r_net&quot; /&gt;
+  &lt;label for=&quot;r_net&quot;&gt;Reti di Calcolatori&lt;/label&gt;&lt;br /&gt;
+
+  &lt;input type=&quot;radio&quot; name=&quot;fav&quot; value=&quot;se&quot; id=&quot;r_se&quot; /&gt;
+  &lt;label for=&quot;r_se&quot;&gt;Ingegneria del Software&lt;/label&gt;&lt;br /&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;Conferma Scelta&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<ul>
+<li>La sottomissione invierà un solo valore: ad esempio <code>fav=web</code>.</li>
+</ul>
+<hr />
+<h3>Etichette Accessibili: Il Tag <code>&lt;label&gt;</code> e l'Attributo <code>for</code></h3>
+<p>L'uso di <code>&lt;label&gt;</code> è essenziale per l'usabilità e l'accessibilità del sito:
+- Consente agli screen reader di leggere correttamente cosa richiede ciascun campo.
+- Aumenta l'area di interazione: cliccare sull'etichetta testuale attiva o porta automaticamente il focus sull'input associato.
+- L'attributo <strong><code>for</code></strong> della label deve essere identico all'<strong><code>id</code></strong> dell'elemento <code>&lt;input&gt;</code> corrispondente:</p>
+<pre><code class="language-html">&lt;label for=&quot;usr_id&quot;&gt;Nome Utente:&lt;/label&gt;
+&lt;input type=&quot;text&quot; name=&quot;user&quot; id=&quot;usr_id&quot; /&gt;
+</code></pre>
+<hr />
+<h3>Altri Controlli del Form</h3>
+<h4>Menu a Tendina (<code>&lt;select&gt;</code> e <code>&lt;option&gt;</code>)</h4>
+<p>Definisce un menu di scelta a discesa. Con l'attributo <code>multiple</code>, l'utente può selezionare più voci contemporaneamente.</p>
+<pre><code class="language-html">&lt;label for=&quot;dest&quot;&gt;Scegli la destinazione:&lt;/label&gt;
+&lt;select name=&quot;destination&quot; id=&quot;dest&quot;&gt;
+  &lt;option value=&quot;Roma&quot;&gt;Roma&lt;/option&gt;
+  &lt;option value=&quot;Napoli&quot; selected&gt;Napoli&lt;/option&gt;
+  &lt;option value=&quot;Parigi&quot;&gt;Parigi&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+<h4>Area di Testo Multilinea (<code>&lt;textarea&gt;</code>)</h4>
+<p>A differenza di <code>&lt;input type="text"&gt;</code>, consente all'utente di digitare blocchi estesi di testo su più righe:</p>
+<pre><code class="language-html">&lt;label for=&quot;msg&quot;&gt;Lascia un messaggio:&lt;/label&gt;
+&lt;textarea id=&quot;msg&quot; name=&quot;message&quot; rows=&quot;4&quot; cols=&quot;50&quot;&gt;Scrivi qui...&lt;/textarea&gt;
+</code></pre>
+<h4>Raggruppamento Logico: <code>&lt;fieldset&gt;</code> e <code>&lt;legend&gt;</code></h4>
+<p>Permette di suddividere visivamente e concettualmente i form complessi in sezioni coerenti:</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Dati Anagrafici&lt;/legend&gt;
+    &lt;label for=&quot;fname&quot;&gt;Nome:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;fname&quot; name=&quot;fname&quot; /&gt;&lt;br /&gt;
+    &lt;label for=&quot;lname&quot;&gt;Cognome:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;lname&quot; name=&quot;lname&quot; /&gt;
+  &lt;/fieldset&gt;
+
+  &lt;fieldset&gt;
+    &lt;legend&gt;Iscrizione Esame&lt;/legend&gt;
+    &lt;label for=&quot;voto&quot;&gt;Voto atteso:&lt;/label&gt;
+    &lt;input type=&quot;number&quot; id=&quot;voto&quot; name=&quot;grade&quot; /&gt;&lt;br /&gt;
+    &lt;label for=&quot;data&quot;&gt;Data esame:&lt;/label&gt;
+    &lt;input type=&quot;date&quot; id=&quot;data&quot; name=&quot;date&quot; /&gt;
+  &lt;/fieldset&gt;
+
+  &lt;input type=&quot;submit&quot; value=&quot;Registra&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<p><em>Sottomissione risultante</em>: <code>fname=Mario&amp;lname=Rossi&amp;grade=30&amp;date=2026-06-15</code></p>
+<hr />
+<h2>10. Organizzazione della Pagina &amp; Tag Semantici (HTML5)</h2>
+<p>Nelle vecchie versioni di HTML, la suddivisione della pagina veniva affidata unicamente all'elemento generico <strong><code>&lt;div&gt;</code></strong> (<em>division</em>), privo di valore semantico intrinseco. Con HTML5 sono stati introdotti tag semantici strutturali specifici, capaci di esplicitare il significato del layout sia ai motori di ricerca che agli screen reader.</p>
+<h3>Tag Semantici Strutturali:</h3>
+<ul>
+<li><strong><code>&lt;header&gt;</code></strong>: Intestazione di una pagina o di una sezione; ospita titoli, loghi e recapiti.</li>
+<li><strong><code>&lt;nav&gt;</code></strong>: Raggruppa i blocchi di navigazione primaria (link a sezioni interne o esterne).</li>
+<li><strong><code>&lt;main&gt;</code></strong>: Rappresenta il <strong>contenuto principale</strong> ed esclusivo del documento (non può essere duplicato all'interno della stessa pagina).</li>
+<li><strong><code>&lt;article&gt;</code></strong>: Un blocco di contenuto autonomo, autoconsistente e riutilizzabile in altri contesti (un articolo di blog, un post su un forum, una notizia di giornale).</li>
+<li><strong><code>&lt;section&gt;</code></strong>: Una sezione tematica del documento, generalmente introdotta da un'intestazione (<code>&lt;h2&gt;</code>-<code>&lt;h6&gt;</code>).</li>
+<li><strong><code>&lt;aside&gt;</code></strong>: Contenuto marginale o correlato indirettamente al contenuto principale (sidebar laterali, banner, elenchi di link consigliati).</li>
+<li><strong><code>&lt;footer&gt;</code></strong>: Piè di pagina del documento o di una sezione (note di copyright, link a informative legali, contatti).</li>
+</ul>
+<pre><code class="language-text">+--------------------------------------------------------------+
+|                           &lt;header&gt;                           |
+|       +----------------------------------------------+       |
+|       |                    &lt;nav&gt;                     |       |
+|       +----------------------------------------------+       |
++--------------------------------------------------------------+
+|                                              |               |
+|                    &lt;main&gt;                    |    &lt;aside&gt;    |
+|   +--------------------------------------+   |  (Sidebar /   |
+|   |              &lt;article&gt;               |   |   Contenuti   |
+|   |  +--------------------------------+  |   |   Correlati)  |
+|   |  |           &lt;section&gt;            |  |   |               |
+|   |  +--------------------------------+  |   |               |
+|   |  |           &lt;section&gt;            |  |   |               |
+|   |  +--------------------------------+  |   |               |
+|   +--------------------------------------+   |               |
+|                                              |               |
++--------------------------------------------------------------+
+|                           &lt;footer&gt;                           |
++--------------------------------------------------------------+
+</code></pre>
+<h4>Esempio di Struttura Semantica Completa:</h4>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;it&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;title&gt;Corso di Tecnologie Web&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Web Technologies Portal&lt;/h1&gt;
+    &lt;p&gt;Guida completa allo sviluppo full stack.&lt;/p&gt;
+    &lt;nav&gt;
+      &lt;a href=&quot;#html&quot;&gt;HTML&lt;/a&gt; | 
+      &lt;a href=&quot;#css&quot;&gt;CSS&lt;/a&gt; | 
+      &lt;a href=&quot;#js&quot;&gt;JavaScript&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;article id=&quot;html&quot;&gt;
+      &lt;h2&gt;Elementi Semantici&lt;/h2&gt;
+      &lt;p&gt;I tag semantici arricchiscono la comprensione della struttura.&lt;/p&gt;
+
+      &lt;section&gt;
+        &lt;h3&gt;Vantaggi&lt;/h3&gt;
+        &lt;p&gt;Migliorano l'accessibilità, il posizionamento SEO e la leggibilità del codice.&lt;/p&gt;
+      &lt;/section&gt;
+
+      &lt;section&gt;
+        &lt;h3&gt;Svantaggi&lt;/h3&gt;
+        &lt;p&gt;Nessuno svantaggio documentato: sono lo standard dell'HTML moderno.&lt;/p&gt;
+      &lt;/section&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+
+  &lt;aside&gt;
+    &lt;h4&gt;Link Utili&lt;/h4&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://developer.mozilla.org&quot;&gt;Documentazione MDN&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;https://whatwg.org&quot;&gt;WHATWG Living Standard&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/aside&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Corso di Tecnologie Web - Tutti i diritti riservati.&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<hr />
+<h2>11. Browser Developer Tools (F12)</h2>
+<p>Tutti i moderni browser (Firefox, Chrome, Edge, Safari) integrano strumenti avanzati dedicati allo sviluppo e al debugging (<em>DevTools</em>), richiamabili premendo il tasto <strong><code>F12</code></strong> (o <code>Ctrl+Shift+I</code> / <code>Cmd+Option+I</code>).</p>
+<h3>Pannelli Principali:</h3>
+<ol>
+<li><strong>Inspector / Analisi Pagina (DOM Tree)</strong>:</li>
+<li>Permette di esplorare l'albero DOM in tempo reale.</li>
+<li>Consente di modificare al volo elementi HTML, attributi e stili CSS per testare cambiamenti grafici senza ricaricare il server.</li>
+<li><strong>Network (Rete)</strong>:</li>
+<li>Registra ogni richiesta e risposta HTTP emessa dal browser (file HTML, fogli di stile, immagini, chiamate API).</li>
+<li>Mostra metodo HTTP, codice di stato, intestazioni (Headers), payload inviati e tempi di caricamento (profilazione delle performance).</li>
+<li><strong>Console</strong>:</li>
+<li>Visualizza messaggi di sistema, errori di caricamento, avvisi di sicurezza e log generati con JavaScript (<code>console.log</code>).</li>
+<li>Fornisce una riga di comando interattiva per eseguire istruzioni JavaScript nel contesto della pagina.</li>
+<li><strong>Debugger / Sorgenti</strong>:</li>
+<li>Consente di inserire breakpoint, monitorare variabili e tracciare l'esecuzione del codice client passo dopo passo.</li>
+</ol>
+  </main>
+</body>
+</html>

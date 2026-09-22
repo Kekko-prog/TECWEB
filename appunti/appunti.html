@@ -1,0 +1,414 @@
+<!-- ==========================================================================
+     01. STRUTTURA BASE DEL DOCUMENTO
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     INTRODUZIONE: Sintassi HTML & Tag Base
+     -------------------------------------------------- -->
+<!--
+HTML
+In html le annotazioni sono definite come tags e sono contenute nelle "<...>"
+
+ogni file html inizia con un <!DOCTYPE html> e finisce con </html>
+contiene vari tag come <head> e <body>
+-->
+<!DOCTYPE html>
+<html lang="en"> <!-- lang è un'attributo che indica la lingua-->
+
+<head>
+     <title>Hello world!</title> <!-- <head> contiene i metadati del documento
+                                  metadati sono dati che descrivono i nostri dati
+                                  solitamente non vengono mostrati all'utente-->
+</head>
+
+
+
+<body>
+     <p>Hello porcodio</p> <!-- <body> contiene il corpo del documento-->
+</body>
+
+
+
+</html>
+
+<!-- --------------------------------------------------
+     METADATI: <head> e <title>
+     -------------------------------------------------- -->
+<!--
+<head> contiene i metadati, dati "secondari che spesso vengono nascosti all'utente"
+e ha la necessità di avere il tag che ne definisce il titolo ovvero: <title> ovvero il titolo della tab.
+-->
+
+
+<!-- ==========================================================================
+     02. TESTO, INTESTAZIONI E FORMATTAZIONE
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     INTESTAZIONI: Headings (<h1> - <h6>)
+     -------------------------------------------------- -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <title>Headings example</title>
+</head>
+
+<body>
+     <h1>Top level heading</h1>
+     <h2>second level heading 2</h2>
+     <h3>third level heading 3</h3>
+     <h4>fourth level heading 4</h4>
+     <h5>fifth level heading 5</h5>
+     <h6>sixth level heading 6</h6>
+</body>
+
+</html>
+
+<!-- --------------------------------------------------
+     PARAGRAFI: Tag <p>
+     -------------------------------------------------- -->
+<!--il tag <p> rappresenta i paragraffi e tipicamente iniziano su una nuova riga-->
+
+<h1>
+     <p>
+          questo è il primo paragrafo
+     </p>
+     <p>
+          questo è il secondo paragrafo
+     </p>
+</h1>
+
+<!-- --------------------------------------------------
+     FORMATTAZIONE DEL TESTO: Enfasi, A capo, Abbreviazioni, Revisioni
+     -------------------------------------------------- -->
+<!--
+<em> enfatizza il congtenuto, (corsivo)
+<strong> enfatizza il congtenuto, (grassetto)
+<br> inserisce uno "stop" e va a capo
+<abbr title="description"> definisce acronimi o abbreviazioni 
+<del> contenuto che è stato cancellato (viene barrato)
+<ins> contenuto che è stato aggiunto (viene sottolineato)
+-->
+
+
+<!-- ==========================================================================
+     03. COLLEGAMENTI (HYPERLINKS) & INDIRIZZI URL
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     COLLEGAMENTI: Tag <a> e Attributo 'href'
+     -------------------------------------------------- -->
+<!--
+hyperlinks  vengono definiti dal tag <a>
+l'attributo href rende una parte di codice specificata dal developer
+che permette di puntare ad un lik interno o esterno alla pagina 
+-->
+
+https://www.informatica.com:4242/corsi/tecweb.html
+<!-- --------------------------------------------------
+     ANATOMIA URL & PERCORSI: Assoluti vs Relativi
+     -------------------------------------------------- -->
+<!--
+https = protocollo, puo essere http o https, https è crittografato
+www.informatica.com = nome del domino
+4242 = porta, qual'ora non ci fosse si tratta di una porta standardizzata
+/corsi/tecweb.html = percorso
+
+gli url specificati da href possono essere:
+ASSOLUTI = include schema ed hostname e ha tutte le informazioni per arrivare alla risorsa
+           da preferire se si linka ad una risorsa esterna
+RELATIVI = non include schema e hostname, specifica solo il path
+           da preferire se si linka ad una risorsa interna
+
+ci sono possibilità di trovare <.> (directory corrente) <..> (rappresenta la cartella precedente)
+
+se per esempio il path fosse /a/b/c/hello.html
+./index.html => /a/b/c/index.html
+../foo.html => /a/b/foo.html
+../../pic.jpg => /a/pic.jpg 
+./../../pic.jpg => /a/pic.jpg
+-->
+
+<!-- --------------------------------------------------
+     ATTRIBUTO: 'target'
+     -------------------------------------------------- -->
+<!--
+l'attributo target serve a specificare dove il documento deve essere aperto:
+<target="self" qualcosa> apre il documento neklla stessa tab
+<target="_blank"> apre il documento in una nuova tab
+-->
+
+
+<!-- ==========================================================================
+     04. TABELLE
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     STRUTTURA TABELLA: <table>, <tr>, <td>, <th>, <caption>
+     -------------------------------------------------- -->
+<!--
+le <table> definisce una tabella, ogni tabella contiene delle <tr> che definiscono le righe
+ogni <tr> indica una cella di una tabella 
+     <td> indica una cella di una tabella 
+     <th> indica le intestazioni di tabella 
+
+inoltre, la <table> potrebbe anche contenere una <caption> che la descrive
+-->
+
+
+<!-- ==========================================================================
+     05. LISTE
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     TIPI DI LISTE: Ordinate (<ol>), Non Ordinate (<ul>), Definizioni (<dl>)
+     -------------------------------------------------- -->
+<!--
+in html possiamo definire 3 tipi di liste:
+<ol> = lista ordinata usata per le numerazioni 
+<ul> = liste non ordinate usate per le liste puntate
+<dl> = lista di definizioni, spesso usato nei glossari
+liste ordinate e disordinate contengono una sequenza di items definiti con il tag <li></li>
+-->
+
+<ol>
+     <li>primo</li>
+     <li>secondo</li>
+     <li>terzo</li>
+</ol>
+
+<ul>
+     <li> TecWeb</li>
+     <li> <a href="h" </a></li>
+</ul>
+
+<!-- --------------------------------------------------
+     LISTA DI DEFINIZIONI: <dl>, <dt>, <dd>
+     -------------------------------------------------- -->
+<!--
+DESCRIPTION LIST
+le liste di descrizioni hanno all'interno elementi definiti come <dt></dt> e <dd></dd>
+-->
+
+<dl>
+     <dt>Data</dt>
+     <dd>
+          e' formato da bit ed e' complesso
+     </dd>
+     <dt>Control</dt>
+     <dd>
+          consiste di sempli istruzioniche fanno cose difficili
+     </dd>
+</dl>
+
+
+<!-- ==========================================================================
+     06. CARATTERI RISERVATI ED ENTITÀ HTML
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     CARATTERI SPECIALI & TABELLA ENTITÀ
+     -------------------------------------------------- -->
+<!--
+alcuni caratteri in html sono riservati
+se provassimo a scrivere <p>3<x and y>6</p> (3 minore di x e y maggiore di 6) il browser non capirebbe nulla e produrrebbe un errore
+questi tipi di caratteri vanno utilizzati esclusivamente per mostrare questi caratteri
+-------------------------------------------------------
+
+spazio unificatore | Non-breaking space |     | &nbsp; 
+minore di          | less than          |  <  | &lt;
+maggiore di        | greater than       |  >  | &gt;
+e commericale      | ampersand          |  &  | &amp; 
+virgolette         | double quote       | " " | &quot;
+apostrofo          | single quote       | ' ' | &apos;
+copyright          |                    |  ©  | &copy;
+
+seguendo questa tabella l'esempio di prima: <p>3<x and y>6</p> viene corretamente scritto come: <p>3&lt;x and y&gt;6</p>
+-->
+
+
+<!-- ==========================================================================
+     07. ELEMENTI MULTIMEDIALI: IMMAGINI
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     IMMAGINI: <img> (Void Element) & Attributi (src, alt, width, height)
+     -------------------------------------------------- -->
+<!--
+IMMAGINI
+il tag <img> viene usato per inserire delle immagini dentro i documenti html
+ha la particolarita' di essere un documento di tipo void, cio significa che non dovrebbe avere altri elementi al suo interno
+il suo attributo principali sono:
+-SRC: attributo specifico che indica il nome dell'immagine e l'immagine da includere nel url
+-ALT: e' un'attributo che in caso del mancato caricamento dell'immagine mostra un testo che descrive l'immagine
+-WIDTH e HEIGHT: azttributi che vengono utilizzati per specificare la grandezza dell'immagine (in pixel) dell'immagine selezionata
+-->
+
+<h1>IMMAGINE</h1>
+<p>
+     e' un immagine del cazzo
+</p>
+<img src="pic.jpg" alt="e' un immagine del cazzo non ti preoccupare se non la vedi non ti perdi nulla" width="200" />
+
+
+<!-- ==========================================================================
+     08. IDENTIFICATORI & URL ANCORA
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     URL ANCORA: Attributo 'id' & Frammenti (#anchor)
+     -------------------------------------------------- -->
+<!--
+URL ANCORA
+
+https://app.com/foo/bar.html#some-id
+https= protocollo
+app.com= nome del domino
+foo/bar.html= path
+#some-id=URL ANCOR
+
+"id" e' un attributo che identifica un determinato elemento, puo' essere usato negli url per far puntare l'url ad un determinato "segnalibro" 
+nell'esempio "#some-id" e' appunto un url ancor che punta ad uno specifico elemento chiamato "some-id"
+-->
+
+
+<!-- ==========================================================================
+     09. FORM & RACCOLTA DATI
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     FORM: Tag <form> e Controlli
+     -------------------------------------------------- -->
+<!--
+FORM
+
+i form, usati con tag <form> vengono usati per collezionare gli input dell'utente
+i 'container' per i form contengono elementi come: <input>;<label>;<textarea>;<select>;<form>;
+-->
+
+<form>
+     Message:
+     <input type="text"><br><br>
+     <input type="submit">
+</form>
+
+<!-- --------------------------------------------------
+     INPUT: Tipi di <input>
+     -------------------------------------------------- -->
+<!--
+TIPI DI INPUT
+<input type="text"> indica un campo di testo in cui l'utente può inserire un dato
+<input type="password"> indica un campo di testo in cui l'utente può inserire un dato, ma il dato inserito viene nascosto
+<input type="number"> indica un campo di testo in cui l'utente può inserire un dato numerico
+<input type="email"> indica un campo di testo in cui l'utente può inserire un dato di tipo email
+<input type="submit"> indica un pulsante che invia il form
+<input type="radio"> indica un pulsante radio che permette di scegliere una sola opzione da un set di opzioni
+<input type="checkbox"> indica un pulsante checkbox che permette di scegliere una o più opzioni da un set di opzioni
+<input type="date"> indica un campo di testo in cui l'utente può inserire una data
+<input type="time"> indica un campo di testo in cui l'utente può inserire un'ora
+<input type="range"> indica un campo di testo in cui l'utente può inserire un valore numerico all'interno di un range
+<input type="color"> indica un campo di testo in cui l'utente può inserire un colore
+<input type="file"> indica un campo di testo in cui l'utente può inserire un file
+<input type="button"> indica un pulsante cliccabile
+<input type="submit"> ha gia un comportamento, ovvero di inviare i dati raccolti dal form
+-->
+
+<!-- --------------------------------------------------
+     ETICHETTE: Tag <label> & Attributo 'for'
+     -------------------------------------------------- -->
+<!--
+LABELS
+i label (etichette) con tag <label> puo' essere utilizzato per eticchettare gli elementi di input
+l'attributo "for" dell'etichetta deve essere uguale all'id per l'input corrispondente
+-->
+
+<form>
+     <label for="id_usr">Username: </label>
+     <input type="text" name="usr" id="id_usr">
+     <br />
+     <label for="id_pwd">Password: </label>
+     <input type="password" name="pwd" id="id_pwd">
+     <br />
+     <input type="submit">
+</form>
+
+
+<!-- ==========================================================================
+     10. TRASMISSIONE DATI: METODI HTTP & QUERY PARAMETERS
+     ========================================================================== -->
+
+<!-- --------------------------------------------------
+     INVIO FORM: Sottomissioni HTTP (GET vs POST)
+     -------------------------------------------------- -->
+<!--
+SOTRTOMISSIONI (GET)
+
+i form possono essere sottomessi per mandare dati a qualcuno che li maneggia, una volta inviati, tipicamente viene creato una nuova richiesta HTTP\
+inoltre e' possibile specificare il tipo di metodo che HTTP deve usare, specificandolo
+
+EX
+<form action="/handler.html" method="GET">
+    form elements here <------- COMMENTO 
+</form>
+
+una volta effettuata la sottomissione degli input , vengono appresentati cosi: name1=value1&…&nameN=valueN
+vengono mandati nell'url stesso
+
+----
+
+SOTRTOMISSIONI (GET)
+se il metodo e' POST, gli input vengono mandati nel corpo della richiesta
+-->
+
+<!-- --------------------------------------------------
+     PARAMETRI URL: Query Parameters
+     -------------------------------------------------- -->
+<!--
+QUERY PARAMETERS
+
+https://app.com/foo/bar.html?key1=val1&jey2=val2
+https= protocollo
+app.com= nome del dominio
+/foo/bar.html= path
+?= query parameter separator
+key1=val1&jey2=val2= quesy parameter
+
+i parametri di query sono parametri exstra che sono dati al server
+sono semplicemente liste di chiavi/valori separati da &
+-->
+
+<!-- --------------------------------------------------
+     CODIFICA: URL Encoding & Tabella Caratteri ASCII
+     -------------------------------------------------- -->
+<!--
+URL ENCODING
+gli input dei form vengono codificati in una stringa di "key-values" separati da '&'
+se un utente usasse un carattere speciale come '&', verrebbe sostituito in un formato di caratteri del tipo %XX (ASCII) lo spazio puo essere rimpiazzato da % o dal +
+
+msg= Tom & Gerry ==> msg=Tom+%26+Jerry
+
+Dec | Hex |  Char | Description
+ 32 | 20  | space | Space
+ 33 | 21  |   !   | Exclamation mark
+ 34 | 22  |   "   | Double quote
+ 35 | 23  |   #   | Number
+ 36 | 24  |   $   | Dollar sign
+ 37 | 25  |   %   | Percent
+ 38 | 26  |   &   | Ampersand
+ 39 | 27  |   '   | Single quote
+ 40 | 28  |   (   | Left parenthesis
+ 41 | 29  |   )   | Right parenthesis
+ 42 | 2A  |   *   | Asterisk
+ 43 | 2B  |   +   |Plus
+ 44 | 2C  |   ,   |Comma
+ 45 | 2D  |   -   |Minus
+ 46 | 2E  |   .   |Period
+ 47 | 2F  |   /   |Slash
+ 91 | 5B  |   [   |Left square bracket
+ 92 | 5C  |   \   |Backslash
+ 93 | 5D  |   ]   |Right square brack.
+ 94 | 5E  |   ^   |Caret / circumflex
+ 95 | 5F  |   _   |Underscore
+ 96 | 60  |   `   |Grave / accent
+-->

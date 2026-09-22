@@ -1,0 +1,73 @@
+body {
+
+    h1{
+        color: red;
+    }
+
+    h2{
+        color: red;
+    }
+
+    background-color: black;
+    color: white;
+}
+
+table {
+    
+    background-color: rgb(11, 11, 11);
+    color: green;
+
+    &, th, td {
+        border: 1px solid white;
+        padding: 4px;
+        text-align: center;
+    }
+
+    caption {
+    color: white;
+    }
+
+    .Prezzo {
+    color: red;
+    }
+
+    .Oggetto {
+        color: white;
+    }
+
+    .colonna-principale {
+        background-color: black;
+    }
+
+    .colonne-centrali {
+        background-color: black;
+    }
+
+    .colonna-prezzo {
+        width: 130px;
+        background-color: black;
+    }
+}
+
+form {
+    margin-top: 60px;
+
+    & select{
+        background-color: rgb(28, 1, 1);
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    button {
+        background-color: blue;
+        color: white;
+        padding: 10px 20px;
+        cursor: pointer;
+        border: none;
+    }
+    button:hover {
+        background-color: red;
+    }
+}
+

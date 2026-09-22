@@ -1,0 +1,423 @@
+/*
+è un linguaggio dichiarativo, non un linguaggio di programmazione
+
+funziona con delle regole dichiarative, ogni file associato ad un html, serve per definire lo stile di pagina che
+verrà applicato dal browser per la visualizzazione della pagina html
+
+questo file viene definito stylesheet, ovvero un file contenente un'insieme di regole CSS
+
+il "SELECTOR" ha la funzione di selezionare gli elementi a cui verrà applicato lo stile
+
+ESEMPIO:
+
+<h1>Hello CSS</h1>
+<p>
+    Our <em>first</em> page
+    with <em>style</em>!
+</p>
+
+h1 {
+    color:red;
+    font-size:50px;    
+}
+
+em {
+    color:blue;
+}
+
+come si include un stylesheet?
+lo stylesheet in un file html si associa tramite il tag <link> all'interno del <head>
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>CSS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+rel="stylesheet = questo attributo specifica la relazione tra il file linkato e il documento html
+href="style.css" = attributo che specifica l'url del file da linkare
+
+le regole del CSS possono essere anche definite negli elementi <style> all'interno del <head> del documento html
+<head>
+    <meta charset="UTF-8">
+    <title>CSS</title>
+    <style>
+        h1 {
+            color: red;
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+in oltre gli elementi html possono essere modificati nella linea stessa tramite l'attributo "style"
+e ovviamente queste modifiche si applicano solo all'elemento selezionato
+
+<em style="color: fuchsia; font-weight: bold;">inline style</em>
+
+SELETTORI
+
+i selettori sono una parte chiave di CSS
+
+specifica a quale elemento le revole CSS venogno applicate, ma non sono usati per lo styling
+
+ne esistono di diversi tipi tra cui
+
+UNIVERSALE = *{} aka("wildcard") matcha qualsiasi elemento
+
+*{
+color: hotpink;
+}
+
+<p>Here's a list:</p>
+<ul>
+    <li>Ann</li>
+    <li>Bob</li>
+    <li><a href="/car/">Carl</a></li>
+    <li>Dave</li>
+</ul>
+<a href="/">Back to homepage</a>
+--------------------------------------------------
+
+TYPE = matcha il nome del tag selezionato
+
+a {
+background: yellow;
+}
+
+<p>Here's a list:</p>
+<ul>
+    <li>Ann</li>
+    <li>Bob</li>
+    <li><a href="/car/">Carl</a></li>
+    <li>Dave</li>
+</ul>
+<a href="/">Back to homepage</a>
+--------------------------------------------------
+
+ID = matchano l'attributo id="value" in questo modo #value{
+
+#msg {
+    background: cyan;
+}
+
+<form>
+    <label for="msg">Message: </label>
+    <input id="msg" type="text" name="msg"><br>
+    <label for="num">Number: </label>
+    <input id="num" type="number" name="num">
+</form>
+--------------------------------------------------
+
+CLASS =  matcha l'attributo class="value" in questo modo .value{
+
+.primary {
+    background: blue;
+    color: white;
+}
+
+<button>Reset form</button>
+<button class="primary btn">Continue</button>
+--------------------------------------------------
+
+ATTRIBUTE = matcha un elemento con un determianto attributo [attribute] o [attribute='value']
+
+[for]{ /*all elems with a for attribute*/
+/*
+background: yellow;
+}
+[type='number']{ /*all elems with type=number*/
+/*
+background: cyan;
+}
+
+<form>
+<label for="msg">Message: </label>
+<input id="msg" type="text" name="msg"><br>
+<label for="num">Number: </label>
+<input id="num" type="number" name="num">
+</form>
+--------------------------------------------------
+
+esistono anche altri tipi di selettori che permettono il matchin parziale come:
+ *= contiene una determinata parola
+ ^= inizia per una determinata parola
+ $= finisce per una determinata parola
+ 
+[href*='programming']{ contains 'programming'
+    text-decoration: overline;
+}
+[href^='https']{ start with 'https'
+    color: red;
+}
+[href$='.it/']{ ends with '.it/'
+    color: green;
+}
+                                                                        seguendo le regole di prima avremo 
+<a href="http://bookofprogramming.com/">Link 1</a>                      diventa sottolineato verso sopra
+<a href="https://programming.net/">Link 2</a>                           diventa sottolineato verso sopra e diventa rosso
+<a href="http://webtechnologies.it/">Link 3</a>                         diventa verde
+
+è anche possibile combinare selettori permatchare elementi con combinazioni di attributi, per esempio: 
+
+a[target='_blank'] {
+color: red;
+}
+a.my-class{
+color: green;
+}
+a[href*='programming'].my-class {
+background: yellow;
+}
+                                                                        seguendo le regole di prima avremo     
+<a href="http://bookofprogramming.com/" target="_blank">Link 1</a>      diventa rosso      
+<a class="my-class" href="https://programming.net/">Link 2</a>          diventa verde con backgroung giallo      
+<em class="my-class">Hello</em>                                         diventa carattere italico corsivo
+
+
+COMBINATRORI
+i selettori complessi permettono di matchare elementi in base alla loro gerarchia, 
+possono essere combinati per matchare elementi in base alla loro posizione all'interno del DOM
+
+la sintassi è seleector1 combinator selector2
+ne esistono 4:
+
+DESCENDANT SELECTOR = come simbolo usa lo spazio semplice
+CHILD SELECTOR =  come simbolo usa il (>)
+ADJACENT SIBLING SELECTOR = come simbolo usa il (+)
+GENERAL SIBLING SELECTOR = come simbolo usa il (~)
+
+
+DESCENDANT SELECTOR
+sintassi: selector1 selector2
+fa matchare selector2 che si trova all'interno di selector1
+
+section em {
+    color: teal;
+}
+
+<section>
+    <p>
+        A student asked Fu-Tzu about the nature of
+        the cycle of Data and Control. Fu-Tzu replied:
+        <em>Think of a compiler, compiling itself.'</em>
+    </p>
+</section>
+<em>-- Fragment of the Book of Programming</em>
+--------------------------------------------------
+
+CHILD SELECTOR
+sintassi: selector1>selector2
+fa matchare selector2 che è figlio diretto di selector1, in poche parole se selector2 si trova all'interno 
+di selector1 ma non è figlio diretto non viene matchato
+
+main > em {
+    color: teal;
+    font-variant: small-caps;
+}
+
+<main>
+    CSS <em>selectors</em>:
+    <p>We <em>like</em> 'em.</p>
+</main>
+--------------------------------------------------
+
+ADJACENT SIBLING SELECTOR
+sintassi: selector1+selector2
+fa matchare selector2 che segue immediatamente selector1, in poche parole se selector2 si trova 
+all'interno di selector1 ma non è figlio diretto non viene matchato
+
+.master + li {
+color:red;
+}
+
+<ul>
+    <li>Tsu-li</li>
+    <li class="master">Fu-Tzu</li>
+    <li>Tsu-ssu</li>
+    <li class="disciple">Li-Win</li>
+</ul>
+--------------------------------------------------
+
+GENERAL SIBLING SELECTOR
+sintassi: selector1~selector2
+fa matchare selector2 che segue selector1, in poche parole se selector2 si trova all'interno 
+di selector1 ma non è figlio diretto non viene matchato
+
+.master ~ li.disciple {
+    color: red;
+}
+
+<ul>
+    <li>Tsu-li</li>
+    <li class="master">Fu-Tzu</li>
+    <li>Tsu-ssu</li>
+    <li class="disciple">Li-Win</li>
+</ul>
+--------------------------------------------------
+
+PSEUDO CLASSI
+
+gli elementi html posso avere diversi stati, magari per il tipo di interazione o per la loro relazione con altri elementi
+i selettori pseudo classe, iniziano con ":" e permettono di modificare graficamente degli elemeni in abse al loro stato
+
+    STATO INTERATTIVO = risultato ottenuto da un interazione di un utente
+    STATO STORICO = usato per "ricordare" quali link sono stati visitati
+    STATO FORM = specifico per le interazioni con i form
+
+PSEUDO CLASSI: STATI INTERATTIVI
+
+:hover = seleziona gli elementi dove un dispositivo di puntamentoi viene piazzato sopra
+:active = matcha lo stato di un elemento con il quale si ha un interazine (il bottone e' stato premuto)
+:focus = matcha lo stato di un elemento che e' stato focussato ?
+
+
+<p>Learnign <em>HTML</em> and <em>CSS</em>.</p>
+Message: <input type="text"><br><br>
+<button>Keep me pressed</button>
+
+em:hover{
+    background: yellow;
+}
+input[type='text']:focus{
+    background: cyan;
+}
+button:active{
+    background: blue;
+    color: white;
+}
+
+PSEUDO CLASSI: STATI STORICI
+
+:link = seleziona un link che non e' stato ancora visitato
+:visited = seleziona un link che e' stato gia visitato
+
+:link {
+    color: red;
+}
+:visited {
+    color: darkred;
+}
+
+<a href="./js/">New link</a>
+<a href="./css/">Visited link</a>
+
+PSEUDO CLASSI: STATI FORM
+
+<div>
+    <label for="mail">Message:</label><input id="mail" type="email">
+    <button disabled>Cancel</button><button>Subscribe</button>
+</div>
+<input type="checkbox"> Checkbox<br><br>
+<em>What a nice form!</em>
+
+:disabled {
+    border: 2px dashed red;
+}
+:invalid {
+    color: red;
+}
+:checked ~ em {
+    color: deeppink; font-weight: bold;
+}
+
+PSEUDO CLASSI: POLIZIONI DI RELAZIONE
+
+:first-child e :last-child selezionano rispettivamente il primo e l'ultimo figlio tra tutti i fratelli, indipendente dal tag
+
+:only-chidl puo essere usato per selezionare elementi che non hanno fratelli
+
+:first-of-type e :last-of-type puo essere usato per selezionare elementi (primo e ultimo) figli in mezzo a tanti fratelli, considerando solo elementi dello stesso tipo
+
+:nth-child(n) e :nth-of-type(n) puo' essere usato per lezionare elemnti che sono in posizione n-esima tra i fratelli
+
+L'INDICIZZAZIONE IN CSS INIZIA DA1!!!!!!!!!!!!!!!!!!!!
+
+
+<p>
+    <em>Ann</em> <strong>Bob</strong> <em>Carl</em>                     Ann Bob Carl   bob in grassetto
+</p>                                                                    Ann Bob Carl   ann e carl in grassetto
+<p>
+    <strong>Ann</strong> <em>Bob</em> <strong>Carl</strong>
+</p>
+
+con questo codice solo carl della prima riga diveta rosso essendo l'ultimo figlio di em
+em:last-child {           Ann Bob Carl    bob in grassetto 
+    color: red;           Ann Bob Carl    ann e carl in grassetto
+}
+
+con questo codice carl e bob diventano rossi perche sono gli ultimi figli del loro tipo <em>
+em:last-of-type {         Ann Bob Carl    bob in grassetto 
+    color: red;           Ann Bob Carl    ann e carl in grassetto
+}
+
+con questo codice solo ann diventa rosso perche e' il primo figlio del suo tipo <em>
+em:first-child {          Ann Bob Carl    bob in grassetto 
+    color: red;           Ann Bob Carl    ann e carl in grassetto
+}
+
+con questo codice ann e bob diventano rossi perche sono i primi figli del loro tipo <em>
+em:first-of-type {        Ann Bob Carl    bob in grassetto
+    color: red;           Ann Bob Carl    ann e carl in grassetto
+}
+
+con questo codice solo bob diventa rosso dato che e' il secondo figlio del suo tipo <2m>
+em:nth-child(2) {         Ann Bob Carl    bob in grassetto
+    color: red;           Ann Bob Carl    ann e carl in grassetto
+}
+
+le posizioni di relazione possono essere usate anche sulle liste ordinate come in questo caso (dispari = blu | pari = rossi)
+<p>Lectures:</p>
+<ol>
+    <li>Introduction</li>                   blu
+    <li>HTML</li>                           rosso
+    <li>CSS (basics)</li>                   blu
+    <li>CSS (frameworks + Sass)</li>        rosso
+    <li>JavaScript</li>                     blu
+</ol>
+
+li:nth-child(even){
+    color: red;
+}
+li:nth-child(odd){
+    color: blue;
+}
+
+
+PSEUDO ELEMENTI
+i pseudo elementi possono essere usati per targettare determinati contenuti di un elemento html senza aggiungere styling html aggiuntivo
+la sua sintassi e': selector::pseudo-element
+
+selector e un  CSS selector per l'elemento da targettare
+
+pseudo element =
+::first-letter =targhetta la prima lettera di un contenuto dentro un elemento block-level
+::first-line = targetta la prima riga di un contenuto dentro un elemento block-level
+::selection = targhetta il contenuto attualmente selezionato dall'utente
+::before = crea un elemento che e' il primo figlio dell' elemento selezionato
+::after = crea un elemento che e' l'ultimo figlio dell' elemento selezionato
+
+
+<p>A student had been sitting motionless behind his computer for hours, frowning 
+darkly. He was trying to write a beautiful solution to a difficult problem, but 
+could not find the right approach.</p>
+<p>Fu-Tzu hit him on the back of his head and shouted 'Type something!' The
+student started writing an ugly solution. After he had finished, he suddenly
+understood the beautiful solution.</p>
+
+
+p::first-letter {                                   A student had been sitting motionless behind his computer for hours, frowning      <---- la prima riga diventa rossa
+font-weight:bold;                                   darkly. He was trying to write a beautiful solution to a difficult problem, but       |      
+}                                                   could not find the right approach.                                                    |                      
+p::first-line{                                                                                                                            |                              
+color: red;                                         Fu-Tzu hit him on the back of his head and shouted 'Type something!' The           <----                                             
+}                                                   student started writing an ugly solution. After he had finished, he suddenly
+p:last-child::selection {                           understood the beautiful solution.        
+background: red;                        
+color: white;
+}
+                                
+*/
+
+
+

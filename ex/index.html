@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>bella zi</title>
+</head>
+
+<body>
+    <h1>Questa e' la mia prima pagina html che provo a fare da solo</h1>
+
+    <p>ciao a <strong>tutti</strong>, strano che vi siate ritrovati su questa pagina, 
+        dato che e' hostata in locale e per andarci sopra dovreste avere tutti l'url 
+        che ho solo io <strong>AHAHA (risata profonda da cattivo)</strong></p>    
+
+    <h2>chi sono?</h2> 
+
+    <p>Mi chiamo Francesco e sono un semplice studente di informatica che studia alla federico 2
+        mi sono pentito molto velocemente della mia scelta e attualmente preferire andare a lavorare
+        in un cantiere insieme a delle persone altamente sottopagate
+    </p>
+    <p>
+        ho vari hobby tra cui vabbe' ovviamente il gaming, lo studio purtroopo non rientra in questa
+        categoria, anche lo sport, anni fa circa quando stavo in 5 liceo quindi credo periodo intorno 
+        al 2023/24, vabbe comunque l'ho fatto per circa 10 anni per poi scocciarmi, ed inziare a lavorare
+        come cameriere, peggiore scelta della mia vita dopo essere andato all'universita".
+        oltre a queste molto brutte abbiamo la mia miglior passione, ovvero i pc/ gaming.
+    </p>
+
+    <table>
+    <caption><strong><em>qui sono elencati tutti i pezzi del mio pc</em></strong></caption>
+        <colgroup>
+            <!-- assegnazione di una classe all prima colonna -->
+            <col class="colonna-principale"/>
+            <!-- assegnazione di una classe alle due colonne centrali -->
+            <col span="2" class="colonne-centrali"/>
+            <!-- assegnazione di una classe all'ultima colonna -->
+            <col class="colonna-prezzo">
+        </colgroup>
+        <thead>
+        <tr>
+          <th>Oggetto</th>
+          <th>Marca</th>
+          <th>Modello</th>
+          <th>Prezzo</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong><em>CASE</em></strong></td>
+            <td class="Oggetto">LianLi</td>
+            <td class="Oggetto">Lancool 215</td>
+            <td class="Prezzo">~40$</td>
+        </tr>
+        <tr>
+            <td><strong><em>MOBO</em></strong></td>
+            <td class="Oggetto">Gigabyte</td>
+            <td class="Oggetto">B760</td>
+            <td class="Prezzo">~150$</td>
+        </tr>
+        <tr>
+            <td><strong><em>CPU</em></strong></td>
+            <td class="Oggetto">Intel</td>
+            <td class="Oggetto">I5-12400F</td>
+            <td class="Prezzo">~250$</td>
+        </tr>
+        <tr>
+            <td><strong><em>RAM</em></strong></td>
+            <td class="Oggetto">Kingston</td>
+            <td class="Oggetto">DDR4 64GB 3600MHZ</td>
+            <td class="Prezzo">~830$</td>
+        </tr>
+        <tr>
+            <td><strong><em>GPU</em></strong></td>
+            <td class="Oggetto">Nvidia</td>
+            <td class="Oggetto">RTX 5070 12GB</td>
+            <td class="Prezzo">~899$</td>
+        </tr>
+        <tr>
+            <td><strong><em>PSU</em></strong></td>
+            <td class="Oggetto">Cooler Master</td>
+            <td class="Oggetto">750W 80Plus Bronze</td>
+            <td class="Prezzo">~80$</td>
+        </tr>
+        <tr>
+            <td><strong><em>SSD</em></strong></td>
+            <td class="Oggetto">Samsung</td>
+            <td class="Oggetto">980 1TB M.2</td>
+            <td class="Prezzo">~200$</td>
+        </tr>
+        <tr>
+            <td><strong><em>SSD</em></strong></td>
+            <td class="Oggetto">Intel</td>
+            <td class="Oggetto">500GB</td>
+            <td class="Prezzo">~160$</td>
+        </tr>
+        <tr>
+            <td><strong><em>HDD</em></strong></td>
+            <td class="Oggetto">Western Digital</td>
+            <td class="Oggetto">1TB 7200rpm</td>
+            <td class="Prezzo">~90$</td>
+        </tr>
+        <tr>
+            <td><strong><em>PREZZO</em></strong></td>
+            <td>-----------------------------------</td>
+            <td>-----------------------------------</td>
+            <td class="Prezzo">~2.700$</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form>
+        <p>qui vi lascio un piccolo form per dirmi se vi piacerebbe giocare con me ai giochi ai quali gioco io disponibili nel menu a tendina<br></p>
+        <label for="scelta">Scegli uno dei giochi disponibili:</label>
+        <select id="scelta" name="scelta" onchange="aggiornaSottomenu()">
+            <option value="">-- Seleziona un gioco --</option>
+            <option value="minecraft">Minecraft</option>
+            <option value="carx">CarX Drift Racing Online</option>
+            <option value="acc">Assetto Corsa Competizione (ACC)</option>
+            <option value="r6">Rainbow Six Siege (R6)</option>
+            <option value="rocket">Rocket League</option>
+        </select>
+        <br><br>
+        <!-- Secondo Menu: Contenuto Dinamico (inizialmente vuoto o disattivato)-->
+
+         <label for="sottoscelta">Scegli una categoria/opzione:</label>
+        <select id="sottoscelta" name="sottoscelta" disabled>
+            <option value="">Prima seleziona un gioco</option>
+            <option value=""></option>
+        </select>
+        <br><br>
+        <button type="submit">Invia</button>
+    </form>
+</body>
+</html>
