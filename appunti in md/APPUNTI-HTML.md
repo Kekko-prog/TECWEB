@@ -6,13 +6,13 @@
 
 ### Internet vs World Wide Web (WWW)
 
-Spesso usati come sinonimi nel linguaggio comune, **Internet** e **Web** rappresentano due concetti distinti:
+S esso usati come sinonimi nel linguaggio comune, **Internet** e **Web** rappresentano due concetti distinti:
 
 - **Internet**: Rete globale di computer e dispositivi interconnessi che comunicano attraverso la suite di protocolli Internet (**TCP/IP**). Le sue origini risalgono al progetto **ARPANET** del 1969. Su Internet poggiano numerosi servizi (Web, posta elettronica, trasferimento file, streaming, ecc.).
 - **World Wide Web (WWW)**: Un sottoinsieme di Internet, ideato nei primi anni '90 da **Sir Tim Berners-Lee** al CERN. Si tratta di un sistema informativo composto da documenti ipertestuali interconnessi tra loro tramite collegamenti (**hyperlinks**).
 - I due componenti fondamentali del Web sono:
-  - **HTTP** (*HyperText Transfer Protocol*): Il protocollo di comunicazione per trasferire risorse.
-  - **HTML** (*HyperText Markup Language*): Il formato standard con cui sono scritti e strutturati i documenti ipertestuali.
+  - **HTTP** (_HyperText Transfer Protocol_): Il protocollo di comunicazione per trasferire risorse.
+  - **HTML** (_HyperText Markup Language_): Il formato standard con cui sono scritti e strutturati i documenti ipertestuali.
 
 ```text
 +--------------------------------------------------------+
@@ -43,9 +43,9 @@ Una moderna applicazione web è basata sul modello **Client-Server**:
 ```
 
 - **Front-End (Client)**: Ciò che viene eseguito all'interno del browser dell'utente. Si occupa della presentazione, dell'interfaccia utente (UI) e dell'interazione diretta.
-  - *Tecnologie principali*: HTML5, CSS3, JavaScript (TypeScript), framework/librerie (React, Angular, Vue, Bootstrap, Vite, Sass).
+  - _Tecnologie principali_: HTML5, CSS3, JavaScript (TypeScript), framework/librerie (React, Angular, Vue, Bootstrap, Vite, Sass).
 - **Back-End (Server)**: L'ambiente server in cui risiedono la logica di business, l'accesso ai database, l'autenticazione e la gestione delle richieste.
-  - *Tecnologie principali*: Node.js, Express, Spring, Python (Django, Flask), PHP, Web Server HTTP (Nginx, Apache).
+  - _Tecnologie principali_: Node.js, Express, Spring, Python (Django, Flask), PHP, Web Server HTTP (Nginx, Apache).
 
 ---
 
@@ -54,6 +54,7 @@ Una moderna applicazione web è basata sul modello **Client-Server**:
 HTTP è un **protocollo di livello applicativo** che poggia sullo stack **TCP/IP**. È il canale portante del World Wide Web.
 
 #### Caratteristiche Fondamentali:
+
 1. **Modello Request/Response**: Il client (es. browser) apre una connessione ed invia una richiesta HTTP; il server elabora e restituisce una risposta HTTP.
 2. **Statelessness (Assenza di stato)**: Ogni richiesta è completamente autonoma e indipendente dalle precedenti. Il server non memorizza alcuna informazione sulle richieste passate del client. Per implementare sessioni o mantenere l'autenticazione si usano meccanismi aggiuntivi come i **cookie**, i **token JWT** o il local storage.
 
@@ -84,6 +85,7 @@ HTTP è un **protocollo di livello applicativo** che poggia sullo stack **TCP/IP
 ```
 
 #### Esempio di Richiesta HTTP (Request):
+
 ```http
 GET /wisdom/grain.txt HTTP/1.1
 Host: bookofprogramming.com
@@ -94,6 +96,7 @@ Connection: keep-alive
 ```
 
 #### Esempio di Risposta HTTP (Response):
+
 ```http
 HTTP/1.1 200 OK
 Content-Type: text/plain
@@ -103,19 +106,21 @@ Fu-Tzu said: 'When you cut against the grain of the wood, much strength is neede
 ```
 
 #### Metodi (Verbi) HTTP Principali:
+
 - **`GET`**: Richiede una rappresentazione della risorsa specificata (non deve modificare lo stato del server).
 - **`POST`**: Invia dati alla risorsa specificata per crearla o elaborarla.
 - **`PUT`**: Sostituisce interamente la risorsa bersaglio con il payload inviato.
 - **`DELETE`**: Rimuove la risorsa specificata.
 
 #### Classi dei Codici di Stato HTTP (Response Status Codes):
-| Intervallo | Categoria | Descrizione ed Esempi |
-| :--- | :--- | :--- |
-| **`100-199`** | **Informational** | Richiesta ricevuta, elaborazione in corso (`100 Continue`). |
-| **`200-299`** | **Success** | Azione completata con successo (`200 OK`, `201 Created`). |
-| **`300-399`** | **Redirection** | Ulteriori azioni richieste per completare la richiesta (`301 Moved Permanently`). |
-| **`400-499`** | **Client Error** | Errore causato dal client (`400 Bad Request`, `403 Forbidden`, `404 Not Found`). |
-| **`500-599`** | **Server Error** | Il server ha riscontrato un errore interno (`500 Internal Server Error`, `503 Service Unavailable`). |
+
+| Intervallo    | Categoria         | Descrizione ed Esempi                                                                                |
+| :------------ | :---------------- | :--------------------------------------------------------------------------------------------------- |
+| **`100-199`** | **Informational** | Richiesta ricevuta, elaborazione in corso (`100 Continue`).                                          |
+| **`200-299`** | **Success**       | Azione completata con successo (`200 OK`, `201 Created`).                                            |
+| **`300-399`** | **Redirection**   | Ulteriori azioni richieste per completare la richiesta (`301 Moved Permanently`).                    |
+| **`400-499`** | **Client Error**  | Errore causato dal client (`400 Bad Request`, `403 Forbidden`, `404 Not Found`).                     |
+| **`500-599`** | **Server Error**  | Il server ha riscontrato un errore interno (`500 Internal Server Error`, `503 Service Unavailable`). |
 
 ---
 
@@ -155,10 +160,10 @@ Schema     Domain Name    Porta     Percorso       Query Parameters    Anchor
 ```
 
 1. **Schema (Protocollo)**: Specifica il protocollo per accedere alla risorsa. I più comuni sono `http` e `https`.
-   - **HTTPS** (*HTTP Secure*): HTTP cifrato tramite **TLS** (*Transport Layer Security*), fondamentale per impedire intercettazioni (man-in-the-middle) e manomissioni.
+   - **HTTPS** (_HTTP Secure_): HTTP cifrato tramite **TLS** (_Transport Layer Security_), fondamentale per impedire intercettazioni (man-in-the-middle) e manomissioni.
 2. **Domain Name (Nome di Dominio)**: L'indirizzo logico del server che ospita la risorsa. È gerarchico e si legge da destra verso sinistra:
-   - **TLD** (*Top Level Domain*): estensione primaria (`.it`, `.com`, `.org`), gestita da **IANA**.
-   - **SLD** (*Secondary Level Domain*): nome dell'organizzazione o servizio (es. `informatica`).
+   - **TLD** (_Top Level Domain_): estensione primaria (`.it`, `.com`, `.org`), gestita da **IANA**.
+   - **SLD** (_Secondary Level Domain_): nome dell'organizzazione o servizio (es. `informatica`).
    - **Subdomains**: prefissi opzionali per organizzare sezioni del dominio (es. `www.`, `blog.mozilla.org`, `informatica.dieti.unina.it`).
 3. **Porta (Port)**: Porta TCP di destinazione sul server. Può essere omessa se standard:
    - Porta di default per HTTP: **`80`**
@@ -170,9 +175,11 @@ Schema     Domain Name    Porta     Percorso       Query Parameters    Anchor
 6. **URL Anchor (Frammento)**: Riferimento a una sezione interna della pagina (preceduto da `#`).
 
 #### Cartelle e `index.html`
+
 Cosa succede se l'URL termina con una cartella anziché un file specifico (es. `http://example.com/corsi/`)?
+
 - Il web server cerca ed eroga automaticamente il file predefinito della cartella: solitamente **`index.html`** (o `home.html`, `default.html`).
-- Se nessun file di indice è presente, a seconda della configurazione il server restituirà un errore (`403 Forbidden` / `404 Not Found`) oppure mostrerà un elenco dei file presenti nella directory (*Directory Indexing*).
+- Se nessun file di indice è presente, a seconda della configurazione il server restituirà un errore (`403 Forbidden` / `404 Not Found`) oppure mostrerà un elenco dei file presenti nella directory (_Directory Indexing_).
 
 ---
 
@@ -182,11 +189,13 @@ Cosa succede se l'URL termina con una cartella anziché un file specifico (es. `
 
 HTML è il linguaggio di marcatura standard del World Wide Web. Non è un linguaggio di programmazione procedurale o orientato agli oggetti, ma un **linguaggio di marcatura dichiarativo**.
 Attraverso un insieme di **annotazioni** (chiamate **tag**), HTML descrive:
+
 - La **struttura** gerarchica del documento.
 - Il **ruolo semantico** delle varie componenti (titoli, paragrafi, tabelle, form, link, sezioni).
 - Le **relazioni** tra le parti del contenuto.
 
 #### Evoluzione dello Standard:
+
 - HTML 1.0 (1993) $\rightarrow$ HTML 2 (1995) $\rightarrow$ HTML 3 (1997) $\rightarrow$ HTML 4 (1999) $\rightarrow$ HTML 5 (2014).
 - Dal 2019 lo sviluppo è governato dal **WHATWG** sotto il nome di **HTML Living Standard** (uno standard vivente e in costante aggiornamento, non più rigidamente suddiviso in versioni monolitiche).
 
@@ -197,10 +206,9 @@ Attraverso un insieme di **annotazioni** (chiamate **tag**), HTML descrive:
 I tag sono delimitati da parentesi angolari `< >`. Un elemento HTML standard è costituito da:
 
 ```html
-<tagName attribute1="value1" attribute2> Testo o contenuto </tagName>
-\______/ \____________________________/ \________________/ \________/
-    |                   |                       |               |
-Tag di apertura    Attributi                Contenuto      Tag di chiusura
+<tagName attribute1="value1" attribute2> Testo o contenuto </tagName> \______/
+\____________________________/ \________________/ \________/ | | | | Tag di
+apertura Attributi Contenuto Tag di chiusura
 ```
 
 - **Tag di apertura**: include il nome del tag e gli eventuali attributi (coppie `chiave="valore"` o flag booleani).
@@ -231,7 +239,8 @@ Ogni file HTML valido presenta la seguente impalcatura minima:
 ```
 
 #### Componenti Chiave:
-1. `<!DOCTYPE html>`: Dichiarazione preliminare obbligatoria. Non è un tag HTML, ma un'istruzione che comunica al browser di eseguire il rendering del documento secondo lo standard moderno **HTML5** (evitando la modalità retrocompatibile nota come *quirks mode*).
+
+1. `<!DOCTYPE html>`: Dichiarazione preliminare obbligatoria. Non è un tag HTML, ma un'istruzione che comunica al browser di eseguire il rendering del documento secondo lo standard moderno **HTML5** (evitando la modalità retrocompatibile nota come _quirks mode_).
 2. `<html lang="it">`: L'elemento radice che racchiude l'intero documento. L'attributo `lang` è fondamentale per i motori di ricerca, i sintetizzatori vocali (screen reader) e l'accessibilità.
 3. `<head>`: Contenitore dei **metadati** (dati che descrivono il documento). Non vengono mostrati all'interno della pagina web, ma sono usati da browser, motori di ricerca e social network.
    - `<title>`: Elemento obbligatorio; definisce il titolo visualizzato sulla scheda del browser e nei risultati di ricerca.
@@ -278,7 +287,7 @@ Un documento HTML non è un semplice file di testo piatto: il browser analizza l
                         +-------+   +-------+
 ```
 
-Ogni nodo dell'albero rappresenta un elemento HTML, con relazioni di parentela ben definite (*genitore*, *figlio*, *fratelli*).
+Ogni nodo dell'albero rappresenta un elemento HTML, con relazioni di parentela ben definite (_genitore_, _figlio_, _fratelli_).
 
 ---
 
@@ -317,20 +326,20 @@ Il tag `<p>` rappresenta un paragrafo di testo. Nel rendering predefinito del br
 
 HTML distingue tra la formattazione puramente visiva e la formattazione **semantica**, che arricchisce il significato del testo:
 
-- **`<em>`** (*Emphasis*): Esprime un'enfasi sul contenuto (rende solitamente il testo in corsivo).
-- **`<strong>`** (*Strong Importance*): Esprime una rilevanza, serietà o urgenza notevole (rende solitamente il testo in grassetto).
-- **`<br />`** (*Line Break*): Spezza la riga e forza l'andata a capo senza creare un nuovo paragrafo logico. È un tag void.
+- **`<em>`** (_Emphasis_): Esprime un'enfasi sul contenuto (rende solitamente il testo in corsivo).
+- **`<strong>`** (_Strong Importance_): Esprime una rilevanza, serietà o urgenza notevole (rende solitamente il testo in grassetto).
+- **`<br />`** (_Line Break_): Spezza la riga e forza l'andata a capo senza creare un nuovo paragrafo logico. È un tag void.
 - **`<abbr title="...">`**: Definisce una sigla, acronimo o abbreviazione. L'attributo `title` contiene l'espansione testuale, visibile come tooltip posizionando il cursore sopra la sigla.
-- **`<del>`** (*Deleted Text*): Indica testo rimosso dal documento (visualizzato barrato).
-- **`<ins>`** (*Inserted Text*): Indica testo inserito in una revisione successiva (visualizzato sottolineato).
+- **`<del>`** (_Deleted Text_): Indica testo rimosso dal documento (visualizzato barrato).
+- **`<ins>`** (_Inserted Text_): Indica testo inserito in una revisione successiva (visualizzato sottolineato).
 
 ```html
 <p>
-  Il linguaggio <abbr title="HyperText Markup Language">HTML</abbr> 
-  fornisce semantica a livello di testo.<br />
-  Possiamo esprimere <strong>forte importanza</strong> oppure 
-  <em>enfatizzare parole chiave</em>.
-  Inoltre possiamo marcare testo <del>eliminato</del> e testo <ins>aggiunto</ins>.
+  Il linguaggio <abbr title="HyperText Markup Language">HTML</abbr> fornisce
+  semantica a livello di testo.<br />
+  Possiamo esprimere <strong>forte importanza</strong> oppure
+  <em>enfatizzare parole chiave</em>. Inoltre possiamo marcare testo
+  <del>eliminato</del> e testo <ins>aggiunto</ins>.
 </p>
 ```
 
@@ -345,19 +354,20 @@ Alcuni caratteri hanno un significato sintattico speciale in HTML (ad esempio `<
 <p>Se 3 < x e y > 6 allora procedi</p>
 ```
 
-Per visualizzare questi caratteri in sicurezza occorre ricorrere alle **Entità HTML** (o *Character References*), che possono essere definite per nome (`&nome;`) o per codice numerico (`&#numero;`):
+Per visualizzare questi caratteri in sicurezza occorre ricorrere alle **Entità HTML** (o _Character References_), che possono essere definite per nome (`&nome;`) o per codice numerico (`&#numero;`):
 
-| Simbolo | Descrizione | Entità per Nome | Entità Numerica |
-| :---: | :--- | :--- | :--- |
-| ` ` | Spazio non separabile (*Non-breaking space*) | `&nbsp;` | `&#160;` |
-| `<` | Minore di (*Less than*) | `&lt;` | `&#60;` |
-| `>` | Maggiore di (*Greater than*) | `&gt;` | `&#62;` |
-| `&` | E commerciale (*Ampersand*) | `&amp;` | `&#38;` |
-| `"` | Virgolette doppie (*Double quote*) | `&quot;` | `&#34;` |
-| `'` | Apostrofo / Virgoletta singola (*Apostrophe*) | `&apos;` | `&#39;` |
-| `©` | Simbolo del Copyright | `&copy;` | `&#169;` |
+| Simbolo | Descrizione                                   | Entità per Nome | Entità Numerica |
+| :-----: | :-------------------------------------------- | :-------------- | :-------------- |
+|   ` `   | Spazio non separabile (_Non-breaking space_)  | `&nbsp;`        | `&#160;`        |
+|   `<`   | Minore di (_Less than_)                       | `&lt;`          | `&#60;`         |
+|   `>`   | Maggiore di (_Greater than_)                  | `&gt;`          | `&#62;`         |
+|   `&`   | E commerciale (_Ampersand_)                   | `&amp;`         | `&#38;`         |
+|   `"`   | Virgolette doppie (_Double quote_)            | `&quot;`        | `&#34;`         |
+|   `'`   | Apostrofo / Virgoletta singola (_Apostrophe_) | `&apos;`        | `&#39;`         |
+|   `©`   | Simbolo del Copyright                         | `&copy;`        | `&#169;`        |
 
 #### Esempio Corretto:
+
 ```html
 <p>Se 3 &lt; x e y &gt; 6 allora procedi &amp; stampa il risultato.</p>
 ```
@@ -368,7 +378,7 @@ Per visualizzare questi caratteri in sicurezza occorre ricorrere alle **Entità 
 
 ### Il Tag di Ancoraggio `<a>` e l'Attributo `href`
 
-I link sono il meccanismo fondante del Web. Si definiscono tramite il tag `<a>` (*anchor*) e l'attributo principale `href` (*Hypertext Reference*), che specifica la destinazione:
+I link sono il meccanismo fondante del Web. Si definiscono tramite il tag `<a>` (_anchor_) e l'attributo principale `href` (_Hypertext Reference_), che specifica la destinazione:
 
 ```html
 <a href="https://www.unina.it">Visita il sito di Ateneo</a>
@@ -382,6 +392,7 @@ Quando si specifica il valore dell'attributo `href`, si possono usare due tipolo
 
 1. **URL Assoluti**: Contengono lo schema (`http://` o `https://`) e l'hostname del server. Includono tutte le informazioni necessarie per raggiungere la risorsa da qualsiasi posizione.
    - Da preferire obbligatoriamente quando si collegano **risorse esterne** al proprio sito web.
+
    ```html
    <a href="https://developer.mozilla.org/en-US/">MDN Web Docs</a>
    ```
@@ -401,17 +412,18 @@ La risoluzione dei percorsi relativi segue regole precise a seconda del primo ca
 - **Segmento `..` (doppio punto)**: Rappresenta la cartella genitore (sale di un livello nell'albero delle directory).
 
 #### Esempio Pratico:
+
 Supponiamo che la pagina corrente abbia l'URL:
 `http://bookofprogramming.com/a/b/c/hello.html`
 
-| Valore dell'attributo `href` | Risultato Calcolato dal Browser | Spiegazione |
-| :--- | :--- | :--- |
-| `page.html` | `http://bookofprogramming.com/a/b/c/page.html` | Sostituisce solo `hello.html` nella stessa cartella. |
-| `/index.html` | `http://bookofprogramming.com/index.html` | Inizia con `/`: riparte dalla radice del dominio. |
-| `./index.html` | `http://bookofprogramming.com/a/b/c/index.html` | `.` indica la cartella corrente `c/`. |
-| `../foo.html` | `http://bookofprogramming.com/a/b/foo.html` | Sale di un livello: esce da `c/` ed entra in `b/`. |
-| `../../pic.jpg` | `http://bookofprogramming.com/a/pic.jpg` | Sale di due livelli: esce da `c/` e da `b/`, arrivando in `a/`. |
-| `./../../pic.jpg` | `http://bookofprogramming.com/a/pic.jpg` | Equivalente al precedente. |
+| Valore dell'attributo `href` | Risultato Calcolato dal Browser                 | Spiegazione                                                     |
+| :--------------------------- | :---------------------------------------------- | :-------------------------------------------------------------- |
+| `page.html`                  | `http://bookofprogramming.com/a/b/c/page.html`  | Sostituisce solo `hello.html` nella stessa cartella.            |
+| `/index.html`                | `http://bookofprogramming.com/index.html`       | Inizia con `/`: riparte dalla radice del dominio.               |
+| `./index.html`               | `http://bookofprogramming.com/a/b/c/index.html` | `.` indica la cartella corrente `c/`.                           |
+| `../foo.html`                | `http://bookofprogramming.com/a/b/foo.html`     | Sale di un livello: esce da `c/` ed entra in `b/`.              |
+| `../../pic.jpg`              | `http://bookofprogramming.com/a/pic.jpg`        | Sale di due livelli: esce da `c/` e da `b/`, arrivando in `a/`. |
+| `./../../pic.jpg`            | `http://bookofprogramming.com/a/pic.jpg`        | Equivalente al precedente.                                      |
 
 ---
 
@@ -419,12 +431,14 @@ Supponiamo che la pagina corrente abbia l'URL:
 
 L'attributo `target` indica dove visualizzare il documento collegato:
 
-- **`target="_self"`** *(default)*: Apre la pagina collegata nella **stessa** scheda o finestra del browser.
+- **`target="_self"`** _(default)_: Apre la pagina collegata nella **stessa** scheda o finestra del browser.
 - **`target="_blank"`**: Apre la pagina collegata in una **nuova scheda** (o nuova finestra).
 
 ```html
 <a href="guida.html" target="_self">Apri guida nella stessa scheda</a>
-<a href="https://google.com" target="_blank">Apri motore di ricerca in una nuova scheda</a>
+<a href="https://google.com" target="_blank"
+  >Apri motore di ricerca in una nuova scheda</a
+>
 ```
 
 ---
@@ -442,7 +456,9 @@ L'attributo globale `id` assegna un identificatore univoco ad un elemento HTML. 
 <a href="#capitolo-3">Vai al Capitolo 3</a>
 
 <!-- Link da un'altra pagina esterna verso lo specifico paragrafo -->
-<a href="https://miosito.it/guida.html#capitolo-3">Vedi Capitolo 3 nella Guida</a>
+<a href="https://miosito.it/guida.html#capitolo-3"
+  >Vedi Capitolo 3 nella Guida</a
+>
 ```
 
 ---
@@ -452,16 +468,20 @@ L'attributo globale `id` assegna un identificatore univoco ad un elemento HTML. 
 Le tabelle HTML vengono utilizzate per organizzare dati bidimensionali in righe e colonne.
 
 ### Tag Fondamentali:
+
 - **`<table>`**: Contenitore generale della tabella.
 - **`<caption>`**: Didascalia o titolo descrittivo della tabella (opzionale ma consigliato per l'accessibilità).
-- **`<tr>`** (*Table Row*): Definisce una riga della tabella.
-- **`<th>`** (*Table Header*): Cella di intestazione (il testo appare centrato e in grassetto per default).
-- **`<td>`** (*Table Data*): Cella standard contenente i dati.
+- **`<tr>`** (_Table Row_): Definisce una riga della tabella.
+- **`<th>`** (_Table Header_): Cella di intestazione (il testo appare centrato e in grassetto per default).
+- **`<td>`** (_Table Data_): Cella standard contenente i dati.
 
 #### Esempio:
+
 ```html
 <table>
-  <caption>Riepilogo Esami Universitari</caption>
+  <caption>
+    Riepilogo Esami Universitari
+  </caption>
   <tr>
     <th>Materia</th>
     <th>Crediti (CFU)</th>
@@ -487,7 +507,8 @@ Le tabelle HTML vengono utilizzate per organizzare dati bidimensionali in righe 
 HTML definisce tre distinte tipologie di liste in base allo scopo semantico:
 
 ### 1. Liste Ordinate (`<ol>`)
-Usate quando l'ordine degli elementi è significativo (elenchi numerati, sequenze temporali, passaggi di un algoritmo). Gli elementi interni sono racchiusi nel tag `<li>` (*List Item*).
+
+Usate quando l'ordine degli elementi è significativo (elenchi numerati, sequenze temporali, passaggi di un algoritmo). Gli elementi interni sono racchiusi nel tag `<li>` (_List Item_).
 
 ```html
 <ol>
@@ -498,6 +519,7 @@ Usate quando l'ordine degli elementi è significativo (elenchi numerati, sequenz
 ```
 
 ### 2. Liste Non Ordinate (`<ul>`)
+
 Usate per elenchi puntati in cui l'ordine degli elementi non altera il significato del contenuto.
 
 ```html
@@ -509,9 +531,11 @@ Usate per elenchi puntati in cui l'ordine degli elementi non altera il significa
 ```
 
 ### 3. Liste di Descrizione (`<dl>`)
+
 Ideali per glossari, dizionari o coppie chiave-descrizione.
-- **`<dt>`** (*Description Term*): Il termine o concetto da definire.
-- **`<dd>`** (*Description Details*): La spiegazione o descrizione associata al termine.
+
+- **`<dt>`** (_Description Term_): Il termine o concetto da definire.
+- **`<dd>`** (_Description Details_): La spiegazione o descrizione associata al termine.
 
 ```html
 <dl>
@@ -532,11 +556,16 @@ Ideali per glossari, dizionari o coppie chiave-descrizione.
 Il tag `<img>` è utilizzato per incorporare immagini all'interno di un documento HTML. È un **void element** (non ha tag di chiusura né contenuto testuale al suo interno).
 
 ```html
-<img src="avatar.jpg" alt="Ritratto del Maestro Fu-Tzu" width="300" height="200" />
+<img
+  src="avatar.jpg"
+  alt="Ritratto del Maestro Fu-Tzu"
+  width="300"
+  height="200"
+/>
 ```
 
-- **`src`** (*Source*): L'attributo obbligatorio che specifica l'URL (assoluto o relativo) dell'immagine da includere.
-- **`alt`** (*Alternative Text*): Testo alternativo mostrato nel caso in cui l'immagine non possa essere caricata, ed essenziale per i software di sintesi vocale (accessibilità per non vedenti) e per l'indicizzazione dei motori di ricerca.
+- **`src`** (_Source_): L'attributo obbligatorio che specifica l'URL (assoluto o relativo) dell'immagine da includere.
+- **`alt`** (_Alternative Text_): Testo alternativo mostrato nel caso in cui l'immagine non possa essere caricata, ed essenziale per i software di sintesi vocale (accessibilità per non vedenti) e per l'indicizzazione dei motori di ricerca.
 - **`width`** e **`height`**: Specificano le dimensioni grafiche dell'immagine (in pixel).
 
 ---
@@ -572,13 +601,13 @@ Browser                                                          Server Web
 
 Mentre alcuni attributi sono specifici di determinati elementi (es. `href` per i link o `src` per le immagini), gli **attributi globali** possono essere applicati a **qualsiasi** elemento HTML:
 
-| Attributo | Funzione | Esempio |
-| :--- | :--- | :--- |
-| **`id`** | Identificatore **univoco** all'interno dell'intero documento. Usato per collegamenti interni (`#`), selettori CSS e manipolazione JavaScript. | `<div id="navbar">` |
-| **`class`** | Assegna una o più classi CSS (separate da spazio) per categorizzare e applicare stili agli elementi. | `<button class="btn btn-primary">` |
-| **`style`** | Specifica stili CSS direttamente in linea sull'elemento. | `<p style="color: blue;">` |
-| **`lang`** | Specifica la lingua utilizzata nel contenuto dell'elemento (sovrascrive quella globale definita in `<html>`). | `<span lang="en">Hello</span>` |
-| **`title`** | Fornisce un testo di chiarimento visualizzato come tooltip al passaggio del cursore. | `<abbr title="World Wide Web">WWW</abbr>` |
+| Attributo   | Funzione                                                                                                                                      | Esempio                                   |
+| :---------- | :-------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------------- |
+| **`id`**    | Identificatore **univoco** all'interno dell'intero documento. Usato per collegamenti interni (`#`), selettori CSS e manipolazione JavaScript. | `<div id="navbar">`                       |
+| **`class`** | Assegna una o più classi CSS (separate da spazio) per categorizzare e applicare stili agli elementi.                                          | `<button class="btn btn-primary">`        |
+| **`style`** | Specifica stili CSS direttamente in linea sull'elemento.                                                                                      | `<p style="color: blue;">`                |
+| **`lang`**  | Specifica la lingua utilizzata nel contenuto dell'elemento (sovrascrive quella globale definita in `<html>`).                                 | `<span lang="en">Hello</span>`            |
+| **`title`** | Fornisce un testo di chiarimento visualizzato come tooltip al passaggio del cursore.                                                          | `<abbr title="World Wide Web">WWW</abbr>` |
 
 ---
 
@@ -616,6 +645,7 @@ name1=value1 & name2=value2 & ... & nameN=valueN
 ### Metodi di Invio a Confronto: `GET` vs `POST`
 
 #### 1. Sottomissione con `GET` (Default)
+
 Con il metodo `GET`, le coppie chiave-valore vengono serializzate ed **appese direttamente all'URL** dell'action, separate dal carattere `?`:
 
 ```text
@@ -636,9 +666,11 @@ Con il metodo `GET`, le coppie chiave-valore vengono serializzate ed **appese di
   - Ideale per operazioni di **ricerca** e **filtraggio**.
 
 #### 2. Sottomissione con `POST`
-Con il metodo `POST`, i dati non vengono inseriti nell'URL, ma nel **corpo della richiesta HTTP** (*Request Body*):
+
+Con il metodo `POST`, i dati non vengono inseriti nell'URL, ma nel **corpo della richiesta HTTP** (_Request Body_):
 
 - **Richiesta generata**:
+
   ```http
   POST /handler.html HTTP/1.1
   Host: 127.0.0.1:3000
@@ -647,6 +679,7 @@ Con il metodo `POST`, i dati non vengono inseriti nell'URL, ma nel **corpo della
 
   msg=Hello&num=42
   ```
+
 - **Caratteristiche**:
   - L'URL rimane pulito (`/handler.html`).
   - I dati non compaiono nella cronologia né nei preferiti del browser.
@@ -661,32 +694,36 @@ Gli URL ammettono unicamente un sottoinsieme ristretto di caratteri ASCII. Carat
 Lo spazio viene comunemente convertito nel simbolo `+` o nella tripletta `%20`.
 
 #### Esempio:
+
 Se l'utente scrive nel campo `msg` il valore `Tom & Jerry`, la serializzazione prodotta sarà:
+
 ```text
 msg=Tom+%26+Jerry
 ```
-*(poiché `&` corrisponde all'esadecimale `26`)*.
+
+_(poiché `&` corrisponde all'esadecimale `26`)_.
 
 #### Tabella dei Codici ASCII Comuni per URL Encoding:
-| Carattere | Decimale | Esadecimale (Codifica URL) | Descrizione |
-| :---: | :---: | :---: | :--- |
-| ` ` *(spazio)* | 32 | `%20` oppure `+` | Space |
-| `!` | 33 | `%21` | Punto esclamativo |
-| `"` | 34 | `%22` | Doppie virgolette |
-| `#` | 35 | `%23` | Cancelletto (*Hash*) |
-| `$` | 36 | `%24` | Simbolo del dollaro |
-| `%` | 37 | `%25` | Simbolo percentuale |
-| `&` | 38 | `%26` | E commerciale (*Ampersand*) |
-| `'` | 39 | `%27` | Apostrofo |
-| `(` / `)` | 40 / 41 | `%28` / `%29` | Parentesi tonde aperta / chiusa |
-| `*` | 42 | `%2A` | Asterisco |
-| `+` | 43 | `%2B` | Simbolo più |
-| `,` | 44 | `%2C` | Virgola |
-| `-` | 45 | `%2D` | Trattino (*Minus*) |
-| `.` | 46 | `%2E` | Punto fermo |
-| `/` | 47 | `%2F` | Barra slash |
-| `[` / `]` | 91 / 93 | `%5B` / `%5D` | Parentesi quadre aperta / chiusa |
-| `\` | 92 | `%5C` | Barra inversa (*Backslash*) |
+
+|   Carattere    | Decimale | Esadecimale (Codifica URL) | Descrizione                      |
+| :------------: | :------: | :------------------------: | :------------------------------- |
+| ` ` _(spazio)_ |    32    |      `%20` oppure `+`      | Space                            |
+|      `!`       |    33    |           `%21`            | Punto esclamativo                |
+|      `"`       |    34    |           `%22`            | Doppie virgolette                |
+|      `#`       |    35    |           `%23`            | Cancelletto (_Hash_)             |
+|      `$`       |    36    |           `%24`            | Simbolo del dollaro              |
+|      `%`       |    37    |           `%25`            | Simbolo percentuale              |
+|      `&`       |    38    |           `%26`            | E commerciale (_Ampersand_)      |
+|      `'`       |    39    |           `%27`            | Apostrofo                        |
+|   `(` / `)`    | 40 / 41  |       `%28` / `%29`        | Parentesi tonde aperta / chiusa  |
+|      `*`       |    42    |           `%2A`            | Asterisco                        |
+|      `+`       |    43    |           `%2B`            | Simbolo più                      |
+|      `,`       |    44    |           `%2C`            | Virgola                          |
+|      `-`       |    45    |           `%2D`            | Trattino (_Minus_)               |
+|      `.`       |    46    |           `%2E`            | Punto fermo                      |
+|      `/`       |    47    |           `%2F`            | Barra slash                      |
+|   `[` / `]`    | 91 / 93  |       `%5B` / `%5D`        | Parentesi quadre aperta / chiusa |
+|      `\`       |    92    |           `%5C`            | Barra inversa (_Backslash_)      |
 
 ---
 
@@ -737,7 +774,9 @@ Il tag `<input>` è l'elemento più versatile dei form. La sua veste grafica e l
 Entrambi consentono di selezionare opzioni, ma rispondono a logiche differenti:
 
 #### 1. Checkbox (`type="checkbox"`)
+
 Permette la selezione **multipla** (0, 1 o più scelte indipendenti).
+
 - Se una casella non viene selezionata, non invia nulla.
 - Se più caselle con lo stesso `name` vengono spuntate, il browser accoda ciascuna selezione.
 
@@ -753,12 +792,15 @@ Permette la selezione **multipla** (0, 1 o più scelte indipendenti).
   <input type="submit" value="Invia" />
 </form>
 ```
+
 - **Se entrambe le caselle sono selezionate**, la stringa inviata sarà:  
   `exams=web&exams=pl2`
 - **Se nessuna è selezionata**: la stringa inviata sarà vuota (`""`).
 
 #### 2. Radio Button (`type="radio"`)
+
 Permette la scelta **esclusiva** di **una sola opzione** all'interno di un gruppo prestabilito.
+
 - Per raggruppare i pulsanti radio e renderli mutualmente esclusivi, **devono condividere lo stesso attributo `name`**.
 
 ```html
@@ -776,6 +818,7 @@ Permette la scelta **esclusiva** di **una sola opzione** all'interno di un grupp
   <input type="submit" value="Conferma Scelta" />
 </form>
 ```
+
 - La sottomissione invierà un solo valore: ad esempio `fav=web`.
 
 ---
@@ -783,6 +826,7 @@ Permette la scelta **esclusiva** di **una sola opzione** all'interno di un grupp
 ### Etichette Accessibili: Il Tag `<label>` e l'Attributo `for`
 
 L'uso di `<label>` è essenziale per l'usabilità e l'accessibilità del sito:
+
 - Consente agli screen reader di leggere correttamente cosa richiede ciascun campo.
 - Aumenta l'area di interazione: cliccare sull'etichetta testuale attiva o porta automaticamente il focus sull'input associato.
 - L'attributo **`for`** della label deve essere identico all'**`id`** dell'elemento `<input>` corrispondente:
@@ -797,6 +841,7 @@ L'uso di `<label>` è essenziale per l'usabilità e l'accessibilità del sito:
 ### Altri Controlli del Form
 
 #### Menu a Tendina (`<select>` e `<option>`)
+
 Definisce un menu di scelta a discesa. Con l'attributo `multiple`, l'utente può selezionare più voci contemporaneamente.
 
 ```html
@@ -809,6 +854,7 @@ Definisce un menu di scelta a discesa. Con l'attributo `multiple`, l'utente può
 ```
 
 #### Area di Testo Multilinea (`<textarea>`)
+
 A differenza di `<input type="text">`, consente all'utente di digitare blocchi estesi di testo su più righe:
 
 ```html
@@ -817,6 +863,7 @@ A differenza di `<input type="text">`, consente all'utente di digitare blocchi e
 ```
 
 #### Raggruppamento Logico: `<fieldset>` e `<legend>`
+
 Permette di suddividere visivamente e concettualmente i form complessi in sezioni coerenti:
 
 ```html
@@ -840,15 +887,17 @@ Permette di suddividere visivamente e concettualmente i form complessi in sezion
   <input type="submit" value="Registra" />
 </form>
 ```
-*Sottomissione risultante*: `fname=Mario&lname=Rossi&grade=30&date=2026-06-15`
+
+_Sottomissione risultante_: `fname=Mario&lname=Rossi&grade=30&date=2026-06-15`
 
 ---
 
 ## 10. Organizzazione della Pagina & Tag Semantici (HTML5)
 
-Nelle vecchie versioni di HTML, la suddivisione della pagina veniva affidata unicamente all'elemento generico **`<div>`** (*division*), privo di valore semantico intrinseco. Con HTML5 sono stati introdotti tag semantici strutturali specifici, capaci di esplicitare il significato del layout sia ai motori di ricerca che agli screen reader.
+Nelle vecchie versioni di HTML, la suddivisione della pagina veniva affidata unicamente all'elemento generico **`<div>`** (_division_), privo di valore semantico intrinseco. Con HTML5 sono stati introdotti tag semantici strutturali specifici, capaci di esplicitare il significato del layout sia ai motori di ricerca che agli screen reader.
 
 ### Tag Semantici Strutturali:
+
 - **`<header>`**: Intestazione di una pagina o di una sezione; ospita titoli, loghi e recapiti.
 - **`<nav>`**: Raggruppa i blocchi di navigazione primaria (link a sezioni interne o esterne).
 - **`<main>`**: Rappresenta il **contenuto principale** ed esclusivo del documento (non può essere duplicato all'interno della stessa pagina).
@@ -881,53 +930,58 @@ Nelle vecchie versioni di HTML, la suddivisione della pagina veniva affidata uni
 ```
 
 #### Esempio di Struttura Semantica Completa:
+
 ```html
 <!DOCTYPE html>
 <html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <title>Corso di Tecnologie Web</title>
-</head>
-<body>
-  <header>
-    <h1>Web Technologies Portal</h1>
-    <p>Guida completa allo sviluppo full stack.</p>
-    <nav>
-      <a href="#html">HTML</a> | 
-      <a href="#css">CSS</a> | 
-      <a href="#js">JavaScript</a>
-    </nav>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Corso di Tecnologie Web</title>
+  </head>
+  <body>
+    <header>
+      <h1>Web Technologies Portal</h1>
+      <p>Guida completa allo sviluppo full stack.</p>
+      <nav>
+        <a href="#html">HTML</a> | <a href="#css">CSS</a> |
+        <a href="#js">JavaScript</a>
+      </nav>
+    </header>
 
-  <main>
-    <article id="html">
-      <h2>Elementi Semantici</h2>
-      <p>I tag semantici arricchiscono la comprensione della struttura.</p>
-      
-      <section>
-        <h3>Vantaggi</h3>
-        <p>Migliorano l'accessibilità, il posizionamento SEO e la leggibilità del codice.</p>
-      </section>
+    <main>
+      <article id="html">
+        <h2>Elementi Semantici</h2>
+        <p>I tag semantici arricchiscono la comprensione della struttura.</p>
 
-      <section>
-        <h3>Svantaggi</h3>
-        <p>Nessuno svantaggio documentato: sono lo standard dell'HTML moderno.</p>
-      </section>
-    </article>
-  </main>
+        <section>
+          <h3>Vantaggi</h3>
+          <p>
+            Migliorano l'accessibilità, il posizionamento SEO e la leggibilità
+            del codice.
+          </p>
+        </section>
 
-  <aside>
-    <h4>Link Utili</h4>
-    <ul>
-      <li><a href="https://developer.mozilla.org">Documentazione MDN</a></li>
-      <li><a href="https://whatwg.org">WHATWG Living Standard</a></li>
-    </ul>
-  </aside>
+        <section>
+          <h3>Svantaggi</h3>
+          <p>
+            Nessuno svantaggio documentato: sono lo standard dell'HTML moderno.
+          </p>
+        </section>
+      </article>
+    </main>
 
-  <footer>
-    <p>&copy; 2026 Corso di Tecnologie Web - Tutti i diritti riservati.</p>
-  </footer>
-</body>
+    <aside>
+      <h4>Link Utili</h4>
+      <ul>
+        <li><a href="https://developer.mozilla.org">Documentazione MDN</a></li>
+        <li><a href="https://whatwg.org">WHATWG Living Standard</a></li>
+      </ul>
+    </aside>
+
+    <footer>
+      <p>&copy; 2026 Corso di Tecnologie Web - Tutti i diritti riservati.</p>
+    </footer>
+  </body>
 </html>
 ```
 
@@ -935,9 +989,10 @@ Nelle vecchie versioni di HTML, la suddivisione della pagina veniva affidata uni
 
 ## 11. Browser Developer Tools (F12)
 
-Tutti i moderni browser (Firefox, Chrome, Edge, Safari) integrano strumenti avanzati dedicati allo sviluppo e al debugging (*DevTools*), richiamabili premendo il tasto **`F12`** (o `Ctrl+Shift+I` / `Cmd+Option+I`).
+Tutti i moderni browser (Firefox, Chrome, Edge, Safari) integrano strumenti avanzati dedicati allo sviluppo e al debugging (_DevTools_), richiamabili premendo il tasto **`F12`** (o `Ctrl+Shift+I` / `Cmd+Option+I`).
 
 ### Pannelli Principali:
+
 1. **Inspector / Analisi Pagina (DOM Tree)**:
    - Permette di esplorare l'albero DOM in tempo reale.
    - Consente di modificare al volo elementi HTML, attributi e stili CSS per testare cambiamenti grafici senza ricaricare il server.

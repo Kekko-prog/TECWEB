@@ -3,7 +3,19 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+img{
+  width: 650px;
+}
+.gradient{
+  background-image: linear-gradient(#cc0000, #5c5c8a);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text; /*da studiare*/
+  
+}
+.login-box {
+  scale: 170%;
+}
 body {
   min-height: 100vh;
   background: linear-gradient(to bottom, #0b0b2b, #1b2735 70%, #090a0f);

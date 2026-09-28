@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <script src="script.js"></script>
+        <meta charset="UTF-8">   
+        <script src="shop.js" defer></script> <!--studiare defer-->
         <link rel="stylesheet" href="style.css">
-        <meta charset="UTF-8">
+        <meta name="viewport">
         <title>AKINFORMATICA S.p.a</title>
     </head>
 
     <body>
 
-        <h1>AK INFORMATIFCA</h1>
+        <h1 id="titolo">AK INFORMATIFCA</h1>
 
         <nav class="navigationbar">
-            <a href="#Periferiche">| Reparto Periferiche |</a>
-            <a href="#Schede-Video">| Reparto Schede Video |</a>
-            <a href="#Processori">| Reparto Processori |</a>
-            <a href="#Schede-Madri">| Reparto Schede Madri |</a>
-            <a href="#Alimentatori">| Reparto Alimentatori  |</a>
+            <a href="#periferiche">| Reparto Periferiche |</a>
+            <a href="#schede-video">| Reparto Schede Video |</a>
+            <a href="#processori">| Reparto Processori |</a>
+            <a href="#schede-madri">| Reparto Schede Madri |</a>
+            <a href="#alimentatori">| Reparto Alimentatori  |</a>
             <a href="#ssd">| Reparto ssd |</a>
-            <a href="#HardDisk">| Reparto HardDisk |</a>
+            <a href="#harddisk">| Reparto HardDisk |</a>
 
         </nav>
 
@@ -38,7 +39,7 @@
         </section>
         -->
 
-        <section id="Periferiche">
+        <section id="periferiche">
             <h2>Reparto Periferiche </h2>
             <br>
             <br>
@@ -65,85 +66,127 @@
         </section>
         
 
-        <section id="Schede-Video">
+        <section id="schede-video">
             <h2> Reparto Schede Video</h2>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+            
+            <div class="riga-foto">
+                <div class="prodotto">
+                    <img src="img/GPU/amd-rx-7600.webp" alt="AMD RX 7600">
+                    <p>AMD RX 7600</p>
+                </div>
+
+                <div class="prodotto">
+                <img src="img/GPU/amd-rx-7800-xt.webp" alt="AMD RX 7800 XT">
+                <p>AMD RX 7800 XT</p>
+                </div>
+
+                <div class="prodotto">
+                <img src="img/GPU/nvidia-rtx-3050.webp" alt="NVIDIA RTX 3050">
+                <p>NVIDIA RTX 3050</p>
+                </div>
+
+                <div class="prodotto">
+                <img src="img/GPU/nvidia-rtx-4060.webp" alt="NVIDIA RTX 4060">
+                <p>NVIDIA RTX 4060</p>
+                </div>
+
+                <div class="prodotto">
+                <img src="img/GPU/nvidia-rtx-4070-super.webp" alt="NVIDIA RTX 4070 SUPER">
+                <p>NVIDIA RTX 4070 SUPER</p>
+                </div>
+
+                <div class="prodotto">
+                <img src="img/GPU/nvidia-rtx-4080-super.webp" alt="NVIDIA RTX 4080 SUPER">
+                <p>NVIDIA RTX 4080 SUPER</p>
+                </div>
+
+                <div class="prodotto">
+                <img src="img/GPU/nvidia-rtx-4090.webp" alt="NVIDIA RTX 4090">
+                <p>NVIDIA RTX 4090</p>
+                </div>
+            </div>
             <!---->
         </section>
 
-        <section id="Processori">
+        <section id="processori">
             <h2>Reparto Processori</h2>
-                        <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <!---->
+            
+            <div class="riga-foto">
+                <div class="prodotto">
+                    <img src="img/CPU/amd-ryzen-5-7600x.webp" alt="amd-ryzen-5-7600x">
+                    <p>AMD RYZEN 5 7600X</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/CPU/amd-ryzen-7-7800x3d.webp" alt="amd-ryzen-7-7800x3d">
+                    <p>AMD RYZEN 7 7800X3D</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/CPU/amd-ryzen-9-7950x.webp" alt="amd-ryzen-9-7950x">
+                    <p>AMD RYZEN 9 7950X</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/CPU/intel-i3-13100.webp" alt="intel-i3-13100">
+                    <p>INTEL I3 13100</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/CPU/intel-i5-14600k.webp" alt="intel-i5-14600k">
+                    <p>INTEL I5 14600K</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/CPU/intel-i7-14700k.webp" alt="intel-i7-14700k">
+                    <p>INTEL I7 14700K</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/CPU/intel-i9-14900k.webp" alt="intel-i9-14900k">
+                    <p>INTEL I9 14900K</p>
+                </div>
+            </div>
+            
         </section>
 
-        <section id="Schede-Madri">
+        <section id="schede-madri">
             <h2>Reparto Schede Madri</h2>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <!---->
+            <div class="riga-foto">
+                <div class="prodotto">
+                    <img src="img/MOBO/atx-x670e.webp" alt="atx-x670e">
+                    <p>atx-x670e</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/MOBO/atx-z790.webp" alt="atx-z790">
+                    <p>atx-z790</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/MOBO/entry-h610.webp" alt="entry-h610">
+                    <p>entry-h610</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/MOBO/microatx-b650.webp" alt="microatx-b650">
+                    <p>microatx-b650</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/MOBO/microatx-b760.webp" alt="microatx-b760">
+                    <p>microatx-b760</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/MOBO/minitx-b760.webp" alt="minitx-b760">
+                    <p>minitx-b760</p>
+                </div>
+            </div>
+            
         </section>
     
-        <section id="Alimentatori">
+        <section id="alimentatori">
             <h2>Reparto Alimentatori</h2>
             <br>
             <br>
@@ -195,32 +238,45 @@
             <!---->
         </section>
 
-        <section id="HardDisk">
+        <section id="harddisk">
             <h2>Reparto HardDisk</h2>
-                        <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <!---->
+            <div class="riga-foto">
+                <div class="prodotto">
+                    <img src="img/HDD/1tb-7200rpm.webp" alt="1tb-7200rpm">
+                    <p>1tb-7200rpm</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/HDD/2tb-7200rpm.webp" alt="2tb-7200rpm">
+                    <p>2tb-7200rpm</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/HDD/4tb-5400rpm.webp" alt="4tb-5400rpm">
+                    <p>4tb-5400rpm</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/HDD/8tb-nas.webp" alt="8tb-nas">
+                    <p>8tb-nas</p>
+                </div>
+
+                <div class="prodotto">
+                    <img src="img/HDD/12tb-nas.webp" alt="12tb-nas">
+                    <p>12tb-nas</p>
+                </div>
+            </div>
         </section>
-    
+        
+        <footer>
+            <p class="footer">
+                &copy; 2026 AK INFORMATICA TECH S.P.A.
+                &middot; P.IVA / C.F. 03172330163 <!--valori casuali da modificare-->
+                &middot; REA BG-355654 <!--valori casuali da modificare-->
+                &middot; CAP. SOC. <!--valori casuali da modificare-->
+                &euro;100.000 i.v. <!--valori casuali da modificare-->
+            </p>
+        </footer>
     
     </body>
 

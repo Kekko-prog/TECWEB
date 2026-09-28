@@ -2,11 +2,30 @@
 html {
     scroll-behavior: smooth;
 }
-
+.footer{
+    text-align: center;
+}
 .navigationbar {
     position: sticky;
     top: 0; 
     background-color: white; 
     padding: 10px;
     border-bottom: 2px solid black;
+}
+
+
+#schede-video {
+    
+}
+.riga-foto {
+    display: flex;
+    gap: 30px;
+}
+
+.prodotto {
+    text-align: center;
+}
+
+#titolo {
+    cursor: pointer;
 }
