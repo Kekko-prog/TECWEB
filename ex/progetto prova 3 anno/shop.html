@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">   
         <script src="shop.js" defer></script> <!--studiare defer-->
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="shop.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>AKINFORMATICA S.p.a</title>
     </head>
@@ -31,14 +31,38 @@
             il nostro catalogo offre soluzioni per ogni esigenza.<br>
             Prestazioni, affidabilità e passione per la tecnologia</p>
         
-    
-        <!--
-        <section id="componenti">
-            <h2>Reparto Componenti PC</h2>
-             qua ci andranno determinate foto
-        </section>
-        -->
+        <!--sezione filtri-->
 
+        <hr class="linea-divisoria">    
+        <h3 class="filtro titolo"><em><strong>Filtri</strong></em></h3>
+        <div class="sezione-filtri">
+            
+            <div class="gruppo-filtri">
+                <span class="titolo-filtro">Categoria:</span>
+                <label class="filtro-label">
+                    <input type="checkbox" name="categoria" value="schede-video" class="filtro-checkbox"> GPU (Schede Video)
+                </label>
+                <label class="filtro-label">
+                    <input type="checkbox" name="categoria" value="processori" class="filtro-checkbox"> CPU (Processori)
+                </label>
+            </div>
+            <div class="gruppo-filtri">
+                <span class="titolo-filtro">Marca:</span>
+                <label class="filtro-label">
+                    <input type="checkbox" name="marca" value="amd" class="filtro-checkbox"> AMD
+                </label>
+                <label class="filtro-label">
+                    <input type="checkbox" name="marca" value="intel" class="filtro-checkbox"> Intel
+                </label>
+                <label class="filtro-label">
+                    <input type="checkbox" name="marca" value="nvidia" class="filtro-checkbox"> NVIDIA
+                </label>
+            </div>
+        </div>
+        <hr class="linea-divisoria"> 
+
+
+        <!--sezione categorie prodotti-->
         <section id="periferiche">
             <h2>Reparto Periferiche </h2>
             <br>

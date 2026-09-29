@@ -1,0 +1,89 @@
+
+html {
+    scroll-behavior: smooth;
+}
+
+.footer{
+    text-align: center;
+}
+
+section {
+    scroll-margin-top: 5rem;
+}
+
+.navigationbar {
+    position: sticky;
+    top: 0; 
+    background-color: white; 
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
+
+.riga-foto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.prodotto {
+    text-align: center;
+}
+
+#titolo {
+    cursor: pointer;
+    position: sticky;
+}
+
+h3{ /*da modificare perche non funziona*/
+    align-content: center;
+}
+
+.prodotto img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}
+
+/*sezione filtri*/
+.sezione-filtri {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+    margin: 20px auto;
+    padding: 15px 25px;
+    background-color: #f7f7f7;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    max-width: 850px;
+    flex-wrap: wrap;
+}
+.gruppo-filtri {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.titolo-filtro {
+    font-weight: bold;
+    color: #0f1111;
+}
+.filtro-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    user-select: none;
+}
+.filtro-label:hover {
+    color: #007185;
+}
+
+.linea-divisoria {
+    border: none;
+    border-top: 2px solid #ccc;
+    margin: 20px 0;
+}
+
+
