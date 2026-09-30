@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appunti Tecnologie Web - JavaScript</title>
+  <style>
+:root {
+  --bg-color: #ffffff;
+  --text-color: #24292f;
+  --heading-color: #1f2328;
+  --border-color: #d0d7de;
+  --code-bg: #f6f8fa;
+  --accent-color: #0969da;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text-color);
+  background-color: #f6f8fa;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #24292e;
+  color: white;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.top-bar h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.print-btn {
+  background: #2ea44f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.print-btn:hover {
+  background: #2c974b;
+  transform: translateY(-1px);
+}
+
+.tips-box {
+  background: #fff8c5;
+  color: #573a08;
+  border-left: 5px solid #d4a72c;
+  padding: 14px 20px;
+  font-size: 14px;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.document-container {
+  max-width: 900px;
+  margin: 20px auto 60px auto;
+  background: white;
+  padding: 50px 60px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--heading-color);
+  font-weight: 600;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.3;
+}
+
+h1 {
+  font-size: 2.2em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid var(--border-color);
+  margin-top: 0;
+}
+
+h2 {
+  font-size: 1.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+h3 {
+  font-size: 1.3em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+hr {
+  height: 2px;
+  background-color: var(--border-color);
+  border: none;
+  margin: 28px 0;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  border: 1px solid #e1e4e8;
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.45;
+  margin-bottom: 18px;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+  display: table;
+}
+
+th, td {
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  text-align: left;
+}
+
+th {
+  background-color: #f6f8fa;
+  font-weight: 600;
+}
+
+tr:nth-child(even) td {
+  background-color: #fafbfc;
+}
+
+blockquote {
+  border-left: 4px solid #0969da;
+  padding: 10px 18px;
+  margin: 18px 0;
+  background: #f0f7ff;
+  color: #1f2328;
+  border-radius: 0 6px 6px 0;
+}
+
+ul, ol {
+  padding-left: 28px;
+  margin-bottom: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Stili Ottimizzati per Stampa & PDF */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 10.5pt;
+    line-height: 1.45;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .document-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* Evita che i titoli rimangano orfani a fine pagina */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    break-after: avoid;
+    color: #000000 !important;
+  }
+
+  /* Evita tagli a metà per tabelle, blocchi di codice, liste e citazioni */
+  pre, code, table, blockquote, tr, ul, ol, dl {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  pre {
+    border: 1px solid #d0d7de !important;
+    background: #f6f8fa !important;
+    color: #000 !important;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  th {
+    background-color: #f0f2f5 !important;
+    color: #000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  blockquote {
+    border-left: 4px solid #0969da !important;
+    background: #f0f7ff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="top-bar no-print">
+    <h2>Appunti Tecnologie Web - JavaScript</h2>
+    <button class="print-btn" onclick="window.print()">&#128424;&#65039; Stampa / Salva in PDF</button>
+  </div>
+
+  <div class="tips-box no-print">
+    <strong>&#128161; Per una stampa perfetta (senza scritte o tagli strani):</strong><br>
+    Nella schermata di stampa del browser:
+    <br>&bull; <strong>Deseleziona</strong> <em>"Intestazioni e pi&egrave; di pagina"</em> (toglie la data, il link del file e il percorso dai bordi).
+    <br>&bull; <strong>Seleziona</strong> <em>"Grafica di sfondo"</em> (mantiene i colori e i box formattati).
+  </div>
+
+  <main class="document-container">
+    <h1>JavaScript - Parte I</h1>
+<p>Questi appunti coprono la <strong>Parte I</strong> della lezione su JavaScript: come si include il linguaggio in una pagina web, come si dichiarano le variabili, come funzionano funzioni e oggetti. Moduli, asincronia e manipolazione del DOM arriveranno nelle lezioni successive.</p>
+<p>Sono pensati per chi <strong>arriva da Java</strong>: conosci già variabili, cicli, funzioni e oggetti, ma non hai mai scritto una riga di JavaScript. Questo è esattamente il punto di partenza giusto, perché JavaScript <strong>assomiglia a Java solo in superficie</strong>. La sintassi dei cicli e degli <code>if</code> è praticamente identica, quindi ti sembrerà tutto familiare — ma sotto ci sono differenze profonde che, se non le conosci, ti faranno sembrare il codice "rotto" senza capire perché.</p>
+<p>Per questo motivo, ogni volta che una cosa funziona diversamente da come ti aspetteresti, lo troverai scritto esplicitamente.</p>
+<hr />
+<h2>0. Da Java a JavaScript: cosa cambia davvero</h2>
+<p>Prima di entrare nel dettaglio, conviene mettere sul tavolo le differenze strutturali. Se tieni a mente questa tabella, il resto della lezione risulterà molto più prevedibile.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Aspetto</th>
+<th style="text-align: left;">Java</th>
+<th style="text-align: left;">JavaScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tipizzazione</strong></td>
+<td style="text-align: left;">Statica: il tipo si dichiara e non cambia mai (<code>int x = 5;</code>)</td>
+<td style="text-align: left;">Dinamica/debole: non si dichiara il tipo, e una variabile può cambiarlo nel tempo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dichiarazione variabili</strong></td>
+<td style="text-align: left;"><code>int x = 5;</code> / <code>final int Y = 7;</code></td>
+<td style="text-align: left;"><code>let x = 5;</code> / <code>const Y = 7;</code> — <strong>senza tipo</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dove vive il codice</strong></td>
+<td style="text-align: left;">Classe con <code>public static void main</code></td>
+<td style="text-align: left;">Sequenza di istruzioni in un file <code>.js</code>, oppure dentro <code>&lt;script&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Compilazione</strong></td>
+<td style="text-align: left;">Compilato in bytecode, errori a compile-time</td>
+<td style="text-align: left;">Interpretato dal motore JS, errori (per lo più) a runtime</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Funzioni</strong></td>
+<td style="text-align: left;">Metodi dentro una classe</td>
+<td style="text-align: left;">Cittadini di prima classe: si assegnano a variabili e si passano come valori</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Oggetti</strong></td>
+<td style="text-align: left;">Si creano solo istanziando una classe</td>
+<td style="text-align: left;">Si creano "a mano" con <code>{}</code> — la classe è opzionale</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>this</code></strong></td>
+<td style="text-align: left;">Sempre l'istanza corrente, deciso a compile-time</td>
+<td style="text-align: left;">Deciso <strong>a runtime</strong>, dipende da <em>come</em> la funzione viene chiamata</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Uguaglianza</strong></td>
+<td style="text-align: left;"><code>==</code> sui primitivi confronta il valore, sugli oggetti la referenza</td>
+<td style="text-align: left;"><code>===</code> confronta valore <em>e</em> tipo; <code>==</code> fa conversioni implicite</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Diviso zero</strong></td>
+<td style="text-align: left;"><code>ArithmeticException</code></td>
+<td style="text-align: left;">Nessun errore: restituisce <code>Infinity</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Valore "assente"</strong></td>
+<td style="text-align: left;"><code>null</code> (+ <code>NullPointerException</code> se lo usi male)</td>
+<td style="text-align: left;"><code>undefined</code> e <code>null</code> (due cose distinte)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Accesso a proprietà inesistente</strong></td>
+<td style="text-align: left;">Errore di compilazione</td>
+<td style="text-align: left;"><code>undefined</code>, <strong>nessun errore</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Il filo conduttore è uno solo: <strong>Java è rigido e ti protegge dagli errori; JavaScript è permissivo e si fida di te</strong>. Quasi tutto ciò che in Java è un errore di compilazione, in JavaScript o è silenziosamente legale o esplode a runtime quando meno te lo aspetti.</p>
+<hr />
+<h2>1. Perché esiste JavaScript</h2>
+<h3>Il problema che risolve</h3>
+<p>Con HTML definiamo la <strong>struttura</strong> di una pagina e con CSS il suo <strong>aspetto</strong> — ma una pagina HTML da sola è <strong>statica</strong>. Una volta che il server ci ha mandato l'HTML, quel contenuto non cambia più: resta identico finché non ricarichi la pagina. Non c'è modo, con i soli HTML e CSS, di far comparire un messaggio dopo che l'utente clicca un bottone, o di validare un form mentre lo si compila.</p>
+<p>JavaScript nasce esattamente per colmare questa lacuna: è il linguaggio che viene <strong>eseguito dentro il browser</strong> e che permette alla pagina di <strong>reagire</strong> — di cambiare mentre la stai guardando. Questa è la differenza concettuale più importante da fissare: HTML e CSS <em>descrivono</em>, JavaScript <em>esegue</em>.</p>
+<h3>Cos'è, tecnicamente</h3>
+<ul>
+<li>È un linguaggio <strong>ad alto livello</strong>, <strong>debolmente tipizzato</strong> (<em>loosely-typed</em>) e di <strong>scripting</strong>.</li>
+<li>È stato introdotto dal browser <strong>Netscape</strong> nel <strong>1995</strong>.</li>
+<li>È stato progettato per essere incluso nelle pagine web ed eseguito <strong>all'interno del browser</strong>, con l'obiettivo di rendere i documenti HTML più <strong>dinamici</strong>.</li>
+<li>I programmi JavaScript (detti <strong>script</strong>) sono <strong>interpretati come testo semplice</strong> dal <strong>JS Engine</strong>, il motore JavaScript del browser.</li>
+</ul>
+<p>Il termine "debolmente tipizzato" merita una precisazione, perché è il cuore della differenza con Java. In Java scrivi <code>int x = 5;</code> e da quel momento <code>x</code> è un intero per sempre: se provi ad assegnargli <code>"ciao"</code>, il compilatore ti ferma. In JavaScript scrivi <code>let x = 5;</code> e <code>x</code> è semplicemente "la scatola in cui ho messo 5". Nulla vieta, due righe dopo, di scrivere <code>x = "ciao"</code> e poi <code>x = false</code>. La variabile non ha un tipo: <strong>ce l'ha il valore che contiene in quel momento</strong>.</p>
+<blockquote>
+<p><strong>Perché è importante:</strong> in Java il compilatore è il tuo primo revisore di codice. In JavaScript quel revisore non esiste. Molti errori che in Java scopri mentre scrivi, qui li scopri quando l'utente sta già usando la pagina. È il motivo per cui più avanti troverai così tanti avvertimenti sulla disciplina da tenere.</p>
+</blockquote>
+<h3>JavaScript oggi</h3>
+<p>Vale la pena sapere che JavaScript ha da tempo superato i confini del browser. Oggi viene usato anche per <strong>software backend</strong>, applicazioni <strong>desktop</strong> e <strong>mobile</strong>, e scripting generico. È il <strong>linguaggio di programmazione più popolare</strong> al mondo: nel <strong>2023</strong> era usato dal <strong>66%</strong> degli sviluppatori professionisti secondo il sondaggio StackOverflow.</p>
+<p>Tecnicamente, JavaScript <strong>implementa la specifica ECMAScript</strong>, lo standard mantenuto da ECMA International. È per questo che nei nomi delle versioni sentirai parlare di "ECMAScript 5", "ECMAScript 6" o "ES6": è il nome dello <em>standard</em>, mentre "JavaScript" è il nome del <em>linguaggio</em> che lo implementa.</p>
+<hr />
+<h2>2. Includere JavaScript in una Pagina Web</h2>
+<p>Prima ancora di scrivere codice, serve capire dove va messo. Esistono <strong>due modi</strong>, e vale la pena conoscerli entrambi perché li incontrerai entrambi.</p>
+<h3>JavaScript interno</h3>
+<p>Il codice viene scritto direttamente nella pagina, dentro un elemento <code>&lt;script&gt;</code>, che puoi mettere nel <code>&lt;head&gt;</code> oppure nel <code>&lt;body&gt;</code>:</p>
+<pre><code class="language-html">&lt;script&gt;
+  console.log(&quot;Hello World!&quot;);
+&lt;/script&gt;
+</code></pre>
+<p>Il tag <code>&lt;script&gt;</code> è l'equivalente, per JavaScript, di quello che in Java sarebbe il <code>main</code>: è il punto in cui il motore del browser capisce "da qui in poi c'è codice da eseguire". La funzione <code>console.log()</code> è invece il tuo <code>System.out.println()</code>: serve a stampare qualcosa sulla console del browser (la apri con <code>F12</code> → <em>Console</em>). La useremo in tutti gli esempi.</p>
+<h3>JavaScript esterno</h3>
+<p>In alternativa, il codice sta in un file separato con estensione <strong><code>.js</code></strong>, e viene collegato tramite l'attributo <code>src</code>:</p>
+<pre><code class="language-html">&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>Questo è il modo che si usa nella pratica, per la stessa ragione per cui in Java non scrivi tutto in un unico file: separare responsabilità e poter riusare il codice. Da qui in avanti, quando negli esempi vedrai solo il codice JavaScript "nudo", immagina che sia contenuto in uno di questi due posti.</p>
+<blockquote>
+<p><strong>Nota:</strong> l'estensione <code>.js</code> non è una convenzione facoltativa — è richiesta.</p>
+</blockquote>
+<h3>Esempio completo: Hello World</h3>
+<p>Mettendo insieme i pezzi, una pagina HTML con JavaScript interno appare così:</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;JavaScript&lt;/title&gt;
+    &lt;script&gt;
+      console.log(&quot;Hello World!&quot;);
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Nota una cosa: lo <code>&lt;script&gt;</code> sta nel <code>&lt;head&gt;</code>, quindi il codice viene eseguito <strong>prima</strong> che il <code>&lt;body&gt;</code> venga costruito. Per ora non è un problema (stampiamo solo su console), ma tienilo a mente: quando in futuro il codice dovrà manipolare elementi della pagina, il <em>momento</em> in cui lo script viene eseguito diventerà cruciale.</p>
+<hr />
+<h2>3. <code>"use strict"</code>: la modalità moderna</h2>
+<p>Qui c'è una particolarità di JavaScript che in Java non ha alcun equivalente, e che è importante capire subito perché <strong>condizionerà tutti gli esempi del corso</strong>.</p>
+<p>Per molto tempo JavaScript si è evoluto <strong>senza rompere la compatibilità</strong>: venivano aggiunte nuove funzionalità, ma quelle esistenti non venivano mai toccate. Questo garantiva che le vecchie pagine continuassero a funzionare — ma aveva un costo: il linguaggio non poteva correggere i propri difetti storici.</p>
+<p>Nel <strong>2009</strong> arrivò <strong>ECMAScript 5 (ES5)</strong>, che per la prima volta <strong>modificò alcune funzionalità esistenti</strong>. Per non rompere i siti già esistenti, questi cambiamenti furono resi <strong>disattivati di default</strong>, e attivabili <strong>volontariamente</strong> tramite la direttiva <code>"use strict"</code> da mettere nella <strong>prima riga</strong> dello script:</p>
+<pre><code class="language-js">&quot;use strict&quot;;
+/* JavaScript code here */
+</code></pre>
+<p>Quando questa direttiva è attiva, il motore JavaScript applica regole <strong>più severe</strong> — rifiuta codice sciatto che altrimenti accetterebbe, e trasforma in errori alcune operazioni che in modalità normale passerebbero silenziosamente. È un po' come se, dopo anni di "fai quello che vuoi", il linguaggio ti offrisse un interruttore per dire "ok, ora avvertimi se sbaglio".</p>
+<blockquote>
+<p>⚠️ <strong>Attenzione:</strong> nel corso, salvo indicazione contraria, faremo riferimento alla versione <strong>moderna</strong> e <strong>"strict"</strong> di JavaScript. Assicurati di dichiarare <code>"use strict"</code> in cima ai tuoi script, altrimenti il comportamento di alcuni esempi non corrisponderà a quanto descritto.</p>
+</blockquote>
+<hr />
+<h2>4. Il Linguaggio: gli Statement</h2>
+<p>JavaScript supporta i paradigmi <strong>imperativo</strong>, <strong>funzionale</strong> e <strong>orientato agli oggetti</strong> — quindi la tua esperienza Java non va buttata: la parte imperativa (variabili, cicli, condizionali) la ritroverai quasi identica. In più, come vedremo, c'è una forte componente funzionale che in Java esiste solo in forma limitata (le lambda e gli stream).</p>
+<p>Un programma JavaScript è una <strong>sequenza di statement</strong> (istruzioni), composti da <strong>valori</strong>, <strong>operatori</strong>, <strong>espressioni</strong>, <strong>keyword</strong> e <strong>commenti</strong>. Nota l'assenza di un involucro: non esiste una classe, non esiste un <code>public static void main</code>. Il file è semplicemente una lista di istruzioni che vengono eseguite dall'alto verso il basso.</p>
+<p>La sintassi è <strong>simile a Java e C</strong>, ma <strong>molto più permissiva</strong>. La differenza più evidente riguarda come si separano le istruzioni: in Java ogni istruzione <em>deve</em> finire con <code>;</code>. In JavaScript i <strong>punto e virgola sono opzionali</strong>, perché gli a capo bastano a delimitare un'istruzione:</p>
+<pre><code class="language-js">//con i punti e virgola
+msg = &quot;Hello&quot;;
+num = 1;
+console.log(msg);
+
+//senza punti e virgola
+msg = &quot;Hello&quot;
+num = 1
+console.log(msg)
+
+/* statement sulla stessa riga
+   (e commento multi-linea) */
+msg=&quot;Hello&quot;; num=1; console.log(msg);
+</code></pre>
+<p>Come vedi, i commenti funzionano esattamente come in Java: <code>//</code> per la riga singola, <code>/* ... */</code> per il blocco. E come in Java, gli a capo non contano nulla per il linguaggio: puoi mettere tre istruzioni sulla stessa riga e funziona lo stesso.</p>
+<blockquote>
+<p><strong>Buona pratica:</strong> anche se sono opzionali, <strong>delimitare gli statement con il punto e virgola è preferibile</strong>. Il motivo è che JavaScript, in alcuni casi limite, indovina male dove finisce un'istruzione e ne combina due insieme, generando comportamenti difficili da diagnosticare. Scrivere sempre <code>;</code> elimina il problema alla radice. In questi appunti, quando il codice proviene dalle slide, troverai a volte l'uno a volte l'altro stile — è intenzionale, per mostrarti che entrambi sono validi.</p>
+</blockquote>
+<hr />
+<h2>5. Variabili e Scope</h2>
+<p>Questa è la sezione più importante della lezione, e anche quella in cui chi arriva da Java rischia più confusione. Il motivo è che <strong>la maggior parte dei linguaggi non ha il concetto di hoisting</strong>, e JavaScript ce l'ha — con regole diverse a seconda di come dichiari la variabile.</p>
+<p>Vale quindi la pena procedere con ordine: prima <em>come</em> si dichiara una variabile, poi <em>dove</em> quella variabile esiste (lo scope), e infine <em>quando</em> diventa utilizzabile (l'hoisting).</p>
+<h3>5.1 Il ciclo di vita di una variabile</h3>
+<p>Dichiarare una variabile in JavaScript, contrariamente a quanto si potrebbe pensare, consiste di <strong>tre fasi distinte</strong>:</p>
+<ol>
+<li><strong>Dichiarazione</strong> (<em>declaration</em>): il nome della variabile viene <strong>legato</strong> allo scope corrente. Da questo momento il motore sa che "esiste una cosa chiamata <code>x</code> qui dentro".</li>
+<li><strong>Inizializzazione</strong> (<em>initialization</em>): alla variabile viene <strong>assegnato un valore</strong>.</li>
+<li><strong>Utilizzo</strong> (<em>usage</em>): la variabile può finalmente essere <strong>referenziata</strong> per leggerne il valore.</li>
+</ol>
+<p>In Java queste tre fasi tendono a coincidere in una sola riga (<code>int x = 5;</code> fa tutto insieme), e per questo non ci si pensa mai. In JavaScript <strong>si separano</strong>, e la separazione ha conseguenze pratiche molto concrete:</p>
+<pre><code class="language-text">      Dichiarazione              Inizializzazione               Utilizzo
+   (binding nello scope)      (assegnazione del valore)    (lettura del valore)
+             |                           |                          |
+             v                           v                          v
+   ----------+---------------------------+--------------------------+--------&gt; tempo
+             |&lt;---- Temporal Dead Zone (TDZ) ----&gt;|
+             |                                    |
+    variabile inaccessibile            variabile accessibile
+    fino all'inizializzazione
+</code></pre>
+<p>La zona tratteggiata nel diagramma ha un nome preciso: <strong>Temporal Dead Zone (TDZ)</strong>. È l'intervallo in cui la variabile <strong>esiste già</strong> (la dichiarazione è avvenuta) ma <strong>non è ancora utilizzabile</strong> (l'inizializzazione non è ancora avvenuta). Se provi a leggerla in quel momento, ottieni un errore.</p>
+<p>Tieni a mente questo diagramma, perché è la chiave per capire tutto il resto della sezione: hoisting e TDZ sono due facce della stessa medaglia.</p>
+<hr />
+<h3>5.2 Dichiarare variabili: <code>let</code> e <code>const</code></h3>
+<p>Nel JavaScript moderno le variabili si dichiarano con due keyword:</p>
+<ul>
+<li><strong><code>let</code></strong> per le variabili "standard", quelle che possono cambiare valore.</li>
+<li><strong><code>const</code></strong> per le costanti, che <strong>non possono essere riassegnate</strong>.</li>
+</ul>
+<pre><code class="language-js">let x;
+const y = 42;
+console.log(x); //output: undefined
+console.log(y); //output: 42
+</code></pre>
+<p>Il primo punto da notare è quello che <strong>non</strong> c'è: <strong>il tipo</strong>. In Java scriveresti <code>int x;</code> o <code>final int y = 42;</code>. Qui la keyword non dichiara <em>che tipo di dato</em> conterrà la variabile — dichiara soltanto <em>quanto sarà flessibile</em>. Quindi <code>let</code> assomiglia al <code>int</code>/<code>String</code>/ecc. di Java nel senso che è una variabile riassegnabile, e <code>const</code> assomiglia a <code>final</code> nel senso che è una variabile bloccata.</p>
+<p>Il secondo punto è il valore <code>undefined</code>. In Java, una variabile locale dichiarata e non inizializzata <strong>non è utilizzabile</strong>: il compilatore ti blocca se provi a leggerla. In JavaScript, <code>let x;</code> è perfettamente legale e <code>x</code> vale <strong><code>undefined</code></strong> — un valore speciale che significa "dichiarata, ma nessun valore assegnato". Questo è il primo assaggio della filosofia permissiva del linguaggio: dove Java ti ferma, JavaScript ti dà <code>undefined</code> e va avanti.</p>
+<hr />
+<h3>5.3 Lo scope: dove una variabile esiste</h3>
+<p>Prima di parlare di <code>let</code>, <code>const</code> e <code>var</code>, serve sapere <em>dove</em> una variabile vive. JavaScript ha <strong>tre livelli di scope</strong>:</p>
+<ul>
+<li><strong>Global Scope</strong>: lo scope di tutto il programma.</li>
+<li><strong>Function Scope</strong>: lo scope di una funzione (lo vedremo tra qualche sezione).</li>
+<li><strong>Module Scope</strong>: lo scope di un modulo (lo vedremo nella prossima lezione).</li>
+</ul>
+<p>In aggiunta, le variabili dichiarate con <code>let</code> e <code>const</code> possono avere:</p>
+<ul>
+<li><strong>Block-level scope</strong>, ovvero lo scope del <strong>blocco più vicino</strong> delimitato da una coppia di parentesi graffe <code>{}</code>.</li>
+</ul>
+<p>Il <strong>block-level scope</strong> è quello che ti aspetti da Java: una variabile dichiarata dentro un <code>if</code>, un <code>for</code> o un blocco <code>{}</code> <strong>esiste solo lì dentro</strong>. Se in Java scrivi:</p>
+<pre><code class="language-java">if (true) {
+    int msg = 5;
+}
+System.out.println(msg); // errore di compilazione
+</code></pre>
+<p>il compilatore si lamenta. In JavaScript <strong>con <code>let</code> e <code>const</code> si comporta allo stesso modo</strong> — ed è una buona notizia, perché significa che il tuo istinto Java qui funziona. Ma attenzione: questo vale <em>solo</em> per <code>let</code> e <code>const</code>, <strong>non</strong> per <code>var</code>, come vedremo tra poco.</p>
+<hr />
+<h3>5.4 <code>let</code> e il block scope</h3>
+<p>Vediamo la regola in azione:</p>
+<pre><code class="language-js">let bool; //variable declaration
+bool = true;
+if (bool) {
+  //console.log(msg);//msg not accessible here
+  let msg = &quot;Hello&quot;; //declaration + assignment
+  console.log(msg); //output: Hello
+}
+//console.log(msg); //msg not defined here
+console.log(bool); //output: true
+</code></pre>
+<p>Le due righe commentate sono il punto centrale dell'esempio, e vale la pena leggerle con attenzione:</p>
+<ul>
+<li>La prima (<code>console.log(msg);</code> <em>dentro</em> l'<code>if</code>, ma <em>prima</em> della dichiarazione) fallirebbe: stiamo cercando di usare <code>msg</code> nella sua <strong>TDZ</strong>, prima che l'inizializzazione avvenga.</li>
+<li>La seconda (<code>console.log(msg);</code> <em>fuori</em> dall'<code>if</code>) fallirebbe perché <code>msg</code> è <strong>uscita dallo scope</strong>: esisteva solo dentro il blocco.</li>
+</ul>
+<p>Quindi, riassumendo la regola: le variabili dichiarate con <code>let</code>/<code>const</code> sono confinate al <strong>blocco più vicino</strong>, e sono accessibili <strong>solo dopo</strong> che la riga in cui sono dichiarate è stata eseguita. È esattamente il comportamento a cui Java ti ha abituato — con l'unica aggiunta della TDZ, che in Java semplicemente non esiste perché lì il compilatore blocca tutto a monte.</p>
+<hr />
+<h3>5.5 Hoisting e Temporal Dead Zone</h3>
+<p>Arriviamo al concetto che non ha <strong>nessun</strong> equivalente in Java, e che quindi richiede un attimo di pazienza.</p>
+<p>Il punto di partenza è questo comportamento del motore JavaScript: prima di eseguire un blocco di codice, il motore lo <strong>scansiona</strong> e "tira su" (<em>hoists</em>) tutte le dichiarazioni che trova, spostandole virtualmente all'inizio del loro scope. Questa è la definizione di <strong>hoisting</strong>.</p>
+<p>Il problema è che <em>cosa</em> viene tirato su dipende da come hai dichiarato la variabile:</p>
+<ul>
+<li>Con <code>let</code> e <code>const</code>, <strong>solo la dichiarazione</strong> viene hoisted all'inizio dello scope, <strong>non l'inizializzazione</strong>.</li>
+<li>L'inizializzazione avviene <strong>sulla riga</strong> in cui originariamente avevi scritto la dichiarazione.</li>
+</ul>
+<p>Il risultato è la TDZ: dal punto di vista del motore, la variabile "esiste" fin dall'inizio del blocco (perché la dichiarazione è stata tirata su), ma <strong>non è ancora inizializzata</strong> fino alla riga originale. In quell'intervallo, leggerla è un errore.</p>
+<p>Vediamo l'esempio, che è la rappresentazione più chiara di tutto questo:</p>
+<pre><code class="language-js">// x variable not defined
+{
+  // Declaration for x is hoisted here
+  // TDZ for the x variable
+  console.log(x); //raises error
+  // TDZ for the x variable
+  let x = 1;
+  // TDZ ends, x initialized
+  // x variable initialized to 1
+}
+// x variable not defined
+</code></pre>
+<p>L'errore prodotto è:</p>
+<pre><code class="language-text">ReferenceError: can't access lexical declaration 'x' before initialization
+</code></pre>
+<p>Leggiamo i commenti del codice come se fossero una mappa:</p>
+<pre><code class="language-text">{
+  // --- INIZIO BLOCCO ---
+  // La DICHIARAZIONE di x viene hoisted qui
+  // &gt;&gt;&gt; INIZIA LA TDZ DI x &lt;&lt;&lt;
+  console.log(x);   // ❌ ReferenceError
+  // &gt;&gt;&gt; FINE DELLA TDZ &lt;&lt;&lt;
+  let x = 1;        // inizializzazione (avviene QUI, non all'inizio)
+  // da questo punto x è utilizzabile
+}
+</code></pre>
+<p>Nota la stranezza: la riga <code>console.log(x)</code> viene <strong>prima</strong> del <code>let x = 1</code>, e in Java una cosa del genere non compilerebbe nemmeno. Qui invece il codice viene eseguito, arriva alla <code>console.log</code>, e solo <em>a runtime</em> scopre che <code>x</code> è nella sua TDZ. Il messaggio d'errore è peraltro molto esplicito ("non puoi accedere a una dichiarazione lessicale prima della sua inizializzazione"), e vale la pena saperlo riconoscere perché è un errore che farai.</p>
+<blockquote>
+<p><strong>Il senso di tutto questo:</strong> l'hoisting con TDZ è stato progettato <strong>apposta</strong> per rendere <code>let</code>/<code>const</code> più sicuri di <code>var</code>. L'idea è: "meglio un errore chiaro subito, che un <code>undefined</code> silenzioso che si propaga per tutto il programma". Tra un attimo vedrai cosa fa <code>var</code> al posto di questo errore, e capirai perché è considerato una cattiva pratica.</p>
+</blockquote>
+<hr />
+<h3>5.6 <code>let</code> e lo shadowing</h3>
+<p>Un'ultima cosa su <code>let</code>, che invece ti sarà familiare: le variabili di un blocco interno possono <strong>nascondere</strong> (<em>shadowing</em>) variabili omonime di uno scope esterno.</p>
+<pre><code class="language-js">let n; //variable declaration
+n = 1;
+if (n &gt; 0) {
+  let n = 2; //shadows n variable from external scope
+  //let n; //error: cannot re-declare in the same block
+  console.log(n); //output: 2
+}
+console.log(n); //output: 1
+</code></pre>
+<p>Il meccanismo è quello che conosci: dentro l'<code>if</code> c'è una <strong>nuova</strong> variabile <code>n</code>, distinta da quella esterna. Il <code>console.log</code> interno stampa <code>2</code> (quella interna), quello esterno stampa <code>1</code> (quella esterna, rimasta intatta).</p>
+<p>La riga commentata evidenzia l'unica restrizione: <strong>non puoi ri-dichiarare la stessa variabile all'interno dello stesso blocco</strong>:</p>
+<pre><code class="language-js">let n; //variable declaration
+if (n &gt; 0) {
+  let n = 2;
+  let n = 3; //❌ errore: cannot re-declare in the same block
+}
+</code></pre>
+<p>Anche questo è identico a Java, dove due variabili locali con lo stesso nome nello stesso blocco sono un errore di compilazione.</p>
+<hr />
+<h3>5.7 <code>const</code></h3>
+<p>Passiamo a <code>const</code>, che è più semplice perché ha meno sorprese.</p>
+<ul>
+<li><code>const</code> dichiara <strong>costanti locali</strong> con block-level scope.</li>
+<li>Sono variabili il cui valore <strong>non può essere riassegnato</strong>.</li>
+<li>Il comportamento di hoisting è <strong>simile a <code>let</code></strong> (quindi: dichiarazione hoisted, TDZ attiva, errore se la usi troppo presto).</li>
+</ul>
+<pre><code class="language-js">const n = 42;
+console.log(n); //output: 42
+n = 43; //raises a TypeError
+</code></pre>
+<p>Il parallelismo con Java è immediato: <code>const</code> sta a JavaScript come <code>final</code> sta a Java. La differenza è nella <em>natura</em> dell'errore. In Java, riassegnare una variabile <code>final</code> è un errore che scopri <strong>compilando</strong>. In JavaScript il codice viene eseguito, arriva alla riga <code>n = 43;</code>, e solo <strong>a runtime</strong> lancia un <code>TypeError</code>.</p>
+<blockquote>
+<p>⚠️ <strong>Attenzione — una trappola che riguarda gli oggetti:</strong> <code>const</code> impedisce di <strong>riassegnare la variabile</strong>, non di <strong>modificare l'oggetto</strong> che essa referenzia. Questo è esattamente il comportamento di <code>final</code> in Java, ma è una sfumatura che inganna spesso. Se scrivi <code>const pet = { name: "Garfield" };</code>, poi <code>pet = {}</code> è vietato, ma <code>pet.name = "Odie"</code> è <strong>perfettamente legale</strong>. Il motivo è che <code>const</code> blocca il <em>riferimento</em>, non il <em>contenuto</em>. Ci torneremo nella sezione sugli oggetti.</p>
+</blockquote>
+<hr />
+<h3>5.8 <code>var</code>: come si faceva prima (e perché non si fa più)</h3>
+<p>Prima dell'introduzione di <strong>ECMAScript 6 nel 2015</strong>, le variabili si dichiaravano con la keyword <strong><code>var</code></strong>, oppure <strong>implicitamente</strong>. Queste modalità esistono ancora e le incontrerai in codice vecchio — ma sono considerate cattiva pratica.</p>
+<blockquote>
+<p>⚠️ A meno che tu non abbia davvero la necessità di supportare browser molto vecchi, <strong>non</strong> dovresti dichiarare variabili in questi modi: hanno proprietà piuttosto <strong>confuse</strong> e <strong>soggette a errori</strong>.</p>
+</blockquote>
+<p>Vediamo il primo esempio, che da solo vale come dimostrazione del problema:</p>
+<pre><code class="language-js">if (true) {
+  console.log(n);
+  var n = 1;
+}
+console.log(n);
+</code></pre>
+<p>Prova a indovinare cosa succede. In Java, <code>console.log(n)</code> (la prima riga) sarebbe un errore di compilazione: <code>n</code> non è ancora dichiarata. E il <code>console.log(n)</code> finale sarebbe anch'esso un errore: <code>n</code> è dichiarata dentro l'<code>if</code>, quindi fuori è invisibile.</p>
+<p>In JavaScript, <strong>nessuno dei due è un errore</strong>. Vediamo perché.</p>
+<hr />
+<h3>5.9 <code>var</code> e l'hoisting "completo"</h3>
+<p>Ecco la regola che spiega tutto:</p>
+<ul>
+<li>Le variabili dichiarate con <code>var</code> vengono hoisted allo <strong>scope di funzione</strong> o <strong>globale</strong> più vicino — e <strong>non hanno alcun block-level scope</strong>.</li>
+<li>E, cosa ancora più insidiosa, vengono <strong>anche inizializzate a <code>undefined</code></strong> già all'inizio dello scope.</li>
+</ul>
+<p>Rileggi quella seconda riga con attenzione, perché è <strong>il</strong> punto centrale: con <code>var</code>, non esiste TDZ. Non c'è nessuna fase in cui la variabile è "inaccessibile". Il motore la porta in cima al suo scope <strong>e ci mette dentro <code>undefined</code></strong>. Quindi è sempre accessibile — solo che prima della riga di assegnazione contiene <code>undefined</code>.</p>
+<pre><code class="language-js">if (true) {
+  console.log(n); //output: undefined
+  var n = 1;
+}
+console.log(n); //output: 1
+</code></pre>
+<p>Ora l'esempio di prima ha senso:</p>
+<ul>
+<li>Il primo <code>console.log(n)</code> <strong>non</strong> dà errore: <code>n</code> è stata hoisted a inizio scope e inizializzata a <code>undefined</code>. Stampa <code>undefined</code>.</li>
+<li>Il secondo <code>console.log(n)</code> <strong>non</strong> dà errore: nonostante <code>n</code> sia dichiarata dentro un <code>if</code>, <code>var</code> <strong>ignora il blocco</strong> e la porta allo scope esterno. Stampa <code>1</code>.</li>
+</ul>
+<p>Il secondo esempio mostra la stessa cosa da un altro angolo:</p>
+<pre><code class="language-js">var n;
+if (true) {
+  console.log(n); //output: undefined
+  n = 1;
+}
+console.log(n); //output: 1
+</code></pre>
+<p>Qui la dichiarazione è esplicita e fuori dal blocco: <code>n</code> esiste dall'inizio, vale <code>undefined</code>, e diventa <code>1</code> quando l'<code>if</code> viene eseguito.</p>
+<blockquote>
+<p><strong>Confronto diretto.</strong> Immagina di voler usare una variabile prima della sua riga di dichiarazione, dentro un blocco:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Cosa scrivi</th>
+<th style="text-align: left;">Cosa ottieni</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>let n = 1;</code> usata prima</td>
+<td style="text-align: left;">❌ <code>ReferenceError</code> (TDZ) — l'errore ti salva</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>var n = 1;</code> usata prima</td>
+<td style="text-align: left;">⚠️ <code>undefined</code> — nessun errore, il bug si propaga in silenzio</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Ecco perché il corso usa <code>let</code>/<code>const</code>. Non è una questione di stile: <code>var</code> <strong>nasconde</strong> gli errori, <code>let</code>/<code>const</code> li <strong>mostrano</strong>.</p>
+</blockquote>
+<p><strong>Riepilogo della sezione:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Aspetto</th>
+<th style="text-align: left;"><code>let</code> / <code>const</code></th>
+<th style="text-align: left;"><code>var</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Scope</strong></td>
+<td style="text-align: left;">Block-level (blocco <code>{}</code> più vicino)</td>
+<td style="text-align: left;">Function / Global (nessun block-level)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hoisting</strong></td>
+<td style="text-align: left;">Solo la <strong>dichiarazione</strong></td>
+<td style="text-align: left;">Dichiarazione <strong>+ inizializzazione a <code>undefined</code></strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Accesso prima della riga</strong></td>
+<td style="text-align: left;"><code>ReferenceError</code> (TDZ)</td>
+<td style="text-align: left;"><code>undefined</code> (nessun errore)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ri-dichiarazione</strong></td>
+<td style="text-align: left;">Vietata nello stesso blocco</td>
+<td style="text-align: left;">Consentita</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Da usare?</strong></td>
+<td style="text-align: left;">✅ Sì, sempre</td>
+<td style="text-align: left;">❌ No, solo per codice legacy</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5.10 La dichiarazione implicita</h3>
+<p>C'è un ultimo modo di creare variabili, ed è il peggiore di tutti:</p>
+<pre><code class="language-js">&quot;use strict&quot;
+msg = &quot;pls don't do this&quot;  // ReferenceError
+</code></pre>
+<p>Se usi una variabile <strong>senza mai dichiararla</strong> (nessun <code>let</code>, <code>const</code> o <code>var</code>), JavaScript — in modalità non-strict — <strong>crea automaticamente una variabile globale</strong>. Questo è pericolosissimo: una variabile globale invisibile, nata da un semplice errore di battitura, che può essere modificata da qualsiasi punto del programma.</p>
+<p>È una <strong>cattiva pratica</strong>, molto soggetta a errori, e <strong>non andrebbe mai fatto</strong>. È anche <strong>vietata nello "strict mode"</strong>, dove produce un <code>ReferenceError</code> — ed è una delle ragioni principali per cui il corso insiste sull'usare <code>"use strict"</code>: quella direttiva trasforma questo errore silenzioso in un errore esplicito.</p>
+<hr />
+<h2>6. Tipi di Dato Primitivi</h2>
+<p>Arriviamo alla tipizzazione. Come anticipato, JavaScript è <strong>debolmente tipizzato</strong>: una stessa variabile può contenere valori di tipo diverso nel tempo. L'operatore <strong><code>typeof</code></strong> ti dice che tipo ha <em>in questo momento</em> il valore contenuto in una variabile.</p>
+<pre><code class="language-js">let x; // variable declared and initialized to undefined
+console.log(typeof x); // undefined
+x = 42;
+console.log(typeof x); // number
+x = 3.14;
+console.log(typeof x); // number
+x = &quot;hello&quot;;
+console.log(typeof x); // string
+x = 'hello';
+console.log(typeof x); // string
+x = false;
+console.log(typeof x); // boolean
+x = 10e12;
+console.log(typeof x); // number
+x = 42 / 0; // Infinity
+console.log(typeof x); // number
+x = 42 * &quot;Hello&quot;; // NaN
+console.log(typeof x); // number
+</code></pre>
+<p>Questo blocco è denso di informazioni, quindi vale la pena leggerlo riga per riga. Nota innanzitutto che <code>x</code> viene <strong>riassegnata nove volte con nove tipi diversi</strong>, e nessuna di queste assegnazioni produce un errore. In Java questo codice non esisterebbe: una volta dichiarata <code>int x</code>, resterebbe <code>int</code> per sempre.</p>
+<p>Poi ci sono quattro cose che in Java <strong>non</strong> funzionano così:</p>
+<p><strong>1. <code>number</code> è un tipo solo.</strong> In Java hai <code>int</code>, <code>long</code>, <code>float</code>, <code>double</code>, <code>short</code>, <code>byte</code> — sei tipi numerici distinti, con regole di conversione precise. In JavaScript esiste un unico tipo <strong><code>number</code></strong>, che copre interi (<code>42</code>), decimali (<code>3.14</code>) e notazione esponenziale (<code>10e12</code>). Non devi più chiederti se usare <code>int</code> o <code>double</code>: usi <code>number</code> e basta.</p>
+<p><strong>2. Il tipo di una stringa non dipende dalle virgolette.</strong> <code>"hello"</code> e <code>'hello'</code> sono <strong>entrambe stringhe</strong>, esattamente equivalenti. In Java <code>"hello"</code> è una <code>String</code> e <code>'hello'</code> sarebbe un <code>char</code> (o un errore, con più caratteri). Qui le due notazioni sono intercambiabili, e in generale la scelta è stilistica.</p>
+<p><strong>3. <code>42 / 0</code> non lancia un'eccezione.</strong> In Java, dividere un intero per zero lancia <code>ArithmeticException</code>. In JavaScript <strong><code>42 / 0</code> restituisce <code>Infinity</code></strong>, un valore numerico vero e proprio. Il programma procede, e <code>typeof</code> di <code>Infinity</code> è <code>number</code>. Questo è un esempio perfetto della filosofia del linguaggio: invece di interrompere l'esecuzione con un errore, ti restituisce un valore "strano" e ti lascia andare avanti.</p>
+<p><strong>4. <code>NaN</code> è di tipo <code>number</code>.</strong> L'ultimo esempio è quello che sorprende di più: <code>42 * "Hello"</code> — moltiplicare un numero per una stringa, che in Java non compilerebbe nemmeno — produce <strong><code>NaN</code></strong> (<em>Not a Number</em>), e <code>typeof</code> di <code>NaN</code> è... <strong><code>number</code></strong>. È una contraddizione apparente che ha una spiegazione: <code>NaN</code> è il risultato di un'operazione numerica che non ha senso, quindi è categorizzato come numero "non valido". In pratica significa che per verificarlo devi usare una funzione apposita (<code>isNaN()</code>), perché <code>NaN == NaN</code> restituisce <code>false</code>.</p>
+<p><strong>Riepilogo dei tipi primitivi:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Valore</th>
+<th style="text-align: left;"><code>typeof</code></th>
+<th style="text-align: left;">Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>undefined</code></td>
+<td style="text-align: left;"><code>"undefined"</code></td>
+<td style="text-align: left;">Variabile dichiarata ma non inizializzata</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>42</code>, <code>3.14</code>, <code>10e12</code></td>
+<td style="text-align: left;"><code>"number"</code></td>
+<td style="text-align: left;">Un unico tipo numerico</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Infinity</code></td>
+<td style="text-align: left;"><code>"number"</code></td>
+<td style="text-align: left;">Risultato di <code>42 / 0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>NaN</code></td>
+<td style="text-align: left;"><code>"number"</code></td>
+<td style="text-align: left;">Risultato di operazioni senza senso</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"hello"</code>, <code>'hello'</code></td>
+<td style="text-align: left;"><code>"string"</code></td>
+<td style="text-align: left;">Virgolette doppie e singole equivalenti</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>false</code> / <code>true</code></td>
+<td style="text-align: left;"><code>"boolean"</code></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>7. Operatori</h2>
+<h3>7.1 Operatori di base</h3>
+<p>Qui non c'è quasi nulla di nuovo rispetto a Java:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Operatore</th>
+<th style="text-align: left;">Descrizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>=</code></td>
+<td style="text-align: left;">Assegnazione (<em>Assignment</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>+</code></td>
+<td style="text-align: left;">Addizione (<em>Addition</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-</code></td>
+<td style="text-align: left;">Sottrazione (<em>Subtraction</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>*</code></td>
+<td style="text-align: left;">Moltiplicazione (<em>Multiplication</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>**</code></td>
+<td style="text-align: left;">Elevamento a potenza (<em>Exponentiation</em>, da ECMAScript 2016)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>/</code></td>
+<td style="text-align: left;">Divisione (<em>Division</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>%</code></td>
+<td style="text-align: left;">Modulo (resto della divisione)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>++</code></td>
+<td style="text-align: left;">Incremento</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>--</code></td>
+<td style="text-align: left;">Decremento</td>
+</tr>
+</tbody>
+</table>
+<p>L'unica aggiunta degna di nota è <code>**</code> per l'elevamento a potenza, introdotto in <strong>ECMAScript 2016</strong>. In Java avresti scritto <code>Math.pow(2, 10)</code>; in JavaScript puoi scrivere <code>2 ** 10</code>. Tutto il resto è identico.</p>
+<hr />
+<h3>7.2 Operatori di confronto</h3>
+<p>Qui invece comincia la parte delicata. Gli operatori di confronto sono <strong>gli stessi di Java</strong>, con l'<strong>aggiunta di <code>===</code></strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Operatore</th>
+<th style="text-align: left;">Descrizione</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>==</code></td>
+<td style="text-align: left;">uguale a (<em>equal to</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>===</code></td>
+<td style="text-align: left;">uguale per valore <strong>e</strong> per tipo (<em>equal value and equal type</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>!=</code></td>
+<td style="text-align: left;">diverso (<em>not equal</em>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>!==</code></td>
+<td style="text-align: left;">diverso per valore o per tipo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&gt;</code></td>
+<td style="text-align: left;">maggiore di</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&lt;</code></td>
+<td style="text-align: left;">minore di</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&gt;=</code></td>
+<td style="text-align: left;">maggiore o uguale a</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>&lt;=</code></td>
+<td style="text-align: left;">minore o uguale a</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>?</code></td>
+<td style="text-align: left;">operatore ternario</td>
+</tr>
+</tbody>
+</table>
+<p>Il punto è che in Java hai <strong>un solo</strong> operatore <code>==</code>, e sai bene cosa fa: sui tipi primitivi confronta il valore, sugli oggetti confronta la referenza. In JavaScript hai <strong>due</strong> operatori di uguaglianza che si comportano in modo diverso, e capire la differenza è fondamentale, perché usare quello sbagliato è una delle fonti di bug più comuni.</p>
+<hr />
+<h3>7.3 L'uguaglianza debole (<code>==</code>)</h3>
+<p>L'operatore di <strong>uguaglianza debole</strong> (<code>==</code>) verifica se i suoi due operandi sono uguali. La parola chiave è "debole" perché l'operatore <strong>tenta di convertire</strong> gli operandi prima di confrontarli, se sono di tipi diversi. Questa conversione automatica si chiama <strong>type coercion</strong>.</p>
+<pre><code class="language-js">console.log(42 == 42)   //true
+console.log(&quot;JS&quot; == &quot;JS&quot;) //true
+console.log(&quot;1&quot; == 1)   //true
+console.log(0 == false)  //true
+console.log(true == 1)  //true
+console.log(true == &quot;1&quot;) //true
+console.log(true == 42)  //false
+</code></pre>
+<p>Fermati sulle righe centrali, perché sono quelle che in Java sarebbero impensabili:</p>
+<ul>
+<li><code>"1" == 1</code> è <strong><code>true</code></strong>: la stringa <code>"1"</code> viene convertita nel numero <code>1</code>, e <code>1 == 1</code>.</li>
+<li><code>0 == false</code> è <strong><code>true</code></strong>: <code>false</code> viene convertito nel numero <code>0</code>.</li>
+<li><code>true == 1</code> è <strong><code>true</code></strong>: <code>true</code> viene convertito nel numero <code>1</code>.</li>
+<li><code>true == "1"</code> è <strong><code>true</code></strong>: doppia conversione — <code>true</code> → <code>1</code>, e <code>"1"</code> → <code>1</code>.</li>
+<li><code>true == 42</code> è <strong><code>false</code></strong>: <code>true</code> diventa <code>1</code>, e <code>1 != 42</code>.</li>
+</ul>
+<p>In Java, <code>"1" == 1</code> non compilerebbe nemmeno (tipi incompatibili). In JavaScript è un'espressione legale che restituisce <code>true</code>. Il problema è che queste conversioni seguono regole complesse e poco intuitive, e affidarsi a <code>==</code> significa affidarsi a quelle regole.</p>
+<blockquote>
+<p>⚠️ <strong>Regola pratica:</strong> <strong>usa sempre <code>===</code>, mai <code>==</code></strong>. Non esiste un caso in cui <code>==</code> faccia quello che vuoi e <code>===</code> no — esistono solo casi in cui <code>==</code> fa qualcosa che non ti aspetti.</p>
+</blockquote>
+<hr />
+<h3>7.4 L'uguaglianza stretta (<code>===</code>)</h3>
+<p>L'operatore di <strong>uguaglianza stretta</strong> (<code>===</code>) verifica se i suoi due operandi sono uguali <strong>senza effettuare alcuna conversione di tipo</strong>. Se gli operandi sono di <strong>tipi diversi</strong>, il controllo restituisce <strong>immediatamente <code>false</code></strong>, senza nemmeno guardare i valori.</p>
+<pre><code class="language-js">console.log(42 === 42)   //true
+console.log(&quot;JS&quot; === &quot;JS&quot;) //true
+console.log(&quot;1&quot; === 1)   //false
+console.log(0 === false)  //false
+console.log(true === 1)  //false
+console.log(true === &quot;1&quot;) //false
+console.log(true === 42)  //false
+</code></pre>
+<p>Confronta questo blocco con quello precedente: <strong>gli stessi sette confronti</strong>, ma ora tutti i casi "strani" restituiscono <code>false</code>. <code>"1" === 1</code> è <code>false</code> perché una stringa e un numero non sono mai lo stesso tipo. <code>0 === false</code> è <code>false</code> per lo stesso motivo. Il comportamento è quello che ti aspetteresti: prevedibile, e senza sorprese.</p>
+<p><strong>Confronto affiancato:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Espressione</th>
+<th style="text-align: left;"><code>==</code></th>
+<th style="text-align: left;"><code>===</code></th>
+<th style="text-align: left;">Perché differiscono</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>42</code> vs <code>42</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;">Stesso tipo, stesso valore</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"JS"</code> vs <code>"JS"</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;">Stesso tipo, stesso valore</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>"1"</code> vs <code>1</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>==</code> converte la stringa in numero</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>0</code> vs <code>false</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>==</code> converte <code>false</code> in <code>0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>true</code> vs <code>1</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>==</code> converte <code>true</code> in <code>1</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>true</code> vs <code>"1"</code></td>
+<td style="text-align: left;"><code>true</code></td>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>==</code> converte entrambi</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>true</code> vs <code>42</code></td>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>false</code></td>
+<td style="text-align: left;"><code>==</code> converte, ma <code>1 != 42</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Nota:</strong> l'operatore <code>!==</code> è semplicemente la negazione di <code>===</code>, e vale la stessa raccomandazione: usa <code>!==</code>, non <code>!=</code>.</p>
+</blockquote>
+<hr />
+<h2>8. Control Flow</h2>
+<p>Questa è la sezione più rassicurante della lezione, perché qui <strong>non cambia nulla</strong>.</p>
+<p><code>if</code>, <code>if-else</code>, <code>for</code>, <code>while</code>, <code>do</code>, <code>switch</code> hanno la <strong>stessa sintassi e la stessa semantica di Java</strong>. Anche gli statement <code>continue</code> e <code>break</code> funzionano esattamente come in Java.</p>
+<pre><code class="language-js">if(condition){
+ //code
+}
+
+if(condition){
+ //code
+} else {
+ //code
+}
+
+do {
+ //code
+} while(condition);
+
+for(let i=0;i&lt;10;i++){
+ //code
+}
+
+while(expression){ /* code */ }
+
+switch(expression){
+ case value:
+  //code
+  break;
+ default:
+  //code
+}
+</code></pre>
+<p>Nota che nel <code>for</code> la variabile del contatore si dichiara con <code>let</code>: è il modo moderno e corretto, e sfrutta il block-level scope di cui abbiamo parlato — la variabile <code>i</code> esiste solo dentro il ciclo, esattamente come in Java.</p>
+<blockquote>
+<p><strong>Un'avvertenza per il futuro:</strong> in Java, la condizione di un <code>if</code> o di un <code>while</code> deve essere un <code>boolean</code>. In JavaScript questo vincolo non c'è: valori come <code>0</code>, <code>""</code>, <code>null</code>, <code>undefined</code> e <code>NaN</code> sono considerati <strong>falsi</strong> (<em>falsy</em>), mentre tutto il resto è considerato <strong>vero</strong> (<em>truthy</em>). Quindi <code>if ("ciao")</code> è legale e la condizione risulta vera. Questo meccanismo è comodo ma insidioso, e ci torneremo quando servirà.</p>
+</blockquote>
+<hr />
+<h2>9. Funzioni</h2>
+<p>Arriviamo alla prima vera differenza strutturale rispetto a Java, e vale la pena affrontarla con calma perché condiziona tutto il resto della lezione (compresi gli oggetti).</p>
+<p>In Java, i metodi vivono <strong>dentro una classe</strong> e appartengono a quella classe. Puoi assegnare un metodo a una variabile solo in forme limitate (lambda, method reference). In JavaScript le funzioni sono <strong>cittadini di prima classe</strong>: sono valori come i numeri e le stringhe, si assegnano a variabili, si passano come argomenti, si restituiscono da altre funzioni. Questa differenza è la radice di quasi tutto ciò che segue.</p>
+<h3>9.1 Dichiarare una funzione</h3>
+<p>La sintassi di base è questa:</p>
+<pre><code class="language-js">function greet(name){
+ console.log(`Hello ${name}`); //backticks for template literals
+}
+greet(&quot;Web Technologies&quot;); //prints &quot;Hello Web Technologies&quot;
+</code></pre>
+<p>Confrontala con Java: <code>function greet(name) { ... }</code> corrisponde a <code>void greet(String name) { ... }</code>. Nota cosa <strong>manca</strong>: il tipo di ritorno (<code>void</code>) e il tipo del parametro (<code>String</code>). In JavaScript non si dichiarano, per la stessa ragione per cui non si dichiara il tipo delle variabili.</p>
+<p>Lo <strong>scope</strong> di una dichiarazione di funzione è lo <strong>scope corrente</strong> in cui la dichiarazione avviene — ed è una cosa a cui torneremo tra poco, perché le funzioni, come le variabili, subiscono l'hoisting.</p>
+<blockquote>
+<p>💡 <strong>Template Literals.</strong> Nel corpo della funzione compare <code>`Hello ${name}`</code> — non sono virgolette normali ma <strong>backtick</strong> (<code>`</code>), e il <code>${name}</code> è un segnaposto. Questa sintassi si chiama <strong>template literal</strong> ed è l'equivalente JavaScript della concatenazione di stringhe Java: <code>"Hello " + name</code> diventa <code>`Hello ${name}`</code>. Il vantaggio è che puoi interpolare qualsiasi espressione, non solo una variabile.</p>
+<p><strong>Come digitare i backtick</strong> (utile, perché sulla tastiera italiana non sono ovvi):</p>
+<ul>
+<li><strong>Windows</strong>: <code>ALT</code> + <code>096</code> sul tastierino numerico</li>
+<li><strong>Mac OS</strong>: <code>Option</code> + <code>9</code></li>
+<li><strong>Linux</strong>: <code>ALT Gr</code> + <code>'</code></li>
+</ul>
+</blockquote>
+<hr />
+<h3>9.2 Parametri con valore di default</h3>
+<p>In Java, se non passi un argomento a un metodo, ottieni un errore di compilazione (a meno di usare gli overload). In JavaScript no. Quando <strong>non</strong> vengono passati argomenti in una chiamata, i parametri corrispondenti sono inizializzati a <strong><code>undefined</code></strong> — e il programma va avanti tranquillamente.</p>
+<p>Poiché questo è scomodo, JavaScript permette di specificare <strong>valori di default</strong> per i parametri:</p>
+<pre><code class="language-js">function greet(name, message=&quot;Hello&quot;){ //message has a default value
+ console.log(`${message} ${name}`);
+}
+greet(&quot;Web Technologies&quot;);         // Hello Web Technologies
+greet(&quot;Web Technologies&quot;, &quot;Ciao&quot;); // Ciao Web Technologies
+greet();                           // Hello undefined
+</code></pre>
+<p>Leggiamo le tre chiamate:</p>
+<ul>
+<li>La prima passa solo <code>name</code>, quindi <code>message</code> usa il default <code>"Hello"</code>.</li>
+<li>La seconda passa entrambi, e <code>message</code> diventa <code>"Ciao"</code>.</li>
+<li>La terza non passa <strong>nulla</strong>: <code>message</code> usa il default <code>"Hello"</code>, ma <code>name</code> — che non ha default — resta <strong><code>undefined</code></strong>. Ecco perché l'output è <code>"Hello undefined"</code> invece di un errore.</li>
+</ul>
+<blockquote>
+<p><strong>Nota:</strong> questa sintassi sostituisce, in buona parte, gli <strong>overload</strong> di Java. In Java scriveresti due metodi <code>greet(String)</code> e <code>greet(String, String)</code> con lo stesso nome; in JavaScript scrivi una sola funzione con un valore di default.</p>
+</blockquote>
+<hr />
+<h3>9.3 L'hoisting delle funzioni</h3>
+<p>Torniamo all'hoisting, che avevamo visto sulle variabili. Si applica <strong>anche alle dichiarazioni di funzione</strong>, e in questo caso è ancora più evidente:</p>
+<pre><code class="language-js">greet(&quot;Web Technologies&quot;); //prints &quot;Hello Web Technologies&quot; (!)
+function greet(name, message=&quot;Hello&quot;){
+ console.log(`${message} ${name}`);
+}
+</code></pre>
+<p>Guarda l'ordine: la funzione viene <strong>chiamata alla prima riga</strong>, ma <strong>dichiarata alla terza</strong>. In Java questo non compilerebbe. In JavaScript funziona perfettamente, per la ragione che già conosci: il motore, prima di eseguire, scansiona lo scope e "tira su" le dichiarazioni di funzione. E a differenza di quanto accade con <code>let</code>/<code>const</code>, qui viene tirata su <strong>l'intera funzione</strong>, non solo il nome — quindi è immediatamente chiamabile.</p>
+<blockquote>
+<p><strong>Attenzione — è un'arma a doppio taglio.</strong> Il fatto che le funzioni si possano chiamare prima di essere dichiarate è comodo, ma è anche il motivo per cui <strong>l'ordine del codice smette di essere una guida affidabile</strong> per capire cosa succede. In Java potevi leggere un file dall'alto verso il basso e sapere sempre cosa era già stato definito. In JavaScript non più: devi ricordarti dell'hoisting.</p>
+</blockquote>
+<hr />
+<h3>9.4 Scope interno, visibilità e closure</h3>
+<p>Questa sottosezione introduce due concetti che vanno capiti bene, perché sono la base di tutto il resto.</p>
+<ul>
+<li>Una funzione <strong>crea il proprio scope</strong>.</li>
+<li>Le variabili (e le funzioni) dichiarate al suo interno <strong>non sono visibili</strong> negli scope esterni.</li>
+<li>Una funzione <strong>può accedere</strong> alle variabili degli scope esterni (<strong>closure</strong>), purché non siano <strong>mascherate</strong> (<em>masked</em>) nel proprio scope.</li>
+</ul>
+<p>I primi due punti ti sono familiari: sono le stesse regole di Java. Una variabile locale di un metodo non è visibile fuori da quel metodo.</p>
+<p>Il terzo punto è quello nuovo, e si chiama <strong>closure</strong>: una funzione può leggere e usare le variabili dello scope in cui è stata <strong>definita</strong>, anche se quelle variabili non sono suoi parametri né sue locali.</p>
+<pre><code class="language-js">let message = &quot;Hello&quot;;
+console.log(greet(&quot;Web Technologies&quot;)); //output: Hello Web Technologies!
+function greet(name){         // hoisted to the beginning of the global scope
+ return generateMessage();
+ function generateMessage(){ // hoisted to the beginning of greet's scope
+  return `${message} ${name}!`;
+ }
+}
+</code></pre>
+<p>Leggi questo esempio lentamente, perché ci sono due livelli di annidamento. La funzione <code>greet</code> riceve <code>name</code> come parametro e chiama <code>generateMessage()</code>. La funzione <code>generateMessage</code> non riceve <strong>nulla</strong> — non ha parametri — eppure nel suo <code>return</code> usa sia <code>message</code> (dallo scope globale) sia <code>name</code> (dai parametri di <code>greet</code>). Li vede entrambi perché è <strong>definita dentro</strong> <code>greet</code>, che a sua volta è definita nello scope globale.</p>
+<pre><code class="language-text">Scope GLOBALE
+├── message = &quot;Hello&quot;
+└── greet()                    &lt;-- hoisted qui
+    └── Scope di greet()
+        ├── name = &quot;Web Technologies&quot;   (parametro)
+        └── generateMessage()           &lt;-- hoisted qui
+            └── Scope di generateMessage()
+                accede a: name, message  (closure sugli scope esterni)
+</code></pre>
+<p>Questa è una catena di scope: ogni funzione può guardare verso l'esterno, mai verso l'interno. <code>generateMessage</code> vede <code>name</code> e <code>message</code>; <code>greet</code> <strong>non</strong> vedrebbe una variabile dichiarata dentro <code>generateMessage</code>.</p>
+<p>Il rovescio della medaglia è la <strong>visibilità verso l'esterno</strong>: <code>generateMessage</code> è locale allo scope di <code>greet</code>, quindi <strong>non può essere referenziata da fuori</strong>:</p>
+<pre><code class="language-js">let message = &quot;Hello&quot;;
+console.log(greet(&quot;Web Technologies&quot;)); //output: Hello Web Technologies!
+function greet(name){
+ return generateMessage();
+ function generateMessage(){ // hoisted to the beginning of greet's scope
+  return `${message} ${name}!`;
+ }
+}
+generateMessage(); // Raises ReferenceError: generateMessage is not defined
+</code></pre>
+<p>L'ultima riga fallisce con <code>ReferenceError: generateMessage is not defined</code>. Il messaggio è chiaro: quella funzione <strong>non esiste</strong> fuori da <code>greet</code>. È lo stesso principio per cui in Java un metodo privato non è raggiungibile dall'esterno — solo che qui la restrizione è strutturale (lo scope), non dichiarativa (il modificatore <code>private</code>).</p>
+<hr />
+<h3>9.5 Function Expressions</h3>
+<p>Finora abbiamo visto funzioni <strong>dichiarate</strong>. Esiste però un secondo modo di crearle: le <strong>function expressions</strong>, in cui una funzione viene <strong>assegnata a una variabile</strong>.</p>
+<pre><code class="language-js">// standard function expression
+let greet = function(name) {
+ console.log(`Hello ${name}!`);
+}
+greet(&quot;Web Technologies&quot;); // output: Hello Web Technologies!
+
+// alternative, using arrow functions
+let greet = (name) =&gt; {
+ console.log(`Hello ${name}!`);
+}
+</code></pre>
+<p>Qui c'è un salto concettuale importante: la funzione a destra dell'<code>=</code> è un <strong>valore</strong>, esattamente come <code>42</code> o <code>"ciao"</code>. La variabile <code>greet</code> non è "il nome della funzione": è una variabile che <strong>contiene</strong> una funzione. La differenza sembra sottile ma cambia tutto, ed è il motivo per cui JavaScript è detto linguaggio <strong>funzionale</strong>: le funzioni si possono passare in giro come qualsiasi altro dato.</p>
+<p>La seconda forma è ancora più compatta. La sintassi <code>(name) =&gt; { ... }</code> si chiama <strong>arrow function</strong>, e in Java la conosci come <strong>lambda</strong>: <code>(name) -&gt; { ... }</code>. È esattamente la stessa idea, con una freccia diversa. Le arrow function sono utilissime per le funzioni brevi, e più avanti (nella sezione sugli oggetti) scoprirai che hanno anche una particolarità importante riguardo a <code>this</code>.</p>
+<blockquote>
+<p>⚠️ <strong>Attenzione:</strong> in questi casi si applicano le <strong>stesse regole dell'hoisting delle variabili</strong>! Questo è il punto cruciale, ed è il contenuto della prossima sottosezione.</p>
+</blockquote>
+<hr />
+<h3>9.6 Function Expressions e hoisting: la differenza che conta</h3>
+<p>Abbiamo due modi di creare funzioni che si comportano <strong>diversamente</strong> rispetto all'hoisting. Vale la pena fissare la distinzione con un esempio affiancato:</p>
+<pre><code class="language-js">greet(); //ReferenceError: greet is not defined
+{
+  greet(); //output: Hello
+  function greet(){
+   console.log(&quot;Hello&quot;);
+  }
+}
+
+salute(); //ReferenceError: salute is not defined
+{
+  salute(); //ReferenceError: uninitialized
+  let salute = function(){
+   console.log(&quot;Howdy&quot;);
+  }
+}
+</code></pre>
+<p>Analizziamo i quattro casi:</p>
+<ol>
+<li><strong><code>greet()</code> fuori dal blocco</strong> → <code>ReferenceError: greet is not defined</code>. La dichiarazione di funzione è hoisted all'inizio del <strong>suo</strong> scope, che è il blocco <code>{}</code> — non lo scope esterno.</li>
+<li><strong><code>greet()</code> dentro il blocco, prima della dichiarazione</strong> → funziona e stampa <code>"Hello"</code>. Qui è tutta la <strong>dichiarazione di funzione</strong> a essere hoisted, quindi la funzione è già pronta.</li>
+<li><strong><code>salute()</code> fuori dal blocco</strong> → <code>ReferenceError: salute is not defined</code>. Stessa ragione del caso 1.</li>
+<li><strong><code>salute()</code> dentro il blocco, prima dell'assegnazione</strong> → <code>ReferenceError: uninitialized</code>. Qui la variabile <code>salute</code> è dichiarata con <code>let</code>, quindi subisce l'hoisting <strong>della sola dichiarazione</strong> e si trova nella sua <strong>TDZ</strong>. La funzione non è ancora stata assegnata, quindi non è chiamabile.</li>
+</ol>
+<p><strong>La regola, in una tabella:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo</th>
+<th style="text-align: left;">Cosa viene hoisted</th>
+<th style="text-align: left;">Chiamabile prima della dichiarazione?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Function declaration</strong><br><code>function greet(){}</code></td>
+<td style="text-align: left;">Tutta la funzione</td>
+<td style="text-align: left;">✅ Sì (nello stesso scope)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Function expression</strong><br><code>let greet = function(){}</code></td>
+<td style="text-align: left;">Solo la variabile (TDZ)</td>
+<td style="text-align: left;">❌ No (<code>ReferenceError</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Se hai capito la differenza tra hoisting di <code>let</code> e hoisting di <code>function</code>, hai capito entrambi gli argomenti — sono lo stesso meccanismo applicato a due cose diverse.</p>
+<hr />
+<h3>9.7 Funzioni annidate e closure</h3>
+<p>L'ultimo tassello sulle funzioni. Una funzione è detta <strong>nested</strong> (annidata) quando è creata <strong>dentro un'altra funzione</strong>. Abbiamo già visto un esempio nella sezione sullo scope, ma qui ne vediamo la conseguenza più interessante:</p>
+<ul>
+<li>Le funzioni annidate possono essere <strong>restituite</strong> e usate <strong>all'esterno</strong> della funzione originale.</li>
+<li><strong>Indipendentemente da dove vengono usate</strong>, le funzioni annidate possono accedere al <strong>contesto esterno</strong> della funzione che le ha create.</li>
+</ul>
+<pre><code class="language-js">function getGreeter(message) {
+ let sep = &quot;,&quot;;
+ return function(name) {
+  console.log(`${message}${sep} ${name}!`);
+ }
+}
+let helloGreeter = getGreeter(&quot;Hello&quot;);
+helloGreeter(&quot;Web&quot;); //Hello, Web!
+let howdyGreeter = getGreeter(&quot;Howdy&quot;);
+howdyGreeter(&quot;JS&quot;); //Howdy, JS!
+</code></pre>
+<p>Questo esempio merita di essere letto con attenzione, perché fa una cosa che in Java non è possibile fare allo stesso modo.</p>
+<p>Osserva <code>getGreeter</code>: prende <code>message</code>, dichiara una variabile locale <code>sep</code>, e <strong>restituisce una funzione</strong> — non un valore, non un oggetto, ma una funzione. Ora guarda la prima chiamata: <code>getGreeter("Hello")</code> viene eseguita, e al momento del <code>return</code> la sua esecuzione <strong>è finita</strong>. In Java, a questo punto, le variabili locali <code>message</code> e <code>sep</code> non esisterebbero più.</p>
+<p>E invece:</p>
+<pre><code class="language-text">getGreeter(&quot;Hello&quot;)  ──&gt;  crea un contesto con { message: &quot;Hello&quot;, sep: &quot;,&quot; }
+                                        │
+                                        └──&gt; restituisce function(name){...}
+                                             che &quot;ricorda&quot; message e sep
+                                             anche dopo che getGreeter è terminata
+</code></pre>
+<p>La funzione restituita <strong>si porta dietro</strong> <code>message</code> e <code>sep</code>. Quando la chiami con <code>helloGreeter("Web")</code>, lei usa il <em>suo</em> <code>message</code> (<code>"Hello"</code>) e il <em>suo</em> <code>sep</code> (<code>","</code>), producendo <code>"Hello, Web!"</code>.</p>
+<p>E il bello è che ogni chiamata a <code>getGreeter</code> crea un <strong>contesto separato</strong>: <code>howdyGreeter</code> ha il suo <code>message</code> (<code>"Howdy"</code>) e non è influenzato da <code>helloGreeter</code>. Sono due funzioni indipendenti che hanno "catturato" due contesti diversi.</p>
+<p>Questo meccanismo si chiama <strong>closure</strong>: una funzione <strong>cattura</strong> le variabili dello scope in cui è stata definita e le mantiene in vita finché la funzione stessa esiste. È il concetto più potente della lezione, ed è ciò che rende possibile molta della programmazione JavaScript moderna.</p>
+<hr />
+<h2>10. Oggetti</h2>
+<p>Siamo all'ultima e più corposa sezione. Se le funzioni rappresentavano la prima differenza strutturale con Java, gli oggetti rappresentano la seconda — e per certi versi la più radicale.</p>
+<p>In Java, per avere un oggetto devi prima definire una <strong>classe</strong>. La classe è il progetto, l'oggetto è l'istanza. Non esiste un oggetto senza una classe.</p>
+<p>In JavaScript questo vincolo <strong>non c'è</strong>. Un oggetto si crea <strong>direttamente</strong>, scrivendolo, senza passare da una classe. La classe (come vedremo nella sottosezione sui costruttori) diventa una <em>convenzione</em> per generare oggetti simili, non un requisito per crearne uno.</p>
+<h3>10.1 Creare un oggetto</h3>
+<ul>
+<li>Gli <strong>oggetti</strong> sono contenitori di dati <strong><code>key:value</code></strong>.</li>
+<li>Possiamo <strong>aggiungere proprietà</strong> a un oggetto <strong>nel momento in cui lo creiamo</strong>.</li>
+<li>Una proprietà ha una <strong>key</strong> (chiave, a.k.a. nome o identificatore) prima dei <code>:</code> e un <strong>value</strong> (valore) alla sua destra. Le dichiarazioni di proprietà sono <strong>separate da virgole</strong>.</li>
+</ul>
+<pre><code class="language-js">let a = new Object(); // &quot;object constructor&quot; syntax
+let b = {};           // &quot;object literal&quot; syntax, used more often
+let pet = {
+ name: &quot;Hannibal&quot;,   // by key &quot;name&quot; store value &quot;Hannibal&quot;
+ age: 7              // by key &quot;age&quot;  store value 7
+}
+</code></pre>
+<p>Le prime due righe mostrano le due sintassi possibili. La prima, <code>new Object()</code>, è quella che ricorda più Java, ma è <strong>rara</strong>; la seconda, <code>{}</code> (le <strong>graffe vuote</strong>), si chiama <strong>object literal</strong> ed è quella che userai sempre.</p>
+<p>L'oggetto <code>pet</code> è il caso interessante. Guarda cosa contiene: la key <code>name</code> con valore <code>"Hannibal"</code>, e la key <code>age</code> con valore <code>7</code>. Nota che <strong>non c'è nessuna classe</strong> dietro. In Java, per ottenere un oggetto con <code>name</code> e <code>age</code> dovresti scrivere:</p>
+<pre><code class="language-java">class Pet {
+    String name;
+    int age;
+}
+Pet pet = new Pet();
+pet.name = &quot;Hannibal&quot;;
+pet.age = 7;
+</code></pre>
+<p>In JavaScript tutte quelle righe si riducono a <code>let pet = { name: "Hannibal", age: 7 }</code>. La classe <code>Pet</code> semplicemente non serve.</p>
+<blockquote>
+<p><strong>Da tenere a mente:</strong> le property key sono <strong>stringhe</strong>. Nella forma più comune (come <code>name</code> e <code>age</code>) si scrivono senza virgolette, ma il linguaggio le tratta come stringhe — e questo spiega perché, più avanti, potrai accedervi anche con la notazione a parentesi quadre.</p>
+</blockquote>
+<hr />
+<h3>10.2 Accedere alle proprietà</h3>
+<p>Per leggere una proprietà si usa la <strong>dot notation</strong>, cioè il punto:</p>
+<pre><code class="language-js">let pet = {
+ name: &quot;Hannibal&quot;,
+ age: 7
+}
+console.log(pet.name);     // output: Hannibal
+console.log(pet.age);      // output: 7
+console.log(pet.nickname); // output: undefined
+</code></pre>
+<p>Le prime due righe ti sono familiari: <code>pet.name</code> è quello che in Java avresti scritto per accedere a un campo pubblico.</p>
+<p>La terza riga è invece una differenza importante: <code>pet.nickname</code> accede a una proprietà che <strong>non esiste</strong>. In Java, <code>pet.nickname</code> dove <code>nickname</code> non è un campo dichiarato sarebbe un <strong>errore di compilazione</strong>. In JavaScript non è un errore: restituisce <strong><code>undefined</code></strong>.</p>
+<blockquote>
+<p>⚠️ <strong>Ricorda questa cosa, perché è una delle fonti di bug più frequenti.</strong> Un errore di battitura in un nome di proprietà non ti dà nessun avviso: ottieni semplicemente <code>undefined</code>, e il programma continua. Se poi provi a usare quel valore come se fosse valido, l'errore emergerà molto più tardi e molto lontano dalla vera causa.</p>
+</blockquote>
+<hr />
+<h3>10.3 Aggiungere e cancellare proprietà</h3>
+<p>Ecco un'altra cosa che in Java non si può fare. In Java, la struttura di un oggetto è <strong>fissata dalla classe</strong>: se <code>Pet</code> ha due campi, un oggetto <code>Pet</code> avrà quei due campi e basta. Puoi aggiungerne un terzo solo modificando la classe e ricompilando.</p>
+<p>In JavaScript, un oggetto è un contenitore <strong>aperto</strong>: puoi aggiungere e togliere proprietà mentre il programma gira.</p>
+<pre><code class="language-js">let pet = {
+ name: &quot;Hannibal&quot;,
+ age: 7
+}
+pet.nickname = &quot;the Affable&quot;; // new property
+delete pet.age;               // delete property
+console.log(pet.name);        // &quot;Hannibal&quot;
+console.log(pet.age);        // undefined
+console.log(pet.nickname);    // &quot;the Affable&quot;
+console.log(pet);   // print object in console
+console.table(pet); // alternative way to print objects in console
+</code></pre>
+<p>Due operazioni nuove:</p>
+<ul>
+<li><strong>Aggiungere</strong> una proprietà è banale: basta assegnarle un valore (<code>pet.nickname = "the Affable"</code>). Non serve averla dichiarata prima — se non esiste, viene creata.</li>
+<li><strong>Cancellare</strong> una proprietà si fa con la keyword <strong><code>delete</code></strong> (<code>delete pet.age</code>). Da quel momento <code>pet.age</code> vale <code>undefined</code>, esattamente come se non fosse mai esistita.</li>
+</ul>
+<p>Da notare anche il <code>console.table(pet)</code> finale: è un'utilità della console del browser che stampa l'oggetto in <strong>formato tabellare</strong>, molto più leggibile del <code>console.log</code> normale quando l'oggetto ha diverse proprietà. È il tuo strumento principale per ispezionare gli oggetti mentre sviluppi.</p>
+<hr />
+<h3>10.4 La square bracket notation</h3>
+<p>Le key delle proprietà possono anche <strong>contenere spazi</strong>, cosa che in Java non sarebbe possibile perché lì gli identificatori non ammettono spazi. Per accedere a queste proprietà non puoi usare la dot notation, e serve una notazione alternativa:</p>
+<pre><code class="language-js">let dog = {
+ name: &quot;Sif&quot;,
+ &quot;is a good boy&quot;: true
+}
+console.log(dog[&quot;name&quot;]);
+console.log(dog[&quot;is a good boy&quot;]);
+//expressions can be used as keys
+dog[&quot;is the &quot;+&quot;best boy&quot;] = true;
+console.table(dog);
+</code></pre>
+<p>La <strong>square bracket notation</strong> consiste nello scrivere la key tra parentesi quadre, <strong>tra virgolette</strong> (perché come detto le key sono stringhe). Le prime due righe sono il caso base: <code>dog["name"]</code> è equivalente a <code>dog.name</code>, mentre <code>dog["is a good boy"]</code> è l'unico modo possibile per accedere a una key con spazi.</p>
+<p>La terza riga mostra la vera potenza della notazione. Dentro le parentesi quadre puoi mettere <strong>un'espressione</strong>, non solo una stringa letterale:</p>
+<pre><code class="language-js">dog[&quot;is the &quot;+&quot;best boy&quot;] = true;
+</code></pre>
+<p>Qui l'espressione <code>"is the " + "best boy"</code> viene <strong>valutata a runtime</strong>, produce la stringa <code>"is the best boy"</code>, e quella stringa diventa la key della nuova proprietà. Questo significa che la key di una proprietà può essere <strong>calcolata dinamicamente</strong> — per esempio in base a un input dell'utente, o al contenuto di un'altra variabile. È il genere di flessibilità per cui in Java servirebbero le <code>Map</code>, mentre qui è parte del linguaggio.</p>
+<blockquote>
+<p><strong>Regola pratica:</strong> usa la dot notation quando la key è fissa e la conosci mentre scrivi (<code>pet.name</code>). Usa la square bracket notation quando la key è dinamica, contiene caratteri speciali, o è il risultato di un'espressione.</p>
+</blockquote>
+<hr />
+<h3>10.5 Le variabili contengono riferimenti</h3>
+<p>Qui arriva un concetto che in Java <strong>conosci già bene</strong>, ma che è utile rivedere perché in JavaScript si presenta in una forma leggermente diversa.</p>
+<pre><code class="language-js">let firstPet = {
+ name: &quot;Richard&quot;,
+ species: &quot;Lizard&quot;
+}
+let secondPet = firstPet;
+secondPet.name = &quot;Chuck&quot;;
+secondPet.species = &quot;Duck&quot;;
+console.log(firstPet);  // Object { name: &quot;Chuck&quot;, species: &quot;Duck&quot; }
+console.log(secondPet); // Object { name: &quot;Chuck&quot;, species: &quot;Duck&quot; }
+console.log(firstPet == secondPet);  // true, same value
+console.log(firstPet === secondPet); // true (both are references, same value)
+</code></pre>
+<p>La riga chiave è <code>let secondPet = firstPet;</code>. Ti aspetteresti che questa crei una <strong>copia</strong> dell'oggetto. In realtà <strong>non copia nulla</strong>: assegna a <code>secondPet</code> lo <strong>stesso riferimento</strong> che ha <code>firstPet</code>.</p>
+<pre><code class="language-text">firstPet  ──────┐
+                ├──────&gt;  { name: &quot;Chuck&quot;, species: &quot;Duck&quot; }
+secondPet ──────┘
+           (entrambe puntano allo STESSO oggetto in memoria)
+</code></pre>
+<p>Le conseguenze sono visibili nell'output: dopo <code>secondPet.name = "Chuck"</code>, <strong>anche</strong> <code>firstPet.name</code> è <code>"Chuck"</code>, perché entrambe le variabili puntano allo stesso oggetto in memoria. Modificare tramite una variabile modifica ciò che vede l'altra.</p>
+<p>Questo comportamento è <strong>identico a Java</strong>, dove una variabile di tipo oggetto contiene un riferimento e l'assegnazione <code>secondPet = firstPet</code> copia il riferimento, non l'oggetto. Se hai già interiorizzato questo in Java, hai già capito anche qui.</p>
+<p>Le ultime due righe, invece, aggiungono una sfumatura: sia <code>firstPet == secondPet</code> sia <code>firstPet === secondPet</code> restituiscono <code>true</code>. Confrontando due riferimenti allo stesso oggetto, i due operatori concordano — perché i tipi sono uguali <em>e</em> il valore (la referenza) è lo stesso. Le differenze tra <code>==</code> e <code>===</code> che abbiamo visto nella sezione 7 emergono quando i <strong>tipi</strong> sono diversi.</p>
+<hr />
+<h3>10.6 Clonare un oggetto</h3>
+<p>Se l'assegnazione non copia, come si fa una copia vera? Bisogna <strong>iterare su ogni proprietà e copiarle una per una</strong>:</p>
+<pre><code class="language-js">let pet = {
+ name: &quot;Richard&quot;, species: &quot;Lizard&quot;
+}
+let copy = clone(pet);
+copy.name = &quot;Chuck&quot;;
+console.log(pet.name); // Richard
+console.log(copy.name); // Chuck
+
+function clone(object){
+ let copy = {}; // new object
+ for(let key in object){
+  copy[key] = object[key];
+ }
+ return copy;
+}
+</code></pre>
+<p>Vediamo come funziona la funzione <code>clone</code>. Crea un oggetto nuovo e vuoto (<code>let copy = {}</code>), poi usa un ciclo <code>for...in</code> per scorrere tutte le key dell'oggetto originale. Per ciascuna, copia il valore nel nuovo oggetto. Alla fine restituisce la copia.</p>
+<p>Una sola cosa da notare nella sintassi: <strong><code>for(let key in object)</code></strong> è una forma di ciclo che non hai visto in Java. Il <code>for...in</code> scorre le <strong>key</strong> di un oggetto (una per iterazione), e in ogni iterazione <code>key</code> contiene il nome della proprietà corrente. È il modo standard per attraversare un oggetto.</p>
+<p>Il risultato è quello che volevamo: ora modificare <code>copy.name</code> <strong>non</strong> tocca <code>pet.name</code>. I due oggetti sono indipendenti, perché sono due oggetti distinti in memoria.</p>
+<blockquote>
+<p><strong>Nota:</strong> la funzione <code>clone</code> che abbiamo scritto è nostra, non è una funzione di JavaScript. L'abbiamo implementata a mano per capire il meccanismo — e tra due sottosezioni vedremo che il linguaggio ne offre già di pronte.</p>
+</blockquote>
+<hr />
+<h3>10.7 Shallow vs Deep Cloning</h3>
+<p>La funzione <code>clone</code> che abbiamo appena scritto ha <strong>un limite</strong>, ed è un limite che vale la pena capire bene perché è una trappola classica.</p>
+<p>Il valore di una proprietà di un oggetto <strong>può essere a sua volta un oggetto</strong>. Nel prossimo esempio, <code>pet</code> ha una proprietà <code>owner</code> che è un oggetto con <code>name</code> e <code>age</code>:</p>
+<pre><code class="language-js">let pet = {
+ name: &quot;Garfield&quot;, species: &quot;Cat&quot;,
+ owner: {
+  name: &quot;John&quot;, age: 17
+ }
+}
+let copy = clone(pet);
+copy.owner.name = &quot;Liz&quot;;
+console.log(pet.owner.name); // Liz
+console.log(copy.owner.name); // Liz
+</code></pre>
+<p>Cosa è successo? Abbiamo modificato <code>copy.owner.name</code>, ma <strong>anche</strong> <code>pet.owner.name</code> è cambiato. Il clone <strong>non era completo</strong>.</p>
+<p>Il motivo è che la funzione <code>clone</code> copia i valori delle proprietà uno per uno. Per le proprietà con valori semplici (<code>name</code>, <code>species</code>) va bene. Ma <code>owner</code> <strong>non è un valore semplice</strong>: è un oggetto, quindi il suo valore è un <strong>riferimento</strong>. Quindi <code>copy.owner</code> e <code>pet.owner</code> finiscono per puntare <strong>allo stesso oggetto</strong> interno — esattamente lo stesso fenomeno della sottosezione 10.5, solo un livello più in profondità.</p>
+<p>Questo tipo di copia si chiama <strong>shallow clone</strong> (copia superficiale): copia il <strong>primo livello</strong> dell'oggetto, ma gli oggetti interni restano <strong>condivisi</strong>.</p>
+<pre><code class="language-text">SHALLOW CLONE                          DEEP CLONE
+pet ──&gt; { name, species,               pet ──&gt; { name, species,
+          owner ──┐                              owner ──&gt; { name, age }  (copia)
+        }         │                      copy ─&gt; { name, species,
+copy ─&gt; { name, species,                           owner ──&gt; { name, age }  (copia)
+          owner ──┘  (STESSA referenza)         }
+        }
+</code></pre>
+<p>Per ottenere un <strong>deep clone</strong> — che cloni <strong>anche gli oggetti interni</strong>, ricorsivamente — bisogna usare la <strong>ricorsione</strong>: quando la proprietà è a sua volta un oggetto, invece di copiarla, la si clona con una chiamata ricorsiva a <code>clone</code>:</p>
+<pre><code class="language-js">// deep clone
+function clone(object){
+ let copy = {};
+ for(let key in object){
+  if(typeof object[key] === &quot;object&quot;){
+   copy[key] = clone(object[key]);
+  }
+  else {
+   copy[key] = object[key];
+  }
+ }
+ return copy;
+}
+</code></pre>
+<p>La differenza rispetto alla versione precedente è tutta nell'<code>if</code>: se <code>typeof object[key]</code> è <code>"object"</code>, la proprietà è un oggetto, quindi si chiama <code>clone</code> <strong>su di essa</strong> (ricorsione), invece di copiarne il riferimento. Altrimenti è un valore semplice, e lo si copia direttamente.</p>
+<blockquote>
+<p><strong>Nota importante — non serve reinventare la ruota.</strong> Implementare i metodi di clone da zero ha <strong>valore didattico</strong> (ora sai cosa succede sotto il cofano, e sai perché il clone profondo richiede la ricorsione), ma nel codice reale <strong>non devi implementarli ogni volta</strong>. JavaScript offre alternative già pronte:</p>
+<ul>
+<li><strong><code>Object.assign()</code></strong> → shallow clone</li>
+<li><strong><code>structuredClone()</code></strong> → deep clone</li>
+</ul>
+<p>Sapere quale delle due usare è esattamente la distinzione che hai appena imparato.</p>
+</blockquote>
+<p><strong>Riepilogo:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Tipo di copia</th>
+<th style="text-align: left;">Cosa copia</th>
+<th style="text-align: left;">Cosa condividono i due oggetti</th>
+<th style="text-align: left;">Strumento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Shallow</strong></td>
+<td style="text-align: left;">Solo il primo livello</td>
+<td style="text-align: left;">Gli oggetti interni (per riferimento)</td>
+<td style="text-align: left;"><code>Object.assign()</code> o ciclo semplice</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Deep</strong></td>
+<td style="text-align: left;">Tutti i livelli, ricorsivamente</td>
+<td style="text-align: left;">Nulla — completamente indipendenti</td>
+<td style="text-align: left;"><code>structuredClone()</code> o ricorsione</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>10.8 Metodi</h3>
+<p>Torniamo per un momento alle funzioni. Abbiamo detto che le funzioni sono valori come gli altri — quindi <strong>possono anche essere il valore di una proprietà</strong>. Quando una proprietà di un oggetto è una funzione, si chiama <strong>metodo</strong>.</p>
+<p>Il concetto ti è familiare: in Java, i metodi di una classe sono esattamente questo. Le seguenti sono tutte modalità <strong>equivalenti</strong> di definire metodi:</p>
+<pre><code class="language-js">let p = {
+ name: &quot;John&quot;,
+ greet: function(){
+  console.log(&quot;Hi!&quot;);
+ }
+}
+p.greet(); // Hi!
+</code></pre>
+<pre><code class="language-js">let p = {
+ name: &quot;John&quot;
+}
+p.greet = function(){
+ console.log(&quot;Hi!&quot;);
+}
+</code></pre>
+<pre><code class="language-js">let p = {
+ name: &quot;John&quot;,
+  greet: greet
+}
+function greet(){
+ console.log(&quot;Hi!&quot;);
+}
+</code></pre>
+<p>Vale la pena commentare la differenza tra le tre:</p>
+<ul>
+<li><strong>La prima</strong> definisce il metodo direttamente dentro l'object literal, come una proprietà il cui valore è una funzione.</li>
+<li><strong>La seconda</strong> parte da un oggetto senza il metodo e lo <strong>aggiunge dopo</strong>, con la stessa sintassi con cui aggiungeresti una proprietà qualsiasi. È la dimostrazione pratica che gli oggetti sono contenitori aperti.</li>
+<li><strong>La terza</strong> è la più interessante: dichiara la funzione <code>greet</code> <strong>fuori</strong> dall'oggetto, e poi <strong>assegna la funzione stessa</strong> come valore della proprietà <code>greet</code>. Questo è possibile solo perché le funzioni sono valori — in Java non potresti mai fare una cosa del genere con un metodo.</li>
+</ul>
+<p>In tutti e tre i casi, la chiamata è la stessa: <code>p.greet()</code>, che stampa <code>"Hi!"</code>.</p>
+<hr />
+<h3>10.9 Method Shorthand</h3>
+<p>Esiste anche una <strong>sintassi abbreviata</strong> per dichiarare metodi dentro un object literal:</p>
+<pre><code class="language-js">// classic version
+let p = {
+ name: &quot;John&quot;,
+ sayHi: function(){
+  console.log(&quot;Hi!&quot;);
+ }
+}
+p.sayHi(); // Hi!
+
+// shorthand version
+let p = {
+ name: &quot;John&quot;,
+ sayHi(){
+  console.log(&quot;Hi!&quot;);
+ }
+}
+</code></pre>
+<p>La differenza è puramente sintattica: nella <strong>versione classica</strong> scrivi <code>sayHi: function(){ ... }</code>, nella <strong>versione abbreviata</strong> scrivi <code>sayHi(){ ... }</code> — hai tolto i due punti e la parola <code>function</code>. Il risultato è identico.</p>
+<p>La forma abbreviata è quella <strong>preferita</strong> nel codice moderno, perché è più pulita e perché è la forma che assomiglia di più a Java. Vedrai che negli esempi successivi (nella sottosezione su <code>this</code>) verrà usata proprio questa.</p>
+<hr />
+<h3>10.10 La keyword <code>this</code></h3>
+<p>Arriviamo a un concetto che <strong>conosci da Java</strong> ma che in JavaScript funziona in modo <strong>profondamente diverso</strong>. È probabilmente la cosa più importante di tutta questa sezione.</p>
+<p>Il punto di partenza è comune: è normale che un metodo di un oggetto abbia bisogno di accedere ad <strong>altre proprietà dello stesso oggetto</strong>. In Java lo fai con <code>this.name</code>. In JavaScript esiste la stessa keyword:</p>
+<pre><code class="language-js">let john = {
+ name: &quot;John&quot;,
+ greet(){
+  console.log(`Hi, I'm ${this.name}!`);
+ }
+}
+john.greet(); // Hi, I'm John!
+</code></pre>
+<p>Fin qui tutto familiare: <code>this.name</code> dentro il metodo <code>greet</code> accede alla proprietà <code>name</code> dell'oggetto <code>john</code>, e l'output è <code>"Hi, I'm John!"</code>. Se ti fermassi qui, penseresti che <code>this</code> funzioni come in Java.</p>
+<p>Ma ecco il punto:</p>
+<blockquote>
+<p><strong>In Java, <code>this</code> è deciso a compile-time</strong>: è sempre l'istanza della classe su cui il metodo è stato chiamato, e il compilatore sa esattamente quale sia. <strong>In JavaScript, il valore di <code>this</code> viene valutato a runtime, in base al contesto</strong> — cioè in base a <em>come</em> la funzione viene chiamata.</p>
+</blockquote>
+<pre><code class="language-js">let john = {name: &quot;John&quot;};
+let will = {name: &quot;Will&quot;};
+let greet = function(){
+ console.log(`Hi, I'm ${this.name}!`);
+}
+// same function is assigned as a method to two objects
+john.greet = greet;
+will.greet = greet;
+john.greet(); // Hi, I'm John!
+will.greet(); // Hi, I'm Will!
+</code></pre>
+<p>Guarda attentamente cosa succede qui, perché è il cuore della questione:</p>
+<ol>
+<li><code>greet</code> è una funzione <strong>standalone</strong> che usa <code>this.name</code> — ma in quel momento <code>this</code> non è legato a nulla.</li>
+<li>La <strong>stessa identica funzione</strong> viene assegnata come metodo a <strong>due oggetti diversi</strong>: <code>john.greet = greet</code> e <code>will.greet = greet</code>.</li>
+<li>Chiamando <code>john.greet()</code>, <code>this</code> è <code>john</code> → output <code>"Hi, I'm John!"</code>.</li>
+<li>Chiamando <code>will.greet()</code>, <code>this</code> è <code>will</code> → output <code>"Hi, I'm Will!"</code>.</li>
+</ol>
+<p><strong>La stessa funzione produce due risultati diversi.</strong> Questo in Java sarebbe impensabile: un metodo appartiene a una classe, e <code>this</code> è sempre l'istanza di quella classe. Qui la funzione non "appartiene" a nessuno: è un valore che hai messo in due posti diversi, e <code>this</code> assume il valore dell'oggetto <strong>su cui il metodo viene invocato</strong> (la parte prima del punto).</p>
+<blockquote>
+<p><strong>La regola, in breve:</strong> <code>questoOggetto.nomeMetodo()</code> → dentro <code>nomeMetodo</code>, <code>this</code> vale <code>questoOggetto</code>. Il valore di <code>this</code> dipende dalla <strong>chiamata</strong>, non dalla definizione.</p>
+</blockquote>
+<hr />
+<h3>10.11 Arrow function come metodi: la trappola di <code>this</code></h3>
+<p>C'è una conseguenza importante di quanto appena detto, e riguarda le <strong>arrow function</strong> che avevamo visto nella sezione 9.5.</p>
+<ul>
+<li>Le <strong>arrow function non hanno <code>this</code></strong>.</li>
+<li>Se <code>this</code> viene referenziato dentro una arrow function, viene <strong>preso dal contesto esterno</strong> (<em>outer context</em>), non dall'oggetto su cui la funzione viene chiamata.</li>
+</ul>
+<pre><code class="language-js">let john = {nick: &quot;John&quot;};
+let will = {nick: &quot;Will&quot;};
+let greet = () =&gt; {
+ console.log(`Hi, I'm ${this.nick}!`);
+}
+john.greet = greet;
+will.greet = greet;
+john.greet(); // Hi, I'm undefined!
+will.greet(); // Hi, I'm undefined!
+</code></pre>
+<p>Confronta questo esempio con quello della sottosezione precedente: è <strong>lo stesso codice</strong>, con una sola differenza — <code>greet</code> è definita come <strong>arrow function</strong> (<code>() =&gt; {...}</code>) invece che come <code>function() {...}</code>.</p>
+<p>E il risultato cambia completamente:</p>
+<ul>
+<li>Con <code>function()</code>, <code>john.greet()</code> stampava <code>"Hi, I'm John!"</code>.</li>
+<li>Con <code>() =&gt;</code>, <code>john.greet()</code> stampa <code>"Hi, I'm undefined!"</code>.</li>
+</ul>
+<p>Il motivo è che l'arrow function <strong>ignora</strong> l'oggetto su cui viene chiamata. Non avendo un <code>this</code> proprio, prende quello dello scope in cui è stata <strong>definita</strong> — che nel nostro caso è lo scope globale, dove <code>nick</code> non esiste. Quindi <code>this.nick</code> è <code>undefined</code>.</p>
+<blockquote>
+<p>⚠️ <strong>Regola pratica, e vale la pena memorizzarla:</strong></p>
+<ul>
+<li>Se stai definendo un <strong>metodo di un oggetto</strong> che ha bisogno di accedere alle proprietà dell'oggetto, usa <strong><code>function()</code></strong> o la <strong>method shorthand</strong> (come <code>greet(){}</code>). <strong>Non usare le arrow function.</strong></li>
+<li>Se stai definendo una <strong>funzione normale</strong> che non ha bisogno di <code>this</code>, le arrow function sono più concise e vanno benissimo.</li>
+</ul>
+<p>Ricorda che in Java non hai mai dovuto fare questa distinzione: qui è una scelta che può rompere silenziosamente il codice.</p>
+</blockquote>
+<hr />
+<h3>10.12 Costruttori</h3>
+<p>Torniamo al problema lasciato in sospeso all'inizio della sezione: abbiamo detto che in JavaScript la classe non è necessaria per creare un oggetto. Ma se devo creare <strong>molti oggetti simili</strong>, scrivere l'object literal ogni volta è scomodo e ripetitivo. In Java questo problema lo risolvevi con una classe e un costruttore.</p>
+<p>In JavaScript si fa con le <strong>constructor functions</strong> e la keyword <strong><code>new</code></strong>.</p>
+<p>I costruttori sono <strong>normali funzioni</strong>. Si applicano però <strong>due convenzioni</strong>:</p>
+<ol>
+<li>Il loro nome dovrebbe <strong>iniziare con la lettera maiuscola</strong>.</li>
+<li>Dovrebbero essere invocati <strong>solo</strong> usando la keyword <code>new</code>.</li>
+</ol>
+<p>La prima convenzione esiste perché, come sappiamo, JavaScript non ha modo di distinguere una funzione normale da un costruttore guardandone la sintassi. La maiuscola è un segnale <strong>per chi legge il codice</strong> (e per gli strumenti di sviluppo), non per il motore. La seconda è più sostanziale, ed è spiegata dalla meccanica che segue.</p>
+<p>Quando una funzione viene eseguita con <code>new</code>:</p>
+<ol>
+<li>Viene creato un <strong>nuovo oggetto vuoto</strong> e assegnato a <code>this</code>.</li>
+<li>Il <strong>corpo della funzione</strong> viene eseguito. Tipicamente modifica <code>this</code>.</li>
+<li>Il <strong>valore di <code>this</code></strong> viene restituito.</li>
+</ol>
+<pre><code class="language-js">function Pet(name, species){
+ this.name  = name;
+ this.species = species;
+ this.age   = undefined;
+}
+let rick = new Pet(&quot;Richard&quot;, &quot;Lizard&quot;);
+let chuck = new Pet(&quot;Chuck&quot;, &quot;Duck&quot;);
+</code></pre>
+<p>Questo è il momento in cui il comportamento dinamico di <code>this</code> torna utile, e l'analogia con Java diventa stretta. In Java, dentro un costruttore, <code>this</code> è l'oggetto appena creato. Qui funziona allo stesso modo, <strong>ma solo perché hai usato <code>new</code></strong>: la keyword <code>new</code> è ciò che crea l'oggetto vuoto e lo lega a <code>this</code> prima che il corpo venga eseguito.</p>
+<p>Il risultato è che <code>rick</code> è un oggetto con <code>name: "Richard"</code>, <code>species: "Lizard"</code> e <code>age: undefined</code>; <code>chuck</code> è un oggetto analogo con i propri valori. Due oggetti indipendenti, generati dallo stesso "stampo".</p>
+<blockquote>
+<p>💡 <strong>Perché la seconda convenzione è importante:</strong> chiamare <code>Pet("Richard", "Lizard")</code> <strong>senza</strong> <code>new</code> non dà errore. Il problema è che, non essendoci il passo 1, <code>this</code> non sarebbe il nuovo oggetto ma qualcos'altro (lo scope globale in modalità normale), e il costruttore finirebbe per <strong>sporcare variabili globali</strong> con <code>name</code>, <code>species</code>, <code>age</code>. Il codice sembrerebbe funzionare ma produrrebbe un oggetto <code>undefined</code>. Ecco perché la convenzione dice: <strong>un costruttore si invoca sempre e solo con <code>new</code></strong>.</p>
+</blockquote>
+<hr />
+<h3>10.13 Optional Chaining: navigare proprietà che potrebbero non esistere</h3>
+<p>Ricordi l'avvertimento della sottosezione 10.2, quando <code>pet.nickname</code> — una proprietà inesistente — restituiva <code>undefined</code> senza dare errore? Quella permissività ha un rovescio della medaglia, ed è quello che vediamo ora.</p>
+<pre><code class="language-js">let pet = {
+ name: &quot;Garfield&quot;
+}
+console.log(pet.species); // undefined
+console.log(pet.owner.name); //throws ReferenceError
+</code></pre>
+<p>La prima riga è il caso che conosciamo: <code>pet.species</code> non esiste, e otteniamo <code>undefined</code>.</p>
+<p>La seconda riga è il problema. Stiamo cercando di accedere a <code>pet.owner.name</code>, ma <code>pet.owner</code> <strong>non esiste</strong> — quindi vale <code>undefined</code>. A quel punto stiamo chiedendo la proprietà <code>name</code> <strong>di <code>undefined</code></strong>, e questo è impossibile: il codice lancia un <strong><code>ReferenceError</code></strong>.</p>
+<p>In Java, questo scenario è il famigerato <strong><code>NullPointerException</code></strong>, e chi ha scritto codice Java sa quanto sia fastidioso. JavaScript ha lo stesso problema con un nome diverso, ed è comune quando si lavora con dati che arrivano dall'esterno (per esempio da un'API), dove non sai mai se una proprietà annidata esiste davvero.</p>
+<p>In molti casi pratici potremmo <strong>preferire ottenere <code>undefined</code></strong> — per esempio significherebbe "non c'è un proprietario conosciuto" — <strong>piuttosto che far crashare il programma</strong>.</p>
+<p>Il modo ingenuo è verificare <strong>esplicitamente</strong> che la proprietà sia definita prima di accedere alle sue proprietà interne:</p>
+<pre><code class="language-js">let ownerName = pet.owner ? pet.owner.name : undefined;
+</code></pre>
+<p>Qui usiamo l'operatore ternario: se <code>pet.owner</code> esiste, prendiamo <code>pet.owner.name</code>; altrimenti mettiamo <code>undefined</code>. Funziona — ma nota quanto sia <strong>ripetitivo</strong> e <strong>inelegante</strong>: per ogni livello di annidamento servirebbe un altro controllo, e con tre o quattro livelli il codice diventa illeggibile.</p>
+<p>JavaScript offre un operatore dedicato per questo, ed è il <strong><code>?.</code></strong>:</p>
+<pre><code class="language-js">let ownerName = pet.owner?.name;
+</code></pre>
+<p>L'operatore di <strong>optional chaining</strong> <code>?.</code> fa esattamente la stessa cosa della riga precedente, ma in modo compatto. Il suo comportamento è questo: <strong>se la parte sinistra è <code>undefined</code> (o <code>null</code>), interrompe immediatamente la valutazione</strong> — questo si chiama <strong>short-circuit</strong> — e <strong>restituisce <code>undefined</code></strong>, senza nemmeno provare ad accedere alla proprietà a destra.</p>
+<p>Quindi <code>pet.owner?.name</code>: se <code>pet.owner</code> esiste, restituisce il suo <code>name</code>; se <code>pet.owner</code> è <code>undefined</code>, si ferma e restituisce <code>undefined</code> — <strong>senza lanciare l'errore</strong>.</p>
+<blockquote>
+<p>💡 <strong>Da ricordare:</strong> questo è il tuo strumento per gestire in modo pulito la stessa situazione che in Java ti dava la <code>NullPointerException</code>. Ogni volta che accedi a una proprietà annidata che potrebbe non esistere, chiediti se non sia il caso di usare <code>?.</code>.</p>
+</blockquote>
+<hr />
+<h3>10.14 Optional chaining: le varianti</h3>
+<p>L'optional chaining non serve solo ad accedere a proprietà annidate. Ha altre due forme:</p>
+<pre><code class="language-js">let john = {
+ name: &quot;John&quot;,
+ greet(){ return &quot;Hi!&quot;; },
+ address: { &quot;street name&quot;: &quot;Web Dev Blvd&quot; }
+}
+let mike = { name: &quot;Mike&quot;, age: 17 }
+console.log( john.greet?.() ); // Hi!
+console.log( mike.greet?.() ); // undefined
+console.log( john.address?.['street name']); // Web Dev Blvd
+console.log( mike.address?.['street name']); // undefined
+</code></pre>
+<p>Guarda le differenze tra <code>john</code> (che ha il metodo <code>greet</code> e la proprietà <code>address</code>) e <code>mike</code> (che non ha né l'uno né l'altra).</p>
+<p><strong>Prima variante — chiamare un metodo che potrebbe non esistere.</strong> <code>john.greet?.()</code> restituisce <code>"Hi!"</code> perché <code>greet</code> esiste. <code>mike.greet?.()</code> restituisce <code>undefined</code> <strong>invece di dare errore</strong>: il <code>?.</code> prima delle parentesi ferma la chiamata se il metodo non esiste. Senza il <code>?.</code>, <code>mike.greet()</code> lancerebbe un errore perché <code>mike.greet</code> è <code>undefined</code> e non si può invocare <code>undefined</code>.</p>
+<p><strong>Seconda variante — accesso con parentesi quadre.</strong> <code>john.address?.['street name']</code> combina l'optional chaining con la square bracket notation che abbiamo visto nella sottosezione 10.4. Il <code>?.</code> va messo <strong>prima</strong> delle parentesi quadre, e serve a proteggere l'accesso nel caso <code>address</code> non esista. Anche qui, <code>mike</code> non ha <code>address</code>, quindi otteniamo <code>undefined</code> invece di un errore.</p>
+<p><strong>Riepilogo delle forme:</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Forma</th>
+<th style="text-align: left;">Uso</th>
+<th style="text-align: left;">Esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>obj.prop?.nome</code></td>
+<td style="text-align: left;">Accesso a una proprietà annidata</td>
+<td style="text-align: left;"><code>pet.owner?.name</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>obj.method?.()</code></td>
+<td style="text-align: left;">Chiamata a un metodo che potrebbe non esistere</td>
+<td style="text-align: left;"><code>mike.greet?.()</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>obj?.['key']</code></td>
+<td style="text-align: left;">Accesso con square bracket notation</td>
+<td style="text-align: left;"><code>mike.address?.['street name']</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>10.15 Configurare le proprietà: i flag</h3>
+<p>Finora abbiamo trattato le proprietà come semplici coppie <code>key:value</code>. In realtà ogni proprietà ha, oltre al valore, <strong>tre attributi speciali</strong> (chiamati <strong>flag</strong>) che ne controllano il comportamento:</p>
+<ul>
+<li><strong><code>writable</code></strong>: se <code>true</code>, il valore può essere <strong>cambiato</strong>. Altrimenti la proprietà è <strong>read-only</strong>.</li>
+<li><strong><code>enumerable</code></strong>: se <code>true</code>, la proprietà viene <strong>elencata nei loop</strong> (come il <code>for...in</code> che abbiamo usato in <code>clone</code>).</li>
+<li><strong><code>configurable</code></strong>: se <code>true</code>, la proprietà può essere <strong>cancellata</strong> e i suoi <strong>flag modificati</strong>.</li>
+</ul>
+<p>Quando creiamo una proprietà nel modo <strong>"tradizionale"</strong> — cioè scrivendola in un object literal o assegnandola con <code>pet.nuova = ...</code> — <strong>tutti i flag sono impostati a <code>true</code></strong>. Ecco perché, fino ad ora, potevamo modificare, cancellare e iterare su tutto senza problemi: i permessi erano tutti concessi.</p>
+<p>Questo concetto in Java non ha un equivalente diretto. Ci si avvicina l'idea dei modificatori di accesso (<code>private</code>, <code>final</code>), ma con una differenza sostanziale: mentre in Java i modificatori sono decisi <strong>una volta per tutte dalla classe</strong>, qui i flag si possono <strong>decidere proprietà per proprietà, a runtime</strong>.</p>
+<hr />
+<h3>10.16 <code>Object.defineProperty()</code></h3>
+<p>Per creare una proprietà specificando i suoi flag si usa <strong><code>Object.defineProperty()</code></strong>:</p>
+<pre><code class="language-js">let pet = { species: &quot;cat&quot; }
+Object.defineProperty(pet, &quot;name&quot;, {
+ value: &quot;Garfield&quot;,
+ writable: false,
+ enumerable: false,
+ configurable: false
+})
+for(let key in pet){
+ console.log(`Key: ${key}`); //only prints Key: species
+}
+pet.name = &quot;Odie&quot;;  //TypeError: &quot;name&quot; is read-only
+delete pet.species; //works
+delete pet.name;    //TypeError: property &quot;name&quot; is non-configurable
+</code></pre>
+<blockquote>
+<p>⚠️ <strong>Attenzione, ed è una differenza importante:</strong> quando le proprietà vengono create con <code>Object.defineProperty()</code> e <strong>non specifichi un flag</strong>, quel flag ha valore di default <strong><code>false</code></strong>. È l'opposto del modo tradizionale! Quindi, se scrivessi <code>Object.defineProperty(pet, "name", { value: "Garfield" })</code> senza elencare i flag, otterresti una proprietà <strong>read-only, non enumerabile e non configurabile</strong> — probabilmente non quello che volevi.</p>
+</blockquote>
+<p>Vediamo gli effetti dei tre flag <code>false</code> nell'esempio:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Operazione</th>
+<th style="text-align: left;">Risultato</th>
+<th style="text-align: left;">Flag responsabile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>for...in</code> su <code>pet</code></td>
+<td style="text-align: left;">stampa <strong>solo</strong> <code>species</code></td>
+<td style="text-align: left;"><code>enumerable: false</code> — <code>name</code> viene nascosta al ciclo</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>pet.name = "Odie"</code></td>
+<td style="text-align: left;"><strong><code>TypeError</code></strong></td>
+<td style="text-align: left;"><code>writable: false</code> — la proprietà è read-only</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>delete pet.species</code></td>
+<td style="text-align: left;"><strong>funziona</strong></td>
+<td style="text-align: left;"><code>species</code> è stata creata nel modo tradizionale, quindi è configurabile</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>delete pet.name</code></td>
+<td style="text-align: left;"><strong><code>TypeError</code></strong></td>
+<td style="text-align: left;"><code>configurable: false</code></td>
+</tr>
+</tbody>
+</table>
+<p>Nota il contrasto tra le ultime due righe: <code>delete pet.species</code> funziona (perché <code>species</code> è una proprietà normale, con tutti i flag a <code>true</code>), mentre <code>delete pet.name</code> fallisce (perché <code>name</code> è stata creata con <code>configurable: false</code>). Sono nello stesso oggetto, ma si comportano diversamente — perché <strong>i flag sono per proprietà, non per oggetto</strong>.</p>
+<hr />
+<h3>10.17 Property Getters e Setters</h3>
+<p>Concludiamo con un concetto che ti farà sentire a casa, perché è la versione JavaScript di qualcosa che conosci bene.</p>
+<p>Esistono <strong>due tipi</strong> di proprietà di un oggetto:</p>
+<ul>
+<li><strong>Data properties</strong>: memorizzano un <strong>valore</strong> — sono tutte quelle viste finora.</li>
+<li><strong>Accessor properties</strong>: sono <strong>funzioni</strong> che vengono eseguite <strong>nel momento in cui</strong> la proprietà viene acceduta, sia in lettura sia in scrittura.</li>
+</ul>
+<p>Le accessor properties sono rappresentate da due funzioni:</p>
+<ul>
+<li>un <strong>getter</strong>, invocato quando la proprietà viene <strong>letta</strong>;</li>
+<li>un <strong>setter</strong>, invocato quando la proprietà viene <strong>assegnata</strong>.</li>
+</ul>
+<p>Le keyword <strong><code>get</code></strong> e <strong><code>set</code></strong> si usano per definirli dentro un object literal:</p>
+<pre><code class="language-js">let p = {
+ first: &quot;John&quot;,
+ last: &quot;Smith&quot;,
+ get fullName(){
+  return `${this.first} ${this.last}`;
+ },
+ set fullName(name) {
+  [this.first, this.last] = name.split(&quot; &quot;); // fancy destructuring assignment
+ }
+}
+// notice that we access fullName as a property and not as a function (no &quot;()&quot;)!
+// from the outside, there is no difference between data and accessor properties
+console.log(p.fullName); //John Smith
+p.fullName = &quot;Jane White&quot;;
+console.log(p.fullName); //Jane White
+p.fullName(); //TypeError: p.fullName is not a function
+</code></pre>
+<p>Questo esempio è ricco, quindi analizziamolo con calma.</p>
+<p>L'oggetto <code>p</code> ha due proprietà normali, <code>first</code> e <code>last</code>, e una terza, <code>fullName</code>, definita <strong>una sola volta come getter e setter</strong>. Il <strong>getter</strong> restituisce la concatenazione di <code>first</code> e <code>last</code>: ogni volta che <em>leggi</em> <code>p.fullName</code>, la funzione viene eseguita e ti restituisce <code>"John Smith"</code>. Il <strong>setter</strong> fa l'operazione inversa: quando <em>assegni</em> <code>p.fullName = "Jane White"</code>, la stringa viene divisa sullo spazio e le due parti vengono assegnate a <code>first</code> e <code>last</code>.</p>
+<blockquote>
+<p><strong>Nota:</strong> <code>[this.first, this.last] = name.split(" ")</code> è un esempio di <strong>destructuring assignment</strong>, una sintassi compatta che permette di assegnare più variabili a partire da un array in una sola riga. <code>name.split(" ")</code> produce un array di due elementi (<code>["Jane", "White"]</code>), e il destructuring li assegna in ordine al primo e al secondo elemento. Lo incontrerai spesso in JavaScript.</p>
+</blockquote>
+<p>Il dettaglio più importante è però come si <strong>usa</strong> <code>fullName</code>, ed è quello che la slide sottolinea con enfasi:</p>
+<ul>
+<li>Si accede a <code>fullName</code> <strong>come a una proprietà</strong>, non come a una funzione: <code>p.fullName</code>, <strong>non</strong> <code>p.fullName()</code>.</li>
+<li><strong>Dall'esterno non c'è alcuna differenza</strong> tra una data property e una accessor property. Chi usa l'oggetto scrive <code>p.fullName</code> e non sa (né deve sapere) che dietro c'è una funzione in esecuzione.</li>
+<li>L'ultima riga lo dimostra: <code>p.fullName()</code> dà <strong><code>TypeError: p.fullName is not a function</code></strong>, perché <code>fullName</code> non è una funzione da chiamare — è una proprietà da leggere.</li>
+</ul>
+<p><strong>Il parallelo con Java è immediato:</strong> in Java hai i metodi <code>getFullName()</code> e <code>setFullName()</code>. In JavaScript, la stessa idea, ma con una differenza di forma: in Java chi usa la classe deve chiamare <strong>esplicitamente</strong> i metodi con le parentesi, mentre in JavaScript l'accesso è <strong>trasparente</strong> — si legge e si scrive come se fosse un campo normale. Il getter/setter resta invisibile a chi consuma l'oggetto, che è poi il senso dell'incapsulamento: <strong>decidi tu cosa succede quando qualcuno legge o scrive quella proprietà, senza che lui debba saperlo</strong>.</p>
+<hr />
+<h2>11. Riferimenti</h2>
+<p>Materiale consigliato per approfondire:</p>
+<ul>
+<li>
+<p><strong>The Modern JavaScript Tutorial</strong>
+  Disponibile gratuitamente su <a href="https://javascript.info/">https://javascript.info/</a> o su <a href="https://github.com/javascript-tutorial/en.javascript.info/tree/master">GitHub</a>.
+  Parti consigliate: <em>An Introduction</em>, <em>JavaScript Fundamentals</em>, <em>Code Quality</em> (3.1–3.4), <em>Objects: the basics</em> (4.1–4.6), <em>Data types</em> (5.1–5.3), <em>Advanced working with functions</em> (6.3).</p>
+</li>
+<li>
+<p><strong>Eloquent JavaScript</strong> (3ª edizione), di Marijn Haverbeke
+  Disponibile gratuitamente su <a href="https://eloquentjavascript.net/">https://eloquentjavascript.net/</a>.
+  Capitoli: Introduzione, dall'1 al 6.</p>
+</li>
+<li>
+<p><strong>Learn JavaScript</strong> — MDN web docs course
+  <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript">https://developer.mozilla.org/en-US/docs/Learn/JavaScript</a>
+  Utile come riferimento rapido su JavaScript. Contiene molti esempi.</p>
+</li>
+</ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1423 @@
+% !TEX program = pdflatex
+% Appunti di Tecnologie Web - JavaScript (Parte I)
+% Compilare con: pdflatex APPUNTI-JS.tex  (due volte, per l'indice)
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+\usepackage[margin=2cm,top=2.2cm,bottom=2.2cm]{geometry}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{codebg}{RGB}{246,248,250}
+\definecolor{codeframe}{RGB}{208,215,222}
+\definecolor{kw}{RGB}{0,92,197}
+\definecolor{str}{RGB}{3,47,98}
+\definecolor{cmt}{RGB}{106,115,125}
+\definecolor{accent}{RGB}{9,105,218}
+\definecolor{jblue}{RGB}{37,99,235}
+\definecolor{wamber}{RGB}{180,83,9}
+\definecolor{ngreen}{RGB}{21,128,61}
+
+% ---------- Stili per il codice ----------
+\lstdefinelanguage{JS}{
+  keywords={let,const,var,function,return,if,else,for,while,do,switch,case,
+            break,default,new,delete,typeof,instanceof,this,get,set,in,of,
+            undefined,null,true,false},
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]`
+}
+
+\lstdefinestyle{base}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  framesep=5pt,
+  xleftmargin=6pt,
+  xrightmargin=6pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=2,
+  aboveskip=6pt,
+  belowskip=6pt
+}
+
+\lstdefinestyle{js}{style=base, language=JS,
+  keywordstyle=\color{kw}\bfseries, commentstyle=\color{cmt}\itshape,
+  stringstyle=\color{str}}
+\lstdefinestyle{html}{style=base, language=HTML}
+\lstdefinestyle{plain}{style=base}
+
+% ---------- Box riutilizzabili ----------
+\newtcolorbox{javabox}{breakable, colback=jblue!5, colframe=jblue!45,
+  boxrule=0.4pt, arc=2pt, left=7pt, right=7pt, top=5pt, bottom=5pt,
+  fonttitle=\bfseries\small, coltitle=jblue!75!black}
+
+\newtcolorbox{warnbox}{breakable, colback=wamber!6, colframe=wamber!55,
+  boxrule=0.4pt, arc=2pt, left=7pt, right=7pt, top=5pt, bottom=5pt}
+
+\newtcolorbox{notebox}{breakable, colback=ngreen!5, colframe=ngreen!45,
+  boxrule=0.4pt, arc=2pt, left=7pt, right=7pt, top=5pt, bottom=5pt}
+
+\newcommand{\avviso}[1]{\textbf{\textcolor{wamber}{Attenzione.}} #1}
+\newcommand{\nota}[1]{\textbf{\textcolor{ngreen}{Nota.}} #1}
+
+% ---------- Titoli e intestazioni ----------
+\titleformat{\section}{\normalfont\Large\bfseries\color{accent!80!black}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape Tecnologie Web --- JavaScript (Parte I)}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\setlist[itemize]{topsep=3pt,itemsep=2pt,parsep=0pt,leftmargin=1.3em}
+\setlist[enumerate]{topsep=3pt,itemsep=2pt,parsep=0pt,leftmargin=1.6em}
+
+% =====================================================================
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries JavaScript --- Parte I}\\[4pt]
+  {\large Appunti di Tecnologie Web}\\[2pt]
+  {\small\itshape Per chi arriva da Java e non ha mai scritto JavaScript}
+\end{center}
+
+\vspace{4pt}
+\hrule
+\vspace{10pt}
+
+Questi appunti coprono la \textbf{Parte I} della lezione: come si include il linguaggio in una pagina, variabili e scope, funzioni e oggetti. Moduli, asincronia e DOM arriveranno nelle lezioni successive.
+
+Il punto di partenza è \emph{Java}: la sintassi di cicli e condizionali è quasi identica, quindi tutto sembrerà familiare. Ma sotto ci sono differenze profonde che, se ignorate, fanno apparire il codice rotto senza motivo. Ogni volta che qualcosa funziona diversamente da come ti aspetti, è segnalato.
+
+\tableofcontents
+\newpage
+
+% =====================================================================
+\section{Da Java a JavaScript: cosa cambia davvero}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+\textbf{Aspetto} & \textbf{Java} & \textbf{JavaScript} \\
+\midrule
+Tipizzazione & Statica: il tipo si dichiara e non cambia & Dinamica/debole: nessun tipo dichiarato, la variabile può cambiarlo \\
+Dichiarazione & \texttt{int x = 5;} \newline \texttt{final int Y = 7;} & \texttt{let x = 5;} \newline \texttt{const Y = 7;} --- \textbf{senza tipo} \\
+Punto d'ingresso & Classe con \texttt{public static void main} & Sequenza di istruzioni, o dentro \texttt{<script>} \\
+Esecuzione & Compilato in bytecode, errori a compile-time & Interpretato dal motore JS, errori per lo più a runtime \\
+Funzioni & Metodi dentro una classe & Valori di prima classe: si assegnano e si passano \\
+Oggetti & Solo istanziando una classe & Si creano con \texttt{\{\}}; la classe è opzionale \\
+\texttt{this} & Sempre l'istanza corrente, deciso a compile-time & Deciso \textbf{a runtime}, secondo \emph{come} la funzione è chiamata \\
+Uguaglianza & Un solo \texttt{==} & \texttt{===} confronta valore e tipo; \texttt{==} converte \\
+Diviso zero & \texttt{ArithmeticException} & Nessun errore: \texttt{Infinity} \\
+Valore assente & \texttt{null} (+ \texttt{NullPointerException}) & \texttt{undefined} e \texttt{null}, distinti \\
+Proprietà inesistente & Errore di compilazione & \texttt{undefined}, \textbf{nessun errore} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Il filo conduttore è uno: \textbf{Java è rigido e ti protegge; JavaScript è permissivo e si fida di te}. Quasi tutto ciò che in Java è un errore di compilazione, qui o è silenziosamente legale o esplode a runtime quando meno te lo aspetti.
+
+% =====================================================================
+\section{Perché esiste JavaScript}
+
+HTML definisce la \textbf{struttura} di una pagina, CSS l'\textbf{aspetto}. Ma una pagina HTML da sola è \textbf{statica}: una volta ricevuta dal server, il contenuto non cambia più finché non ricarichi. JavaScript è il linguaggio eseguito \emph{dentro il browser} che permette alla pagina di \textbf{reagire}. La differenza concettuale da fissare è questa: HTML e CSS \emph{descrivono}, JavaScript \emph{esegue}.
+
+\subsection*{Cos'è, tecnicamente}
+
+\begin{itemize}
+  \item Linguaggio \textbf{ad alto livello}, \textbf{debolmente tipizzato} (\emph{loosely-typed}), di \textbf{scripting}.
+  \item Introdotto dal browser \textbf{Netscape} nel \textbf{1995}.
+  \item Progettato per essere incluso nelle pagine web ed eseguito nel browser, per rendere i documenti HTML più \textbf{dinamici}.
+  \item Gli script sono \textbf{interpretati come testo semplice} dal \textbf{JS Engine}.
+\end{itemize}
+
+``Debolmente tipizzato'' è il cuore della differenza con Java. In Java \texttt{int x = 5;} rende \texttt{x} un intero per sempre, e il compilatore ti ferma se provi ad assegnargli \texttt{"ciao"}. In JavaScript \texttt{let x = 5;} dichiara solo una scatola che contiene \texttt{5}: due righe dopo puoi scrivere \texttt{x = "ciao"} e poi \texttt{x = false}. \textbf{La variabile non ha un tipo: ce l'ha il valore che contiene in quel momento.}
+
+\begin{warnbox}
+\avviso{In Java il compilatore è il tuo primo revisore di codice. In JavaScript quel revisore non esiste: molti errori che in Java scopri mentre scrivi, qui li scopri quando l'utente sta già usando la pagina.}
+\end{warnbox}
+
+\subsection*{JavaScript oggi}
+
+Ha superato da tempo i confini del browser: backend, applicazioni desktop e mobile, scripting generico. È il linguaggio più popolare al mondo: nel \textbf{2023} era usato dal \textbf{66\%} degli sviluppatori professionisti secondo StackOverflow.
+
+Implementa la specifica \textbf{ECMAScript}, mantenuta da ECMA International. ``ECMAScript 5'', ``ES6'' sono i nomi dello \emph{standard}; ``JavaScript'' è il nome del \emph{linguaggio} che lo implementa.
+
+% =====================================================================
+\section{Includere JavaScript in una pagina}
+
+\subsection{JavaScript interno}
+
+Il codice sta nella pagina, dentro un elemento \texttt{<script>}, nel \texttt{<head>} o nel \texttt{<body>}:
+
+\begin{lstlisting}[style=html]
+<script>
+  console.log("Hello World!");
+</script>
+\end{lstlisting}
+
+Il tag \texttt{<script>} è ciò che dice al motore ``da qui in poi c'è codice da eseguire''. \texttt{console.log()} è il tuo \texttt{System.out.println()}: stampa sulla console del browser (\texttt{F12} $\rightarrow$ \emph{Console}).
+
+\subsection{JavaScript esterno}
+
+Il codice sta in un file separato con estensione \textbf{\texttt{.js}}, collegato tramite \texttt{src}:
+
+\begin{lstlisting}[style=html]
+<script src="script.js"></script>
+\end{lstlisting}
+
+È il modo usato nella pratica, per lo stesso motivo per cui in Java non scrivi tutto in un unico file. Negli esempi successivi il codice apparirà ``nudo'': immagina che sia in uno di questi due posti.
+
+\subsection{Esempio completo: Hello World}
+
+\begin{lstlisting}[style=html]
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>JavaScript</title>
+    <script>
+      console.log("Hello World!");
+    </script>
+  </head>
+  <body>
+    <h1>Hello!</h1>
+  </body>
+</html>
+\end{lstlisting}
+
+Lo \texttt{<script>} sta nel \texttt{<head>}, quindi il codice viene eseguito \textbf{prima} che il \texttt{<body>} sia costruito. Per ora non è un problema, ma quando il codice dovrà manipolare elementi della pagina il \emph{momento} dell'esecuzione diventerà cruciale.
+
+% =====================================================================
+\section{\texttt{"use strict"}: la modalità moderna}
+
+Per molto tempo JavaScript si è evoluto \textbf{senza rompere la compatibilità}: nuove funzionalità, senza toccare quelle esistenti. Il costo era che il linguaggio non poteva correggere i propri difetti storici.
+
+Nel \textbf{2009} arrivò \textbf{ECMAScript 5}, che per la prima volta \textbf{modificò funzionalità esistenti}. Per non rompere i siti già in produzione, questi cambiamenti sono \textbf{disattivati di default} e si attivano con la direttiva \texttt{"use strict"} nella \textbf{prima riga} dello script:
+
+\begin{lstlisting}[style=js]
+"use strict";
+/* JavaScript code here */
+\end{lstlisting}
+
+Con la direttiva attiva il motore applica regole \textbf{più severe}: rifiuta codice sciatto che altrimenti accetterebbe e trasforma in errori operazioni che in modalità normale passerebbero in silenzio.
+
+\begin{warnbox}
+\avviso{Nel corso, salvo indicazione contraria, faremo riferimento alla versione \textbf{moderna} e \emph{strict} di JavaScript. Dichiara \texttt{"use strict"} in cima ai tuoi script, altrimenti il comportamento di alcuni esempi non corrisponderà.}
+\end{warnbox}
+
+% =====================================================================
+\section{Il linguaggio: gli statement}
+
+JavaScript supporta i paradigmi \textbf{imperativo}, \textbf{funzionale} e \textbf{orientato agli oggetti}: la parte imperativa la ritroverai quasi identica a Java, mentre la componente funzionale in Java esiste solo in forma limitata (lambda e stream).
+
+Un programma JavaScript è una \textbf{sequenza di statement}, composti da \textbf{valori}, \textbf{operatori}, \textbf{espressioni}, \textbf{keyword} e \textbf{commenti}. Non esiste una classe, non esiste un \texttt{main}: il file è una lista di istruzioni eseguite dall'alto verso il basso.
+
+La sintassi è simile a Java e C, ma \textbf{molto più permissiva}. La differenza più evidente è che i \textbf{punto e virgola sono opzionali}: gli a capo bastano.
+
+\begin{lstlisting}[style=js]
+//con i punti e virgola
+msg = "Hello";
+num = 1;
+console.log(msg);
+
+//senza punti e virgola
+msg = "Hello"
+num = 1
+console.log(msg)
+
+/* statement sulla stessa riga
+   (e commento multi-linea) */
+msg="Hello"; num=1; console.log(msg);
+\end{lstlisting}
+
+I commenti funzionano come in Java. Come in Java, gli a capo non contano per il linguaggio: puoi mettere tre istruzioni sulla stessa riga.
+
+\begin{notebox}
+\nota{Anche se opzionali, \textbf{delimitare gli statement con il punto e virgola è preferibile}: in alcuni casi limite JavaScript indovina male dove finisce un'istruzione e ne combina due, generando comportamenti difficili da diagnosticare.}
+\end{notebox}
+
+% =====================================================================
+\section{Variabili e scope}
+
+Questa è la sezione in cui chi arriva da Java rischia più confusione, perché la maggior parte dei linguaggi \textbf{non ha il concetto di hoisting}, e JavaScript sì --- con regole diverse a seconda di come dichiari la variabile. Procediamo con ordine: prima \emph{come} si dichiara, poi \emph{dove} esiste (scope), infine \emph{quando} diventa utilizzabile (hoisting).
+
+\subsection{Il ciclo di vita di una variabile}
+
+Dichiarare una variabile consiste di \textbf{tre fasi distinte}:
+
+\begin{enumerate}
+  \item \textbf{Dichiarazione}: il nome viene \textbf{legato} allo scope corrente.
+  \item \textbf{Inizializzazione}: alla variabile viene \textbf{assegnato un valore}.
+  \item \textbf{Utilizzo}: la variabile può essere \textbf{referenziata}.
+\end{enumerate}
+
+In Java le tre fasi coincidono in una riga (\texttt{int x = 5;}) e non ci si pensa mai. In JavaScript \textbf{si separano}:
+
+\begin{lstlisting}[style=plain]
+      Dichiarazione              Inizializzazione               Utilizzo
+   (binding nello scope)      (assegnazione del valore)    (lettura del valore)
+             |                           |                          |
+             v                           v                          v
+   ----------+---------------------------+--------------------------+--------> tempo
+             |<---- Temporal Dead Zone (TDZ) ---->|
+             |                                    |
+    variabile inaccessibile            variabile accessibile
+    fino all'inizializzazione
+\end{lstlisting}
+
+La zona centrale è la \textbf{Temporal Dead Zone (TDZ)}: l'intervallo in cui la variabile \textbf{esiste già} ma \textbf{non è ancora utilizzabile}. Leggerla lì produce un errore. Questo diagramma è la chiave del resto della sezione: hoisting e TDZ sono due facce della stessa medaglia.
+
+\subsection{Dichiarare variabili: \texttt{let} e \texttt{const}}
+
+\begin{itemize}
+  \item \textbf{\texttt{let}} per le variabili ``standard'', riassegnabili.
+  \item \textbf{\texttt{const}} per le costanti, che \textbf{non possono essere riassegnate}.
+\end{itemize}
+
+\begin{lstlisting}[style=js]
+let x;
+const y = 42;
+console.log(x); //output: undefined
+console.log(y); //output: 42
+\end{lstlisting}
+
+Il primo punto da notare è quello che \textbf{non} c'è: \textbf{il tipo}. La keyword non dichiara \emph{che tipo di dato} conterrà la variabile, ma solo \emph{quanto sarà flessibile}: \texttt{let} è una variabile riassegnabile, \texttt{const} è bloccata (come \texttt{final}).
+
+Il secondo è \texttt{undefined}. In Java una variabile locale dichiarata e non inizializzata non è utilizzabile: il compilatore blocca. In JavaScript \texttt{let x;} è legale e \texttt{x} vale \textbf{\texttt{undefined}} --- ``dichiarata, ma nessun valore assegnato''.
+
+\subsection{Lo scope: dove una variabile esiste}
+
+Tre livelli di scope:
+
+\begin{itemize}
+  \item \textbf{Global Scope}: tutto il programma.
+  \item \textbf{Function Scope}: lo scope di una funzione.
+  \item \textbf{Module Scope}: lo scope di un modulo (prossima lezione).
+\end{itemize}
+
+Inoltre, le variabili dichiarate con \texttt{let} e \texttt{const} hanno \textbf{block-level scope}: il blocco più vicino delimitato da \texttt{\{\}}.
+
+Il block-level scope è quello che ti aspetti da Java. Una variabile dichiarata dentro un \texttt{if}, un \texttt{for} o un blocco esiste \emph{solo lì dentro}. Con \texttt{let} e \texttt{const} JavaScript si comporta come Java --- ma questo \textbf{non} vale per \texttt{var}.
+
+\subsection{\texttt{let} e il block scope}
+
+\begin{lstlisting}[style=js]
+let bool; //variable declaration
+bool = true;
+if (bool) {
+  //console.log(msg);//msg not accessible here
+  let msg = "Hello"; //declaration + assignment
+  console.log(msg); //output: Hello
+}
+//console.log(msg); //msg not defined here
+console.log(bool); //output: true
+\end{lstlisting}
+
+Le due righe commentate sono il punto centrale:
+
+\begin{itemize}
+  \item La prima fallirebbe perché \texttt{msg} è nella sua \textbf{TDZ} (usata prima dell'inizializzazione).
+  \item La seconda fallirebbe perché \texttt{msg} è \textbf{uscita dallo scope} (esisteva solo dentro il blocco).
+\end{itemize}
+
+Le variabili \texttt{let}/\texttt{const} sono confinate al blocco più vicino e accessibili solo dopo la riga di dichiarazione. È il comportamento a cui Java ti ha abituato, con l'unica aggiunta della TDZ.
+
+\subsection{Hoisting e Temporal Dead Zone}
+
+Prima di eseguire un blocco, il motore lo \textbf{scansiona} e ``tira su'' (\emph{hoists}) le dichiarazioni che trova, spostandole virtualmente all'inizio del loro scope. \textbf{Cosa} viene tirato su dipende da come hai dichiarato la variabile:
+
+\begin{itemize}
+  \item Con \texttt{let} e \texttt{const}: \textbf{solo la dichiarazione}, \textbf{non l'inizializzazione}.
+  \item L'inizializzazione avviene \textbf{sulla riga} della dichiarazione originale.
+\end{itemize}
+
+Da qui la TDZ: la variabile ``esiste'' dall'inizio del blocco, ma non è inizializzata fino alla riga originale.
+
+\begin{lstlisting}[style=js]
+// x variable not defined
+{
+  // Declaration for x is hoisted here
+  // TDZ for the x variable
+  console.log(x); //raises error
+  // TDZ for the x variable
+  let x = 1;
+  // TDZ ends, x initialized
+  // x variable initialized to 1
+}
+// x variable not defined
+\end{lstlisting}
+
+L'errore prodotto è:
+
+\begin{lstlisting}[style=plain]
+ReferenceError: can't access lexical declaration 'x' before initialization
+\end{lstlisting}
+
+Il codice legge la riga \texttt{console.log(x)} \textbf{prima} di \texttt{let x = 1}, cosa che in Java non compilerebbe. Qui il codice viene eseguito, arriva alla \texttt{console.log} e solo \emph{a runtime} scopre che \texttt{x} è nella TDZ.
+
+\begin{notebox}
+\nota{L'hoisting con TDZ è stato progettato \textbf{apposta} per rendere \texttt{let}/\texttt{const} più sicuri di \texttt{var}: meglio un errore chiaro subito, che un \texttt{undefined} silenzioso che si propaga per tutto il programma.}
+\end{notebox}
+
+\subsection{\texttt{let} e lo shadowing}
+
+Le variabili di un blocco interno possono \textbf{nascondere} (\emph{shadowing}) variabili omonime di uno scope esterno.
+
+\begin{lstlisting}[style=js]
+let n; //variable declaration
+n = 1;
+if (n > 0) {
+  let n = 2; //shadows n variable from external scope
+  //let n; //error: cannot re-declare in the same block
+  console.log(n); //output: 2
+}
+console.log(n); //output: 1
+\end{lstlisting}
+
+Dentro l'\texttt{if} c'è una \textbf{nuova} variabile \texttt{n}, distinta da quella esterna: il log interno stampa \texttt{2}, quello esterno \texttt{1}. La riga commentata mostra l'unica restrizione: \textbf{non puoi ri-dichiarare la stessa variabile nello stesso blocco}, esattamente come in Java.
+
+\subsection{\texttt{const}}
+
+\begin{lstlisting}[style=js]
+const n = 42;
+console.log(n); //output: 42
+n = 43; //raises a TypeError
+\end{lstlisting}
+
+\texttt{const} sta a JavaScript come \texttt{final} sta a Java. La differenza è nella \emph{natura} dell'errore: in Java riassegnare un \texttt{final} è un errore di compilazione; qui il codice viene eseguito e solo a runtime lancia un \texttt{TypeError}.
+
+\begin{warnbox}
+\avviso{\texttt{const} impedisce di \textbf{riassegnare la variabile}, non di \textbf{modificare l'oggetto} che essa referenzia. Con \texttt{const pet = \{ name: "Garfield" \};}, l'assegnazione \texttt{pet = \{\}} è vietata, ma \texttt{pet.name = "Odie"} è \textbf{perfettamente legale}. \texttt{const} blocca il \emph{riferimento}, non il \emph{contenuto}.}
+\end{warnbox}
+
+\subsection{\texttt{var}: come si faceva prima}
+
+Prima di \textbf{ECMAScript 6 (2015)} le variabili si dichiaravano con \textbf{\texttt{var}}, oppure implicitamente.
+
+\begin{warnbox}
+\avviso{A meno che tu non debba davvero supportare browser molto vecchi, \textbf{non} dichiarare variabili in questi modi: hanno proprietà \textbf{confuse} e \textbf{soggette a errori}.}
+\end{warnbox}
+
+\begin{lstlisting}[style=js]
+if (true) {
+  console.log(n);
+  var n = 1;
+}
+console.log(n);
+\end{lstlisting}
+
+In Java entrambe le \texttt{console.log} sarebbero errori di compilazione. In JavaScript \textbf{nessuna delle due} lo è.
+
+\subsection{\texttt{var} e l'hoisting completo}
+
+\begin{itemize}
+  \item Le variabili \texttt{var} vengono hoisted allo \textbf{scope di funzione o globale} più vicino, e \textbf{non hanno block-level scope}.
+  \item Vengono \textbf{anche inizializzate a \texttt{undefined}} già all'inizio dello scope.
+\end{itemize}
+
+La seconda riga è \textbf{il} punto centrale: con \texttt{var} \textbf{non esiste TDZ}. Il motore porta la variabile in cima al suo scope \emph{e ci mette dentro \texttt{undefined}}. È sempre accessibile --- solo che prima dell'assegnazione contiene \texttt{undefined}.
+
+\begin{lstlisting}[style=js]
+if (true) {
+  console.log(n); //output: undefined
+  var n = 1;
+}
+console.log(n); //output: 1
+\end{lstlisting}
+
+\begin{lstlisting}[style=js]
+var n;
+if (true) {
+  console.log(n); //output: undefined
+  n = 1;
+}
+console.log(n); //output: 1
+\end{lstlisting}
+
+Nel primo esempio il primo log \textbf{non} dà errore perché \texttt{n} è hoisted e vale \texttt{undefined}; il secondo \textbf{non} dà errore perché \texttt{var} \textbf{ignora il blocco} e porta \texttt{n} allo scope esterno.
+
+Immagina di usare una variabile prima della sua riga di dichiarazione, dentro un blocco:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Cosa scrivi} & \textbf{Cosa ottieni} \\
+\midrule
+\texttt{let n = 1;} usata prima & \texttt{ReferenceError} (TDZ) --- l'errore ti salva \\
+\texttt{var n = 1;} usata prima & \texttt{undefined} --- nessun errore, il bug si propaga in silenzio \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Ecco perché il corso usa \texttt{let}/\texttt{const}. Non è stile: \texttt{var} \textbf{nasconde} gli errori, \texttt{let}/\texttt{const} li \textbf{mostrano}.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+\textbf{Aspetto} & \textbf{\texttt{let} / \texttt{const}} & \textbf{\texttt{var}} \\
+\midrule
+Scope & Block-level (blocco \texttt{\{\}} più vicino) & Function / Global, nessun block-level \\
+Hoisting & Solo la dichiarazione & Dichiarazione \textbf{+ init a \texttt{undefined}} \\
+Accesso prima della riga & \texttt{ReferenceError} (TDZ) & \texttt{undefined}, nessun errore \\
+Ri-dichiarazione & Vietata nello stesso blocco & Consentita \\
+Da usare? & Sì, sempre & No, solo codice legacy \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{La dichiarazione implicita}
+
+\begin{lstlisting}[style=js]
+"use strict"
+msg = "pls don't do this"  // ReferenceError
+\end{lstlisting}
+
+Usare una variabile \textbf{senza mai dichiararla} crea automaticamente una \textbf{variabile globale}. È pericolosissimo: una variabile globale invisibile, nata da un errore di battitura, modificabile da qualsiasi punto del programma. Nello \emph{strict mode} è vietato e produce un \texttt{ReferenceError} --- una delle ragioni principali per cui il corso insiste sulla direttiva.
+
+% =====================================================================
+\section{Tipi di dato primitivi}
+
+JavaScript è \textbf{debolmente tipizzato}: una stessa variabile può contenere valori di tipo diverso nel tempo. L'operatore \texttt{typeof} restituisce il tipo del valore contenuto \emph{in questo momento}.
+
+\begin{lstlisting}[style=js]
+let x; // variable declared and initialized to undefined
+console.log(typeof x); // undefined
+x = 42;
+console.log(typeof x); // number
+x = 3.14;
+console.log(typeof x); // number
+x = "hello";
+console.log(typeof x); // string
+x = 'hello';
+console.log(typeof x); // string
+x = false;
+console.log(typeof x); // boolean
+x = 10e12;
+console.log(typeof x); // number
+x = 42 / 0; // Infinity
+console.log(typeof x); // number
+x = 42 * "Hello"; // NaN
+console.log(typeof x); // number
+\end{lstlisting}
+
+Qui \texttt{x} viene riassegnata nove volte con nove tipi diversi, e nessuna assegnazione produce un errore. Quattro cose che in Java non funzionano così:
+
+\begin{enumerate}
+  \item \textbf{\texttt{number} è un tipo solo.} In Java hai \texttt{int}, \texttt{long}, \texttt{float}, \texttt{double}, \texttt{short}, \texttt{byte}: sei tipi numerici con regole di conversione precise. Qui esiste un unico tipo \texttt{number}, che copre interi (\texttt{42}), decimali (\texttt{3.14}) e notazione esponenziale (\texttt{10e12}).
+  \item \textbf{Il tipo di una stringa non dipende dalle virgolette.} \texttt{"hello"} e \texttt{'hello'} sono entrambe stringhe, esattamente equivalenti. In Java \texttt{"hello"} è una \texttt{String} e \texttt{'hello'} sarebbe un \texttt{char}.
+  \item \textbf{\texttt{42 / 0} non lancia un'eccezione.} In Java lancia \texttt{ArithmeticException}; qui restituisce \texttt{Infinity}, un valore numerico vero e proprio. Il programma procede.
+  \item \textbf{\texttt{NaN} è di tipo \texttt{number}.} Moltiplicare un numero per una stringa produce \texttt{NaN} (\emph{Not a Number}), e \texttt{typeof NaN} è \texttt{number}: \texttt{NaN} è il risultato di un'operazione numerica senza senso. Attenzione: \texttt{NaN == NaN} restituisce \texttt{false}, quindi per verificarlo si usa \texttt{isNaN()}.
+\end{enumerate}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Valore} & \textbf{\texttt{typeof}} e note \\
+\midrule
+\texttt{undefined} & \texttt{"undefined"} --- dichiarata ma non inizializzata \\
+\texttt{42}, \texttt{3.14}, \texttt{10e12} & \texttt{"number"} --- un unico tipo numerico \\
+\texttt{Infinity} & \texttt{"number"} --- risultato di \texttt{42 / 0} \\
+\texttt{NaN} & \texttt{"number"} --- risultato di operazioni senza senso \\
+\texttt{"hello"}, \texttt{'hello'} & \texttt{"string"} --- doppi e singoli apici equivalenti \\
+\texttt{true} / \texttt{false} & \texttt{"boolean"} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =====================================================================
+\section{Operatori}
+
+\subsection{Operatori di base}
+
+Nulla di nuovo rispetto a Java:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Operatore} & \textbf{Descrizione} \\
+\midrule
+\texttt{=} & Assegnazione \\
+\texttt{+} \texttt{-} \texttt{*} \texttt{/} & Addizione, sottrazione, moltiplicazione, divisione \\
+\texttt{**} & Elevamento a potenza (da ECMAScript 2016) \\
+\texttt{\%} & Modulo (resto della divisione) \\
+\texttt{++} \texttt{--} & Incremento, decremento \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+L'unica aggiunta è \texttt{**} per l'elevamento a potenza: in Java avresti scritto \texttt{Math.pow(2, 10)}, qui \texttt{2 ** 10}.
+
+\subsection{Operatori di confronto}
+
+Gli stessi di Java, con l'\textbf{aggiunta di \texttt{===}}:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Operatore} & \textbf{Descrizione} \\
+\midrule
+\texttt{==} & uguale a \\
+\texttt{===} & uguale per valore \textbf{e} per tipo \\
+\texttt{!=} & diverso \\
+\texttt{!==} & diverso per valore o per tipo \\
+\texttt{>} \texttt{<} \texttt{>=} \texttt{<=} & confronti \\
+\texttt{?} & operatore ternario \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+In Java hai \textbf{un solo} \texttt{==}: sui primitivi confronta il valore, sugli oggetti la referenza. In JavaScript hai \textbf{due} operatori di uguaglianza che si comportano diversamente, e usare quello sbagliato è una delle fonti di bug più comuni.
+
+\subsection{L'uguaglianza debole (\texttt{==})}
+
+L'operatore di \textbf{uguaglianza debole} \textbf{tenta di convertire} gli operandi prima di confrontarli, se sono di tipi diversi (\emph{type coercion}).
+
+\begin{lstlisting}[style=js]
+console.log(42 == 42)   //true
+console.log("JS" == "JS") //true
+console.log("1" == 1)   //true
+console.log(0 == false)  //true
+console.log(true == 1)  //true
+console.log(true == "1") //true
+console.log(true == 42)  //false
+\end{lstlisting}
+
+Le righe centrali sono quelle impensabili in Java:
+
+\begin{itemize}
+  \item \texttt{"1" == 1} è \texttt{true}: la stringa viene convertita nel numero.
+  \item \texttt{0 == false} è \texttt{true}: \texttt{false} diventa \texttt{0}.
+  \item \texttt{true == 1} è \texttt{true}: \texttt{true} diventa \texttt{1}.
+  \item \texttt{true == "1"} è \texttt{true}: doppia conversione.
+  \item \texttt{true == 42} è \texttt{false}: \texttt{true} diventa \texttt{1}, e \texttt{1 != 42}.
+\end{itemize}
+
+\begin{warnbox}
+\avviso{\textbf{Usa sempre \texttt{===}, mai \texttt{==}}. Non esiste un caso in cui \texttt{==} faccia quello che vuoi e \texttt{===} no: esistono solo casi in cui \texttt{==} fa qualcosa che non ti aspetti.}
+\end{warnbox}
+
+\subsection{L'uguaglianza stretta (\texttt{===})}
+
+Verifica l'uguaglianza \textbf{senza alcuna conversione di tipo}. Se gli operandi sono di \textbf{tipi diversi}, restituisce \textbf{immediatamente \texttt{false}}.
+
+\begin{lstlisting}[style=js]
+console.log(42 === 42)   //true
+console.log("JS" === "JS") //true
+console.log("1" === 1)   //false
+console.log(0 === false)  //false
+console.log(true === 1)  //false
+console.log(true === "1") //false
+console.log(true === 42)  //false
+\end{lstlisting}
+
+Gli \textbf{stessi sette confronti} di prima, ma ora tutti i casi ``strani'' restituiscono \texttt{false}.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lllX@{}}
+\toprule
+\textbf{Espressione} & \texttt{==} & \texttt{===} & \textbf{Perché differiscono} \\
+\midrule
+\texttt{42} vs \texttt{42} & true & true & Stesso tipo, stesso valore \\
+\texttt{"JS"} vs \texttt{"JS"} & true & true & Stesso tipo, stesso valore \\
+\texttt{"1"} vs \texttt{1} & true & false & \texttt{==} converte la stringa in numero \\
+\texttt{0} vs \texttt{false} & true & false & \texttt{==} converte \texttt{false} in \texttt{0} \\
+\texttt{true} vs \texttt{1} & true & false & \texttt{==} converte \texttt{true} in \texttt{1} \\
+\texttt{true} vs \texttt{"1"} & true & false & \texttt{==} converte entrambi \\
+\texttt{true} vs \texttt{42} & false & false & \texttt{==} converte, ma \texttt{1 != 42} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\texttt{!==} è la negazione di \texttt{===}: vale la stessa raccomandazione.
+
+% =====================================================================
+\section{Control flow}
+
+Qui \textbf{non cambia nulla}: \texttt{if}, \texttt{if-else}, \texttt{for}, \texttt{while}, \texttt{do}, \texttt{switch} hanno la \textbf{stessa sintassi e semantica di Java}, e anche \texttt{continue} e \texttt{break} funzionano allo stesso modo.
+
+\begin{lstlisting}[style=js]
+if(condition){
+ //code
+}
+
+if(condition){
+ //code
+} else {
+ //code
+}
+
+do {
+ //code
+} while(condition);
+
+for(let i=0;i<10;i++){
+ //code
+}
+
+while(expression){ /* code */ }
+
+switch(expression){
+ case value:
+  //code
+  break;
+ default:
+  //code
+}
+\end{lstlisting}
+
+Nel \texttt{for} la variabile del contatore si dichiara con \texttt{let}: sfrutta il block-level scope, quindi \texttt{i} esiste solo dentro il ciclo, come in Java.
+
+% =====================================================================
+\section{Funzioni}
+
+In Java i metodi vivono \textbf{dentro una classe} e appartengono a quella classe; assegnare un metodo a una variabile è possibile solo in forme limitate (lambda, method reference). In JavaScript le funzioni sono \textbf{cittadini di prima classe}: valori come i numeri e le stringhe, che si assegnano a variabili, si passano come argomenti e si restituiscono da altre funzioni. Questa differenza è la radice di quasi tutto ciò che segue.
+
+\subsection{Dichiarare una funzione}
+
+\begin{lstlisting}[style=js]
+function greet(name){
+ console.log(`Hello ${name}`); //backticks for template literals
+}
+greet("Web Technologies"); //prints "Hello Web Technologies"
+\end{lstlisting}
+
+\texttt{function greet(name) \{...\}} corrisponde a \texttt{void greet(String name) \{...\}}. Nota cosa \textbf{manca}: il tipo di ritorno e il tipo del parametro. Non si dichiarano, per la stessa ragione per cui non si dichiara il tipo delle variabili.
+
+Lo \textbf{scope} di una dichiarazione di funzione è lo \textbf{scope corrente} in cui avviene. Come per le variabili, anche le funzioni subiscono l'hoisting.
+
+\begin{notebox}
+\nota{\textbf{Template literals.} Nel corpo della funzione compare \texttt{\textasciigrave Hello \$\{name\}\textasciigrave}: non sono virgolette ma \textbf{backtick}. Il \texttt{\$\{name\}} è un segnaposto. È l'equivalente della concatenazione Java: \texttt{"Hello " + name} diventa \texttt{\textasciigrave Hello \$\{name\}\textasciigrave}, con il vantaggio di poter interpolare qualsiasi espressione.\\[3pt]
+\textbf{Come digitare i backtick:} Windows \texttt{ALT} + \texttt{096} sul tastierino numerico; Mac OS \texttt{Option} + \texttt{9}; Linux \texttt{ALT Gr} + \texttt{'}.}
+\end{notebox}
+
+\subsection{Parametri con valore di default}
+
+In Java, non passare un argomento è un errore di compilazione (a meno di overload). In JavaScript no: i parametri non passati sono inizializzati a \textbf{\texttt{undefined}} e il programma va avanti. Si possono quindi specificare \textbf{valori di default}.
+
+\begin{lstlisting}[style=js]
+function greet(name, message="Hello"){ //message has a default value
+ console.log(`${message} ${name}`);
+}
+greet("Web Technologies");         // Hello Web Technologies
+greet("Web Technologies", "Ciao"); // Ciao Web Technologies
+greet();                           // Hello undefined
+\end{lstlisting}
+
+Nella terza chiamata \texttt{message} usa il default \texttt{"Hello"}, ma \texttt{name} --- che non ha default --- resta \texttt{undefined}: ecco perché l'output è \texttt{"Hello undefined"} invece di un errore.
+
+\begin{notebox}
+\nota{Questa sintassi sostituisce in buona parte gli \textbf{overload} di Java: invece di due metodi \texttt{greet(String)} e \texttt{greet(String, String)}, scrivi una sola funzione con un valore di default.}
+\end{notebox}
+
+\subsection{L'hoisting delle funzioni}
+
+\begin{lstlisting}[style=js]
+greet("Web Technologies"); //prints "Hello Web Technologies" (!)
+function greet(name, message="Hello"){
+ console.log(`${message} ${name}`);
+}
+\end{lstlisting}
+
+La funzione viene \textbf{chiamata alla prima riga} ma \textbf{dichiarata alla terza}: in Java non compilerebbe, qui funziona perché il motore tira su \textbf{l'intera funzione}, non solo il nome --- quindi è immediatamente chiamabile.
+
+\begin{warnbox}
+\avviso{È un'arma a doppio taglio: è il motivo per cui \textbf{l'ordine del codice smette di essere una guida affidabile}. In Java potevi leggere un file dall'alto verso il basso e sapere cosa era già definito; qui devi ricordarti dell'hoisting.}
+\end{warnbox}
+
+\subsection{Scope interno, visibilità e closure}
+
+\begin{itemize}
+  \item Una funzione \textbf{crea il proprio scope}.
+  \item Le variabili e funzioni dichiarate al suo interno \textbf{non sono visibili} negli scope esterni.
+  \item Una funzione \textbf{può accedere} alle variabili degli scope esterni (\textbf{closure}), purché non siano \textbf{mascherate} nel proprio scope.
+\end{itemize}
+
+I primi due punti sono le stesse regole di Java. Il terzo è nuovo: una funzione può leggere le variabili dello scope in cui è stata \textbf{definita}, anche se non sono suoi parametri né sue locali.
+
+\begin{lstlisting}[style=js]
+let message = "Hello";
+console.log(greet("Web Technologies")); //output: Hello Web Technologies!
+function greet(name){         // hoisted to the beginning of the global scope
+ return generateMessage();
+ function generateMessage(){ // hoisted to the beginning of greet's scope
+  return `${message} ${name}!`;
+ }
+}
+\end{lstlisting}
+
+\texttt{generateMessage} non ha parametri, eppure usa sia \texttt{message} (scope globale) sia \texttt{name} (parametro di \texttt{greet}): li vede perché è \textbf{definita dentro} \texttt{greet}.
+
+\begin{lstlisting}[style=plain]
+Scope GLOBALE
+|-- message = "Hello"
+`-- greet()                    <-- hoisted qui
+    `-- Scope di greet()
+        |-- name = "Web Technologies"   (parametro)
+        `-- generateMessage()           <-- hoisted qui
+            `-- Scope di generateMessage()
+                accede a: name, message  (closure sugli scope esterni)
+\end{lstlisting}
+
+Ogni funzione può guardare verso l'esterno, mai verso l'interno: \texttt{generateMessage} vede \texttt{name} e \texttt{message}; \texttt{greet} \textbf{non} vedrebbe una variabile dichiarata dentro \texttt{generateMessage}.
+
+Il rovescio della medaglia è la visibilità \textbf{verso l'esterno}: \texttt{generateMessage} è locale a \texttt{greet}, quindi non è referenziabile da fuori.
+
+\begin{lstlisting}[style=js]
+generateMessage(); // Raises ReferenceError: generateMessage is not defined
+\end{lstlisting}
+
+È lo stesso principio per cui in Java un metodo privato non è raggiungibile dall'esterno --- ma qui la restrizione è strutturale (lo scope), non dichiarativa (\texttt{private}).
+
+\subsection{Function expressions}
+
+Una funzione può anche essere \textbf{assegnata a una variabile}.
+
+\begin{lstlisting}[style=js]
+// standard function expression
+let greet = function(name) {
+ console.log(`Hello ${name}!`);
+}
+greet("Web Technologies"); // output: Hello Web Technologies!
+
+// alternative, using arrow functions
+let greet = (name) => {
+ console.log(`Hello ${name}!`);
+}
+\end{lstlisting}
+
+La funzione a destra dell'\texttt{=} è un \textbf{valore}, come \texttt{42} o \texttt{"ciao"}: la variabile non è ``il nome della funzione'', è una variabile che \textbf{contiene} una funzione. È il motivo per cui JavaScript è detto linguaggio \textbf{funzionale}.
+
+La seconda forma, \texttt{(name) => \{...\}}, si chiama \textbf{arrow function}: in Java la conosci come \textbf{lambda} (\texttt{(name) -> \{...\}}), stessa idea con una freccia diversa. Più avanti scoprirai che ha una particolarità importante riguardo a \texttt{this}.
+
+\begin{warnbox}
+\avviso{In questi casi si applicano le \textbf{stesse regole dell'hoisting delle variabili}.}
+\end{warnbox}
+
+\subsection{Function expressions e hoisting: la differenza che conta}
+
+\begin{lstlisting}[style=js]
+greet(); //ReferenceError: greet is not defined
+{
+  greet(); //output: Hello
+  function greet(){
+   console.log("Hello");
+  }
+}
+
+salute(); //ReferenceError: salute is not defined
+{
+  salute(); //ReferenceError: uninitialized
+  let salute = function(){
+   console.log("Howdy");
+  }
+}
+\end{lstlisting}
+
+\begin{enumerate}
+  \item \texttt{greet()} fuori dal blocco $\rightarrow$ \texttt{ReferenceError}: la dichiarazione è hoisted all'inizio del \textbf{suo} scope, che è il blocco, non lo scope esterno.
+  \item \texttt{greet()} dentro il blocco, prima della dichiarazione $\rightarrow$ funziona: è \textbf{tutta la funzione} a essere hoisted.
+  \item \texttt{salute()} fuori dal blocco $\rightarrow$ \texttt{ReferenceError}, stessa ragione del caso 1.
+  \item \texttt{salute()} dentro il blocco, prima dell'assegnazione $\rightarrow$ \texttt{ReferenceError: uninitialized}: \texttt{salute} è dichiarata con \texttt{let}, quindi è nella sua \textbf{TDZ}.
+\end{enumerate}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+\textbf{Tipo} & \textbf{Cosa viene hoisted} & \textbf{Chiamabile prima?} \\
+\midrule
+Function declaration \newline \texttt{function greet()\{\}} & Tutta la funzione & Sì, nello stesso scope \\
+Function expression \newline \texttt{let greet = function()\{\}} & Solo la variabile (TDZ) & No, \texttt{ReferenceError} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Funzioni annidate e closure}
+
+Una funzione è \textbf{nested} quando è creata \textbf{dentro un'altra funzione}. Le funzioni annidate possono essere \textbf{restituite} e usate all'esterno, e \textbf{indipendentemente da dove vengono usate} mantengono accesso al contesto della funzione che le ha create.
+
+\begin{lstlisting}[style=js]
+function getGreeter(message) {
+ let sep = ",";
+ return function(name) {
+  console.log(`${message}${sep} ${name}!`);
+ }
+}
+let helloGreeter = getGreeter("Hello");
+helloGreeter("Web"); //Hello, Web!
+let howdyGreeter = getGreeter("Howdy");
+howdyGreeter("JS"); //Howdy, JS!
+\end{lstlisting}
+
+\texttt{getGreeter} restituisce una \textbf{funzione}, non un valore. Quando \texttt{getGreeter("Hello")} termina, in Java le sue variabili locali \texttt{message} e \texttt{sep} non esisterebbero più. Invece la funzione restituita \textbf{se le porta dietro}.
+
+\begin{lstlisting}[style=plain]
+getGreeter("Hello")  -->  crea un contesto con { message: "Hello", sep: "," }
+                                        |
+                                        `--> restituisce function(name){...}
+                                             che "ricorda" message e sep
+                                             anche dopo che getGreeter e' terminata
+\end{lstlisting}
+
+Chiamando \texttt{helloGreeter("Web")}, la funzione usa il \emph{suo} \texttt{message} e il \emph{suo} \texttt{sep}. Ogni chiamata a \texttt{getGreeter} crea un \textbf{contesto separato}: \texttt{howdyGreeter} ha il suo \texttt{message} e non è influenzato da \texttt{helloGreeter}.
+
+Questo meccanismo si chiama \textbf{closure}: una funzione \textbf{cattura} le variabili dello scope in cui è stata definita e le mantiene in vita finché la funzione esiste.
+
+% =====================================================================
+\section{Oggetti}
+
+In Java, per avere un oggetto devi prima definire una \textbf{classe}: la classe è il progetto, l'oggetto è l'istanza, e non esiste oggetto senza classe. In JavaScript questo vincolo \textbf{non c'è}: un oggetto si crea direttamente, scrivendolo. La classe diventa una \emph{convenzione} per generare oggetti simili, non un requisito.
+
+\subsection{Creare un oggetto}
+
+\begin{lstlisting}[style=js]
+let a = new Object(); // "object constructor" syntax
+let b = {};           // "object literal" syntax, used more often
+let pet = {
+ name: "Hannibal",   // by key "name" store value "Hannibal"
+ age: 7              // by key "age"  store value 7
+}
+\end{lstlisting}
+
+Le prime due righe sono le due sintassi possibili: \texttt{new Object()} ricorda più Java ma è rara, \texttt{\{\}} (\textbf{object literal}) è quella che userai sempre.
+
+In Java, per ottenere un oggetto con \texttt{name} e \texttt{age} dovresti dichiarare una classe \texttt{Pet} con due campi e poi istanziarla. In JavaScript tutto si riduce a \texttt{let pet = \{ name: "Hannibal", age: 7 \}}: la classe semplicemente non serve.
+
+Le property key sono \textbf{stringhe}: nella forma più comune si scrivono senza virgolette, ma il linguaggio le tratta come stringhe --- ed è il motivo per cui potrai accedervi anche con le parentesi quadre.
+
+\subsection{Accedere alle proprietà}
+
+\begin{lstlisting}[style=js]
+let pet = {
+ name: "Hannibal",
+ age: 7
+}
+console.log(pet.name);     // output: Hannibal
+console.log(pet.age);      // output: 7
+console.log(pet.nickname); // output: undefined
+\end{lstlisting}
+
+Le prime due righe sono quello che in Java avresti scritto per un campo pubblico. La terza è la differenza: \texttt{pet.nickname} accede a una proprietà \textbf{inesistente}. In Java sarebbe un errore di compilazione; qui restituisce \texttt{undefined}.
+
+\begin{warnbox}
+\avviso{Un errore di battitura in un nome di proprietà non dà nessun avviso: ottieni \texttt{undefined} e il programma continua. Se poi usi quel valore come se fosse valido, l'errore emerge molto più tardi e molto lontano dalla vera causa.}
+\end{warnbox}
+
+\subsection{Aggiungere e cancellare proprietà}
+
+In Java la struttura di un oggetto è \textbf{fissata dalla classe}. In JavaScript un oggetto è un contenitore \textbf{aperto}: puoi aggiungere e togliere proprietà mentre il programma gira.
+
+\begin{lstlisting}[style=js]
+let pet = {
+ name: "Hannibal",
+ age: 7
+}
+pet.nickname = "the Affable"; // new property
+delete pet.age;               // delete property
+console.log(pet.name);        // "Hannibal"
+console.log(pet.age);        // undefined
+console.log(pet.nickname);    // "the Affable"
+console.log(pet);   // print object in console
+console.table(pet); // alternative way to print objects in console
+\end{lstlisting}
+
+\textbf{Aggiungere} è banale: basta assegnare un valore; se la proprietà non esiste, viene creata. \textbf{Cancellare} si fa con la keyword \texttt{delete}. \texttt{console.table()} stampa l'oggetto in formato tabellare, molto più leggibile di \texttt{console.log} quando le proprietà sono diverse.
+
+\subsection{La square bracket notation}
+
+\begin{lstlisting}[style=js]
+let dog = {
+ name: "Sif",
+ "is a good boy": true
+}
+console.log(dog["name"]);
+console.log(dog["is a good boy"]);
+//expressions can be used as keys
+dog["is the "+"best boy"] = true;
+console.table(dog);
+\end{lstlisting}
+
+La \textbf{square bracket notation} scrive la key tra parentesi quadre, tra virgolette. \texttt{dog["name"]} equivale a \texttt{dog.name}; \texttt{dog["is a good boy"]} è l'unico modo per accedere a una key con spazi.
+
+La terza riga mostra la vera potenza: dentro le parentesi puoi mettere \textbf{un'espressione}. \texttt{"is the "+"best boy"} viene valutata a runtime e la stringa risultante diventa la key. La key di una proprietà può quindi essere \textbf{calcolata dinamicamente} --- cose per cui in Java servirebbero le \texttt{Map}.
+
+\begin{notebox}
+\nota{Usa la dot notation quando la key è fissa (\texttt{pet.name}). Usa le parentesi quadre quando la key è dinamica, contiene caratteri speciali o è il risultato di un'espressione.}
+\end{notebox}
+
+\subsection{Le variabili contengono riferimenti}
+
+\begin{lstlisting}[style=js]
+let firstPet = {
+ name: "Richard",
+ species: "Lizard"
+}
+let secondPet = firstPet;
+secondPet.name = "Chuck";
+secondPet.species = "Duck";
+console.log(firstPet);  // Object { name: "Chuck", species: "Duck" }
+console.log(secondPet); // Object { name: "Chuck", species: "Duck" }
+console.log(firstPet == secondPet);  // true, same value
+console.log(firstPet === secondPet); // true (both are references, same value)
+\end{lstlisting}
+
+\texttt{let secondPet = firstPet;} \textbf{non copia nulla}: assegna a \texttt{secondPet} lo \textbf{stesso riferimento}. Dopo \texttt{secondPet.name = "Chuck"}, \textbf{anche} \texttt{firstPet.name} è \texttt{"Chuck"}.
+
+\begin{lstlisting}[style=plain]
+firstPet  ------+
+                +------>  { name: "Chuck", species: "Duck" }
+secondPet ------+
+           (entrambe puntano allo STESSO oggetto in memoria)
+\end{lstlisting}
+
+Questo comportamento è \textbf{identico a Java}, dove una variabile di tipo oggetto contiene un riferimento. Le ultime due righe aggiungono una sfumatura: confrontando due riferimenti allo stesso oggetto, sia \texttt{==} sia \texttt{===} restituiscono \texttt{true}, perché i tipi sono uguali \emph{e} il valore è lo stesso. Le differenze tra i due operatori emergono quando i \textbf{tipi} sono diversi.
+
+\subsection{Clonare un oggetto}
+
+Per fare una copia vera bisogna \textbf{iterare su ogni proprietà} e copiarla.
+
+\begin{lstlisting}[style=js]
+let pet = {
+ name: "Richard", species: "Lizard"
+}
+let copy = clone(pet);
+copy.name = "Chuck";
+console.log(pet.name); // Richard
+console.log(copy.name); // Chuck
+
+function clone(object){
+ let copy = {}; // new object
+ for(let key in object){
+  copy[key] = object[key];
+ }
+ return copy;
+}
+\end{lstlisting}
+
+\texttt{clone} crea un oggetto nuovo e vuoto, poi con \texttt{for...in} scorre tutte le key dell'originale e ne copia i valori. Il \textbf{\texttt{for...in}} è una forma di ciclo che non hai visto in Java: itera sulle \textbf{key} di un oggetto, e in ogni iterazione \texttt{key} contiene il nome della proprietà corrente.
+
+Ora modificare \texttt{copy.name} \textbf{non} tocca \texttt{pet.name}.
+
+\subsection{Shallow vs deep cloning}
+
+Il valore di una proprietà può essere \textbf{a sua volta un oggetto}, e qui la funzione precedente mostra il suo limite.
+
+\begin{lstlisting}[style=js]
+let pet = {
+ name: "Garfield", species: "Cat",
+ owner: {
+  name: "John", age: 17
+ }
+}
+let copy = clone(pet);
+copy.owner.name = "Liz";
+console.log(pet.owner.name); // Liz
+console.log(copy.owner.name); // Liz
+\end{lstlisting}
+
+Abbiamo modificato \texttt{copy.owner.name}, ma è cambiato \textbf{anche} \texttt{pet.owner.name}. Il motivo è che \texttt{owner} non è un valore semplice: è un oggetto, quindi il suo valore è un \textbf{riferimento}, e \texttt{copy.owner} e \texttt{pet.owner} puntano allo \textbf{stesso} oggetto interno --- lo stesso fenomeno della sottosezione precedente, un livello più in profondità.
+
+Questa è una \textbf{shallow clone} (copia superficiale): copia il primo livello, ma gli oggetti interni restano condivisi.
+
+\begin{lstlisting}[style=plain]
+SHALLOW CLONE                          DEEP CLONE
+pet --> { name, species,               pet --> { name, species,
+          owner --+                              owner --> { name, age }  (copia)
+        }         |                      copy -> { name, species,
+copy -> { name, species,                           owner --> { name, age }  (copia)
+          owner --+  (STESSA referenza)         }
+        }
+\end{lstlisting}
+
+Per una \textbf{deep clone} serve la \textbf{ricorsione}: quando la proprietà è a sua volta un oggetto, la si clona con una chiamata ricorsiva.
+
+\begin{lstlisting}[style=js]
+// deep clone
+function clone(object){
+ let copy = {};
+ for(let key in object){
+  if(typeof object[key] === "object"){
+   copy[key] = clone(object[key]);
+  }
+  else {
+   copy[key] = object[key];
+  }
+ }
+ return copy;
+}
+\end{lstlisting}
+
+Tutta la differenza è nell'\texttt{if}: se \texttt{typeof object[key]} è \texttt{"object"}, si chiama \texttt{clone} \textbf{su di essa} invece di copiarne il riferimento.
+
+\begin{notebox}
+\nota{Implementare i metodi di clone da zero ha \textbf{valore didattico}, ma nel codice reale non devi farlo ogni volta. Alternative già pronte: \textbf{\texttt{Object.assign()}} per la shallow, \textbf{\texttt{structuredClone()}} per la deep. Sapere quale usare è esattamente la distinzione appena vista.}
+\end{notebox}
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lXXX@{}}
+\toprule
+\textbf{Tipo} & \textbf{Cosa copia} & \textbf{Cosa resta condiviso} & \textbf{Strumento} \\
+\midrule
+Shallow & Solo il primo livello & Gli oggetti interni & \texttt{Object.assign()} \\
+Deep & Tutti i livelli & Nulla & \texttt{structuredClone()} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Metodi}
+
+Le funzioni sono valori come gli altri, quindi possono essere il valore di una proprietà. Quando una proprietà è una funzione si chiama \textbf{metodo}. Le seguenti sono modalità \textbf{equivalenti}.
+
+\begin{lstlisting}[style=js]
+let p = {
+ name: "John",
+ greet: function(){
+  console.log("Hi!");
+ }
+}
+p.greet(); // Hi!
+\end{lstlisting}
+
+\begin{lstlisting}[style=js]
+let p = {
+ name: "John"
+}
+p.greet = function(){
+ console.log("Hi!");
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=js]
+let p = {
+ name: "John",
+  greet: greet
+}
+function greet(){
+ console.log("Hi!");
+}
+\end{lstlisting}
+
+La prima definisce il metodo nell'object literal. La seconda lo \textbf{aggiunge dopo}, con la stessa sintassi di una proprietà qualsiasi. La terza dichiara la funzione \textbf{fuori} e ne assegna il \textbf{valore} alla proprietà: possibile solo perché le funzioni sono valori --- in Java non potresti farlo con un metodo. In tutti e tre i casi la chiamata è \texttt{p.greet()}.
+
+\subsection{Method shorthand}
+
+\begin{lstlisting}[style=js]
+// classic version
+let p = {
+ name: "John",
+ sayHi: function(){
+  console.log("Hi!");
+ }
+}
+p.sayHi(); // Hi!
+
+// shorthand version
+let p = {
+ name: "John",
+ sayHi(){
+  console.log("Hi!");
+ }
+}
+\end{lstlisting}
+
+La differenza è puramente sintattica: \texttt{sayHi: function()\{...\}} diventa \texttt{sayHi()\{...\}}. La forma abbreviata è quella \textbf{preferita} nel codice moderno ed è quella che assomiglia di più a Java.
+
+\subsection{La keyword \texttt{this}}
+
+Concetto che conosci da Java ma che qui funziona in modo \textbf{profondamente diverso}. Il punto di partenza è comune: un metodo ha bisogno di accedere ad altre proprietà dello stesso oggetto.
+
+\begin{lstlisting}[style=js]
+let john = {
+ name: "John",
+ greet(){
+  console.log(`Hi, I'm ${this.name}!`);
+ }
+}
+john.greet(); // Hi, I'm John!
+\end{lstlisting}
+
+Fin qui sembra Java. Ma:
+
+\begin{warnbox}
+\avviso{In Java \texttt{this} è deciso \textbf{a compile-time}: è sempre l'istanza della classe su cui il metodo è stato chiamato. In JavaScript il valore di \texttt{this} è valutato \textbf{a runtime}, in base a \emph{come} la funzione viene chiamata.}
+\end{warnbox}
+
+\begin{lstlisting}[style=js]
+let john = {name: "John"};
+let will = {name: "Will"};
+let greet = function(){
+ console.log(`Hi, I'm ${this.name}!`);
+}
+// same function is assigned as a method to two objects
+john.greet = greet;
+will.greet = greet;
+john.greet(); // Hi, I'm John!
+will.greet(); // Hi, I'm Will!
+\end{lstlisting}
+
+\begin{enumerate}
+  \item \texttt{greet} è una funzione \textbf{standalone} che usa \texttt{this.name}; in quel momento \texttt{this} non è legato a nulla.
+  \item La \textbf{stessa identica funzione} viene assegnata a \textbf{due oggetti diversi}.
+  \item \texttt{john.greet()} $\rightarrow$ \texttt{this} è \texttt{john} $\rightarrow$ \texttt{"Hi, I'm John!"}.
+  \item \texttt{will.greet()} $\rightarrow$ \texttt{this} è \texttt{will} $\rightarrow$ \texttt{"Hi, I'm Will!"}.
+\end{enumerate}
+
+\textbf{La stessa funzione produce due risultati diversi.} In Java sarebbe impensabile. Qui la funzione non appartiene a nessuno: è un valore che hai messo in due posti, e \texttt{this} assume il valore dell'oggetto \textbf{su cui il metodo viene invocato} (la parte prima del punto).
+
+\subsection{Arrow function come metodi: la trappola di \texttt{this}}
+
+\begin{itemize}
+  \item Le \textbf{arrow function non hanno \texttt{this}}.
+  \item Se \texttt{this} è referenziato dentro una arrow function, viene \textbf{preso dal contesto esterno}.
+\end{itemize}
+
+\begin{lstlisting}[style=js]
+let john = {nick: "John"};
+let will = {nick: "Will"};
+let greet = () => {
+ console.log(`Hi, I'm ${this.nick}!`);
+}
+john.greet = greet;
+will.greet = greet;
+john.greet(); // Hi, I'm undefined!
+will.greet(); // Hi, I'm undefined!
+\end{lstlisting}
+
+È lo \textbf{stesso codice} dell'esempio precedente, con una sola differenza: \texttt{greet} è definita come arrow function invece che come \texttt{function()}. Con \texttt{function()} ottenevamo \texttt{"Hi, I'm John!"}; con \texttt{() =>} otteniamo \texttt{"Hi, I'm undefined!"}. L'arrow function \textbf{ignora} l'oggetto su cui viene chiamata: non avendo un \texttt{this} proprio, prende quello dello scope in cui è stata definita --- lo scope globale, dove \texttt{nick} non esiste.
+
+\begin{warnbox}
+\avviso{\textbf{Regola pratica:} se stai definendo un \textbf{metodo di un oggetto} che deve accedere alle proprietà dell'oggetto, usa \texttt{function()} o la method shorthand. \textbf{Non usare le arrow function.} Se invece la funzione non ha bisogno di \texttt{this}, le arrow function sono più concise e vanno benissimo. In Java non hai mai dovuto fare questa distinzione: qui è una scelta che può rompere silenziosamente il codice.}
+\end{warnbox}
+
+\subsection{Costruttori}
+
+Se devo creare \textbf{molti oggetti simili}, scrivere l'object literal ogni volta è ripetitivo: in Java lo risolveresti con una classe e un costruttore. In JavaScript si usano le \textbf{constructor functions} e la keyword \textbf{\texttt{new}}.
+
+I costruttori sono \textbf{normali funzioni}, con due convenzioni:
+
+\begin{enumerate}
+  \item Il nome dovrebbe \textbf{iniziare con la maiuscola}.
+  \item Dovrebbero essere invocati \textbf{solo} con \texttt{new}.
+\end{enumerate}
+
+La prima è un segnale \textbf{per chi legge}: JavaScript non distingue sintatticamente un costruttore da una funzione normale. Quando una funzione viene eseguita con \texttt{new}:
+
+\begin{enumerate}
+  \item Viene creato un \textbf{nuovo oggetto vuoto} e assegnato a \texttt{this}.
+  \item Il \textbf{corpo} viene eseguito; tipicamente modifica \texttt{this}.
+  \item Il \textbf{valore di \texttt{this}} viene restituito.
+\end{enumerate}
+
+\begin{lstlisting}[style=js]
+function Pet(name, species){
+ this.name  = name;
+ this.species = species;
+ this.age   = undefined;
+}
+let rick = new Pet("Richard", "Lizard");
+let chuck = new Pet("Chuck", "Duck");
+\end{lstlisting}
+
+Qui il comportamento dinamico di \texttt{this} torna utile e l'analogia con Java diventa stretta: dentro un costruttore, \texttt{this} è l'oggetto appena creato --- ma solo perché hai usato \texttt{new}, che è ciò che crea l'oggetto vuoto e lo lega a \texttt{this} prima dell'esecuzione del corpo.
+
+\begin{warnbox}
+\avviso{Chiamare \texttt{Pet("Richard", "Lizard")} \textbf{senza} \texttt{new} non dà errore. Non essendoci il passo 1, \texttt{this} non è il nuovo oggetto ma qualcos'altro (lo scope globale in modalità normale), e il costruttore finisce per \textbf{sporcare variabili globali}. Il codice sembra funzionare ma produce un oggetto \texttt{undefined}. Per questo la convenzione dice: un costruttore si invoca sempre e solo con \texttt{new}.}
+\end{warnbox}
+
+\subsection{Optional chaining}
+
+\begin{lstlisting}[style=js]
+let pet = {
+ name: "Garfield"
+}
+console.log(pet.species); // undefined
+console.log(pet.owner.name); //throws ReferenceError
+\end{lstlisting}
+
+La prima riga è il caso noto: \texttt{pet.species} non esiste, otteniamo \texttt{undefined}. La seconda è il problema: \texttt{pet.owner} vale \texttt{undefined}, e stiamo chiedendo la proprietà \texttt{name} \textbf{di \texttt{undefined}} --- impossibile, quindi \texttt{ReferenceError}.
+
+In Java è il famigerato \texttt{NullPointerException}, ed è comune quando si lavora con dati che arrivano dall'esterno, dove non sai se una proprietà annidata esiste. Spesso si preferisce ottenere \texttt{undefined} --- ``non c'è un proprietario noto'' --- piuttosto che far crashare il programma.
+
+Il modo ingenuo è verificare esplicitamente:
+
+\begin{lstlisting}[style=js]
+let ownerName = pet.owner ? pet.owner.name : undefined;
+\end{lstlisting}
+
+Funziona, ma è \textbf{ripetitivo} e \textbf{inelegante}: con tre o quattro livelli di annidamento servirebbero altrettanti controlli. Da qui l'operatore \texttt{?.}:
+
+\begin{lstlisting}[style=js]
+let ownerName = pet.owner?.name;
+\end{lstlisting}
+
+L'\textbf{optional chaining} \texttt{?.} fa la stessa cosa in modo compatto: se la parte sinistra è \texttt{undefined} (o \texttt{null}), \textbf{interrompe immediatamente la valutazione} (\emph{short-circuit}) e \textbf{restituisce \texttt{undefined}}, senza provare ad accedere alla proprietà a destra.
+
+\subsection{Optional chaining: le varianti}
+
+\begin{lstlisting}[style=js]
+let john = {
+ name: "John",
+ greet(){ return "Hi!"; },
+ address: { "street name": "Web Dev Blvd" }
+}
+let mike = { name: "Mike", age: 17 }
+console.log( john.greet?.() ); // Hi!
+console.log( mike.greet?.() ); // undefined
+console.log( john.address?.['street name']); // Web Dev Blvd
+console.log( mike.address?.['street name']); // undefined
+\end{lstlisting}
+
+\texttt{john} ha il metodo \texttt{greet} e la proprietà \texttt{address}; \texttt{mike} non ha né l'uno né l'altra. Perciò \texttt{mike.greet?.()} restituisce \texttt{undefined} \textbf{invece di dare errore}: senza il \texttt{?.}, \texttt{mike.greet()} lancerebbe un errore perché \texttt{mike.greet} è \texttt{undefined} e non si può invocare \texttt{undefined}.
+
+La seconda variante combina l'optional chaining con la square bracket notation: il \texttt{?.} va messo \textbf{prima} delle parentesi quadre.
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+\textbf{Forma} & \textbf{Uso} & \textbf{Esempio} \\
+\midrule
+\texttt{obj.prop?.nome} & Proprietà annidata & \texttt{pet.owner?.name} \\
+\texttt{obj.method?.()} & Metodo che potrebbe non esistere & \texttt{mike.greet?.()} \\
+\texttt{obj?.['key']} & Accesso con parentesi quadre & \texttt{mike.address?.['street name']} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Configurare le proprietà: i flag}
+
+Ogni proprietà ha, oltre al valore, \textbf{tre attributi} (chiamati \textbf{flag}):
+
+\begin{itemize}
+  \item \textbf{\texttt{writable}}: se \texttt{true}, il valore può essere cambiato; altrimenti è \textbf{read-only}.
+  \item \textbf{\texttt{enumerable}}: se \texttt{true}, la proprietà è \textbf{elencata nei loop}.
+  \item \textbf{\texttt{configurable}}: se \texttt{true}, la proprietà può essere \textbf{cancellata} e i flag modificati.
+\end{itemize}
+
+Creando una proprietà nel modo \textbf{tradizionale} --- in un object literal o con \texttt{pet.nuova = ...} --- \textbf{tutti i flag sono \texttt{true}}. Ecco perché finora potevamo modificare, cancellare e iterare su tutto senza problemi.
+
+In Java non c'è un equivalente diretto: l'idea si avvicina ai modificatori (\texttt{private}, \texttt{final}), ma mentre in Java sono decisi \textbf{una volta per tutte dalla classe}, qui i flag si decidono \textbf{proprietà per proprietà, a runtime}.
+
+\subsection{\texttt{Object.defineProperty()}}
+
+\begin{lstlisting}[style=js]
+let pet = { species: "cat" }
+Object.defineProperty(pet, "name", {
+ value: "Garfield",
+ writable: false,
+ enumerable: false,
+ configurable: false
+})
+for(let key in pet){
+ console.log(`Key: ${key}`); //only prints Key: species
+}
+pet.name = "Odie";  //TypeError: "name" is read-only
+delete pet.species; //works
+delete pet.name;    //TypeError: property "name" is non-configurable
+\end{lstlisting}
+
+\begin{warnbox}
+\avviso{Le proprietà create con \texttt{Object.defineProperty()} hanno i flag non specificati a \textbf{\texttt{false}} --- l'opposto del modo tradizionale. Scrivendo \texttt{Object.defineProperty(pet, "name", \{ value: "Garfield" \})} senza elencare i flag, otterresti una proprietà read-only, non enumerabile e non configurabile.}
+\end{warnbox}
+
+Effetti dei tre flag \texttt{false}:
+
+\begin{center}
+\small
+\begin{tabularx}{\textwidth}{@{}lXX@{}}
+\toprule
+\textbf{Operazione} & \textbf{Risultato} & \textbf{Flag responsabile} \\
+\midrule
+\texttt{for...in} su \texttt{pet} & stampa solo \texttt{species} & \texttt{enumerable: false} \\
+\texttt{pet.name = "Odie"} & \texttt{TypeError} & \texttt{writable: false} \\
+\texttt{delete pet.species} & funziona & \texttt{species} è tradizionale \\
+\texttt{delete pet.name} & \texttt{TypeError} & \texttt{configurable: false} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+Nota il contrasto tra le ultime due righe: sono nello stesso oggetto ma si comportano diversamente, perché \textbf{i flag sono per proprietà, non per oggetto}.
+
+\subsection{Property getters e setters}
+
+Esistono \textbf{due tipi} di proprietà:
+
+\begin{itemize}
+  \item \textbf{Data properties}: memorizzano un \textbf{valore} --- tutte quelle viste finora.
+  \item \textbf{Accessor properties}: \textbf{funzioni} eseguite quando la proprietà viene acceduta, in lettura o in scrittura.
+\end{itemize}
+
+Sono rappresentate da un \textbf{getter} (invocato in lettura) e un \textbf{setter} (invocato in scrittura), definiti con le keyword \texttt{get} e \texttt{set}.
+
+\begin{lstlisting}[style=js]
+let p = {
+ first: "John",
+ last: "Smith",
+ get fullName(){
+  return `${this.first} ${this.last}`;
+ },
+ set fullName(name) {
+  [this.first, this.last] = name.split(" "); // fancy destructuring assignment
+ }
+}
+// notice that we access fullName as a property and not as a function (no "()")!
+// from the outside, there is no difference between data and accessor properties
+console.log(p.fullName); //John Smith
+p.fullName = "Jane White";
+console.log(p.fullName); //Jane White
+p.fullName(); //TypeError: p.fullName is not a function
+\end{lstlisting}
+
+Il \textbf{getter} restituisce la concatenazione di \texttt{first} e \texttt{last}: ogni volta che \emph{leggi} \texttt{p.fullName}, la funzione viene eseguita. Il \textbf{setter} fa l'inverso: assegnando \texttt{p.fullName = "Jane White"}, la stringa viene divisa sullo spazio e le due parti assegnate a \texttt{first} e \texttt{last}.
+
+\begin{notebox}
+\nota{\texttt{[this.first, this.last] = name.split(" ")} è un \textbf{destructuring assignment}: \texttt{name.split(" ")} produce un array di due elementi, e il destructuring li assegna in ordine al primo e al secondo elemento.}
+\end{notebox}
+
+Il dettaglio più importante è come si \textbf{usa} \texttt{fullName}: si accede \textbf{come a una proprietà}, non come a una funzione --- \texttt{p.fullName}, \textbf{non} \texttt{p.fullName()}. \textbf{Dall'esterno non c'è alcuna differenza} tra data property e accessor property: chi usa l'oggetto scrive \texttt{p.fullName} e non sa che dietro c'è una funzione. L'ultima riga lo dimostra: \texttt{p.fullName()} dà \texttt{TypeError: p.fullName is not a function}.
+
+Il parallelo con Java è immediato: in Java hai i metodi \texttt{getFullName()} e \texttt{setFullName()}. Qui la stessa idea, ma con una differenza di forma: in Java chi usa la classe deve chiamare \textbf{esplicitamente} i metodi con le parentesi, mentre qui l'accesso è \textbf{trasparente}. Il getter/setter resta invisibile a chi consuma l'oggetto, che è poi il senso dell'incapsulamento: decidi tu cosa succede quando qualcuno legge o scrive quella proprietà, senza che lui debba saperlo.
+
+% =====================================================================
+\section{Riferimenti}
+
+\begin{itemize}
+  \item \textbf{The Modern JavaScript Tutorial} --- \url{https://javascript.info/} (anche su GitHub). Parti consigliate: \emph{An Introduction}, \emph{JavaScript Fundamentals}, \emph{Code Quality} (3.1--3.4), \emph{Objects: the basics} (4.1--4.6), \emph{Data types} (5.1--5.3), \emph{Advanced working with functions} (6.3).
+  \item \textbf{Eloquent JavaScript} (3ª edizione), Marijn Haverbeke --- \url{https://eloquentjavascript.net/}. Capitoli: Introduzione, dall'1 al 6.
+  \item \textbf{Learn JavaScript}, corso MDN web docs --- \url{https://developer.mozilla.org/en-US/docs/Learn/JavaScript}. Utile come riferimento rapido, con molti esempi.
+\end{itemize}
+
+\end{document}
