@@ -1,4 +1,3 @@
-
 html {
     scroll-behavior: smooth;
 }
@@ -13,9 +12,10 @@ section {
 
 .navigationbar {
     position: sticky;
-    top: 0; 
+    top: 40px; 
     background-color: white; 
     padding: 10px;
+    border-top: 2px solid black;
     border-bottom: 2px solid black;
 }
 
@@ -32,10 +32,8 @@ section {
 #titolo {
     cursor: pointer;
     position: sticky;
-}
-
-h3{ /*da modificare perche non funziona*/
-    align-content: center;
+    top: 0;
+    background-color: white; 
 }
 
 .prodotto img {
@@ -47,6 +45,7 @@ h3{ /*da modificare perche non funziona*/
 
 /*sezione filtri*/
 .sezione-filtri {
+    top: 300px;
     display: flex;
     justify-content: center;
     gap: 35px;
@@ -57,7 +56,9 @@ h3{ /*da modificare perche non funziona*/
     border-radius: 8px;
     max-width: 850px;
     flex-wrap: wrap;
+    ;
 }
+
 .gruppo-filtri {
     display: flex;
     align-items: center;
@@ -86,4 +87,51 @@ h3{ /*da modificare perche non funziona*/
     margin: 20px 0;
 }
 
+.filtro-titolo {
+    text-align: center;
+}
 
+
+/*layout da controllare*/
+.layout-shop {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 20px;
+}
+/*sidebar filtri a sinistra che rimane sempre ferma*/
+.sidebar-filtri {
+    width: 250px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 70px;
+    
+}
+
+.griglia-prodotti {
+    flex-grow: 1; /* Prende tutto il resto dello spazio al centro */
+    border-right: 1px solid #ddd; /* La linea ora sta qui! */
+    padding-right: 15px; /* Distanza tra le foto e la linea */
+}
+
+/*sidebar carrello che rimane a destra*/
+.sidebar-carrello {
+    width: 280px; /* Larghezza fissa per il carrello */
+    flex-shrink: 0;
+    position: sticky; /* È il segreto! La fa scorrere finché non tocca il margine, poi si ferma */
+    top: 70px; 
+    padding-left: 0px;
+}
+
+/* Stile per un singolo oggetto nel mini-carrello */
+.oggetto-carrello {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.oggetto-carrello img {
+    width: 80px;
+}

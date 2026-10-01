@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">   
+        <script src="prodotto.js" defer></script> <!--studiare defer-->
+        <link rel="stylesheet" href="prodotto.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AKINFORMATICA S.p.a</title>
+    </head>
+    <body>
+        <h1 id="titolo2">AKINFORMATICA</h1>
+        <div class="layout-prodotto">
+            <!-- colonna di sinistra che contiene informazioni visive -->
+            <aside class="foto-prodotto">
+                <img src="img/placeholder.jpg" alt="Immagine Prodotto" id="img-dettaglio">
+            </aside>
+            <!-- colonna di destra che contiene informazioni tecniche -->
+            <main class="info-prodotto">
+                <h2 id="nome-dettaglio">Nome della Scheda Video/Processore</h2>
+
+                <p class="prezzo" id="prezzo-dettaglio">€ 0.00</p>
+
+                <div class="descrizione">
+                    <h3>Descrizione:</h3>
+                    <p id="desc-dettaglio">Qui andrà la descrizione completa del prodotto...</p>
+                </div>
+                <div class="specifiche">
+                    <h3>Specifiche:</h3>
+                    <ul>
+                        <li><strong>Categoria:</strong> <span id="cat-dettaglio">-</span></li>
+                        <li><strong>Marca:</strong> <span id="marca-dettaglio">-</span></li>
+                    </ul>
+                </div>
+
+                <button id="btn-aggiungi" class="btn-carrello">Aggiungi al Carrello</button>
+            </main>
+
+        </div>
+    </body>
+</html>
