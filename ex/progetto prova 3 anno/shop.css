@@ -1,15 +1,19 @@
+/* Abilita lo scorrimento fluido per le ancore */
 html {
     scroll-behavior: smooth;
 }
 
+/* Allineamento al centro del testo nel footer */
 .footer{
     text-align: center;
 }
 
+/* Aggiunge margine superiore allo scroll sulle sezioni per evitare la copertura dalla navbar */
 section {
     scroll-margin-top: 5rem;
 }
 
+/* Barra di navigazione fissa visibile durante lo scroll */
 .navigationbar {
     position: sticky;
     top: 40px; 
@@ -19,16 +23,19 @@ section {
     border-bottom: 2px solid black;
 }
 
+/* Griglia responsiva per elencare le foto/prodotti */
 .riga-foto {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 30px;
 }
 
+/* Contenitore base del prodotto con testo centrato */
 .prodotto {
     text-align: center;
 }
 
+/* Titolo dello shop, fissato in alto */
 #titolo {
     cursor: pointer;
     position: sticky;
@@ -36,6 +43,7 @@ section {
     background-color: white; 
 }
 
+/* Adatta le immagini dei prodotti con proporzioni fisse e centrate */
 .prodotto img {
     display: block;
     width: 100%;
@@ -59,16 +67,19 @@ section {
     ;
 }
 
+/* Allineamento orizzontale delle opzioni all'interno dei filtri */
 .gruppo-filtri {
     display: flex;
     align-items: center;
     gap: 15px;
     flex-wrap: wrap;
 }
+/* Stile testuale per i titoli dei filtri */
 .titolo-filtro {
     font-weight: bold;
     color: #0f1111;
 }
+/* Etichette interattive per i checkbox o radio */
 .filtro-label {
     display: flex;
     align-items: center;
@@ -81,6 +92,7 @@ section {
     color: #007185;
 }
 
+/* Sottile divisore tra i gruppi di filtri */
 .linea-divisoria {
     border: none;
     border-top: 2px solid #ccc;
@@ -92,29 +104,29 @@ section {
 }
 
 
-/*layout da controllare*/
+/* Layout principale in 3 colonne: Filtri | Prodotti | Carrello */
 .layout-shop {
     display: flex;
     align-items: flex-start;
     gap: 30px;
     padding: 20px;
 }
-/*sidebar filtri a sinistra che rimane sempre ferma*/
+/* Colonna sinistra dei filtri fissa durante lo scorrimento */
 .sidebar-filtri {
     width: 250px;
     flex-shrink: 0;
     position: sticky;
     top: 70px;
-    
 }
 
+/* Area centrale dei prodotti elastica */
 .griglia-prodotti {
     flex-grow: 1; /* Prende tutto il resto dello spazio al centro */
     border-right: 1px solid #ddd; /* La linea ora sta qui! */
     padding-right: 15px; /* Distanza tra le foto e la linea */
 }
 
-/*sidebar carrello che rimane a destra*/
+/* Colonna destra del carrello, visibile e fissa nello scorrimento */
 .sidebar-carrello {
     width: 280px; /* Larghezza fissa per il carrello */
     flex-shrink: 0;

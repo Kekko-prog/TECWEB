@@ -1,7 +1,9 @@
+/* Abilita lo scorrimento fluido nella pagina */
 html {
     scroll-behavior: smooth;
 }
 
+/* Intestazione fissa in alto durante lo scroll */
 #titolo2 {
     cursor: pointer;
     position: sticky;
@@ -9,6 +11,7 @@ html {
     background-color: white; 
 }
 
+/* Layout principale della pagina prodotto (foto a sinistra, info a destra) */
 .layout-prodotto {
     display: flex;
     align-items: flex-start;
@@ -16,6 +19,7 @@ html {
     padding: 20px;
 }
 
+/* Sezione dedicata all'immagine del prodotto */
 .foto-prodotto {
     flex-basis: 40%;
     
@@ -25,6 +29,7 @@ html {
     }
 }
 
+/* Sezione dedicata alle informazioni (titolo, prezzo, bottoni) */
 .info-prodotto {
     flex-basis: 60%;
     display: flex;
@@ -32,12 +37,14 @@ html {
     gap: px;
 }
 
+/* Stile del prezzo per metterlo in evidenza */
 .prezzo {
     font-size: 4.5ex;   
     font-weight: 600;
     color: red; 
 }
 
+/* Stile base per il bottone di aggiunta al carrello */
 .btn-carrello {
     cursor: pointer;
     border: none;
