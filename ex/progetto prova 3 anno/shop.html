@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
     <head>
-        <meta charset="UTF-8">   
-        <script src="shop.js" defer></script> <!--studiare defer-->
+        <meta charset="UTF-8">
+        <script src="shop.js" defer></script>
         <link rel="stylesheet" href="shop.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>AKINFORMATICA S.p.a</title>
@@ -13,452 +13,116 @@
         <h1 id="titolo">AKINFORMATICA</h1>
 
         <nav class="navigationbar">
-            <a href="#periferiche">| Reparto Periferiche |</a>
             <a href="#schede-video">| Reparto Schede Video |</a>
             <a href="#processori">| Reparto Processori |</a>
             <a href="#schede-madri">| Reparto Schede Madri |</a>
-            <a href="#alimentatori">| Reparto Alimentatori  |</a>
-            <a href="#ssd">| Reparto ssd |</a>
+            <a href="#alimentatori">| Reparto Alimentatori |</a>
+            <a href="#ssd">| Reparto SSD |</a>
             <a href="#harddisk">| Reparto HardDisk |</a>
-
         </nav>
 
-        <!--questa pagina che sto facendo in data 21/09/2026 servirà come progetto per il corso di techweb e INGSW-->
         <p> Benvenuti su AKINFORMATICA S.p.a, il tuo punto di riferimento per l'hardware e l'assemblaggio PC. <br>
-            Forniamo a videogiocatori, sviluppatori e professionisti le migliori componenti sul mercato. 
-            Che tu stia puntando al gaming competitivo ad alti FPS, al rendering, 
-            o a una solida workstation per la programmazione, 
+            Forniamo a videogiocatori, sviluppatori e professionisti le migliori componenti sul mercato.
+            Che tu stia puntando al gaming competitivo ad alti FPS, al rendering,
+            o a una solida workstation per la programmazione,
             il nostro catalogo offre soluzioni per ogni esigenza.<br>
-            Prestazioni, affidabilità e passione per la tecnologia</p>
-        
+            Prestazioni, affidabilita' e passione per la tecnologia</p>
+
         <div class="layout-shop">
             <!--sezione filtri-->
-            <aside class="sidebar-filtri"> 
-            
-                <hr class="linea-divisoria">    
+            <aside class="sidebar-filtri">
+
+                <hr class="linea-divisoria">
                 <h3 class="filtro-titolo"><em><strong>Filtri</strong></em></h3>
                 <div class="sezione-filtri">
-                
+
                     <div class="gruppo-filtri">
                         <span class="titolo-filtro">Categoria:</span>
                         <label class="filtro-label">
-                            <input type="checkbox" name="categoria" value="schede-video" class="filtro-checkbox"> GPU (Schede Video)
+                            <input type="checkbox" name="categoria" value="GPU" class="filtro-checkbox"> GPU (Schede Video)
                         </label>
                         <label class="filtro-label">
-                            <input type="checkbox" name="categoria" value="processori" class="filtro-checkbox"> CPU (Processori)
+                            <input type="checkbox" name="categoria" value="CPU" class="filtro-checkbox"> CPU (Processori)
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="categoria" value="Scheda Madre" class="filtro-checkbox"> Scheda Madre
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="categoria" value="Alimentatore" class="filtro-checkbox"> Alimentatore
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="categoria" value="SSD" class="filtro-checkbox"> SSD
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="categoria" value="Hard Disk" class="filtro-checkbox"> Hard Disk
                         </label>
                     </div>
                     <div class="gruppo-filtri">
                         <span class="titolo-filtro">Marca:</span>
                         <label class="filtro-label">
-                            <input type="checkbox" name="marca" value="amd" class="filtro-checkbox"> AMD
+                            <input type="checkbox" name="marca" value="AMD" class="filtro-checkbox"> AMD
                         </label>
                         <label class="filtro-label">
-                            <input type="checkbox" name="marca" value="intel" class="filtro-checkbox"> Intel
+                            <input type="checkbox" name="marca" value="Intel" class="filtro-checkbox"> Intel
                         </label>
                         <label class="filtro-label">
-                            <input type="checkbox" name="marca" value="nvidia" class="filtro-checkbox"> NVIDIA
+                            <input type="checkbox" name="marca" value="NVIDIA" class="filtro-checkbox"> NVIDIA
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="marca" value="Corsair" class="filtro-checkbox"> Corsair
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="marca" value="Seasonic" class="filtro-checkbox"> Seasonic
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="marca" value="Samsung" class="filtro-checkbox"> Samsung
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="marca" value="Crucial" class="filtro-checkbox"> Crucial
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="marca" value="Seagate" class="filtro-checkbox"> Seagate
+                        </label>
+                        <label class="filtro-label">
+                            <input type="checkbox" name="marca" value="Western Digital" class="filtro-checkbox"> Western Digital
                         </label>
                     </div>
                 </div>
-                <hr class="linea-divisoria"> 
+                <hr class="linea-divisoria">
             </aside>
-            
+
             <main class="griglia-prodotti">
-                <!--sezione categorie prodotti-->
-                <section id="periferiche">
-                    <h2>Reparto Periferiche </h2>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <!-- foto periferiche-->
-                </section>
-            
-            
+
                 <section id="schede-video">
-                    <h2> Reparto Schede Video</h2>
-                
-                    <div class="riga-foto">
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=amd-rx-7600">
-                                <img src="img/GPU/amd-rx-7600.webp" alt="AMD RX 7600">
-                            </a>
-                            <p>AMD RX 7600</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="AMD"
-                            data-prezzo="X" data-immagine="img/GPU/amd-rx-7600.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=amd-rx-7800-xt">
-                                <img src="img/GPU/amd-rx-7800-xt.webp" alt="AMD RX 7800 XT">
-                            </a>
-                            <p>AMD RX 7800 XT</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-rx-7800-xt"
-                            data-prezzo="X" data-immagine="img/GPU/amd-rx-7800-xt.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvidia-rtx-3050">
-                                <img src="img/GPU/nvidia-rtx-3050.webp" alt="NVIDIA RTX 3050">
-                            </a>
-                            <p>NVIDIA RTX 3050</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvidia-rtx-3050"
-                            data-prezzo="X" data-immagine="img/GPU/nvidia-rtx-3050.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvidia-rtx-4060">
-                                <img src="img/GPU/nvidia-rtx-4060.webp" alt="NVIDIA RTX 4060">
-                            </a>
-                            <p>NVIDIA RTX 4060</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvidia-rtx-4060"
-                            data-prezzo="X" data-immagine="img/GPU/nvidia-rtx-4060.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvidia-rtx-4070-super">
-                                <img src="img/GPU/nvidia-rtx-4070-super.webp" alt="NVIDIA RTX 4070 SUPER">
-                            </a>
-                            <p>NVIDIA RTX 4070 SUPER</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvidia-rtx-4070-super"
-                            data-prezzo="X" data-immagine="img/GPU/nvidia-rtx-4070-super.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvidia-rtx-4080-super">
-                                <img src="img/GPU/nvidia-rtx-4080-super.webp" alt="NVIDIA RTX 4080 SUPER">
-                            </a>
-                            <p>NVIDIA RTX 4080 SUPER</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvidia-rtx-4080-super"
-                            data-prezzo="X" data-immagine="img/GPU/nvidia-rtx-4080-super.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvidia-rtx-4090">
-                                <img src="img/GPU/nvidia-rtx-4090.webp" alt="NVIDIA RTX 4090">
-                            </a>
-                            <p>NVIDIA RTX 4090</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvidia-rtx-4090"
-                            data-prezzo="X" data-immagine="img/GPU/nvidia-rtx-4090.webp">Agiungi al Carrello</button>
-                        </div>
-                    </div>
+                    <h2>Reparto Schede Video</h2>
+                    <div class="riga-foto" data-categoria="GPU"></div>
                 </section>
-            
+
                 <section id="processori">
                     <h2>Reparto Processori</h2>
-                
-                    <div class="riga-foto">
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=amd-ryzen-5-7600x">
-                                <img src="img/CPU/amd-ryzen-5-7600x.webp" alt="AMD RYZEN 5 7600X">
-                            </a>
-                            <p>AMD RYZEN 5 7600X</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-ryzen-5-7600x"
-                            data-prezzo="X" data-immagine="img/GPU/amd-ryzen-5-7600x.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=amd-ryzen-7-7800x3d">
-                                <img src="img/CPU/amd-ryzen-7-7800x3d.webp" alt="AMD RYZEN 7 7800X3D">
-                            </a>
-                            <p>AMD RYZEN 7 7800X3D</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-ryzen-7-7800x3d"
-                            data-prezzo="X" data-immagine="img/GPU/amd-ryzen-7-7800x3d.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=amd-ryzen-9-7950x">
-                                <img src="img/CPU/amd-ryzen-9-7950x.webp" alt="AMD RYZEN 9 7950X">
-                            </a>
-                            <p>AMD RYZEN 9 7950X</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-ryzen-9-7950x"
-                            data-prezzo="X" data-immagine="img/GPU/amd-ryzen-9-7950x.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=intel-i3-13100">
-                                <img src="img/CPU/intel-i3-13100.webp" alt="INTEL I3 13100">
-                            </a>
-                            <p>INTEL I3 13100</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="intel-i3-13100"
-                            data-prezzo="X" data-immagine="img/GPU/intel-i3-13100.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=intel-i5-14600k">
-                                <img src="img/CPU/intel-i5-14600k.webp" alt="INTEL I5 14600K">
-                            </a>
-                            <p>INTEL I5 14600K</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="intel-i5-14600k"
-                            data-prezzo="X" data-immagine="img/GPU/intel-i5-14600k.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=intel-i7-14700k">
-                                <img src="img/CPU/intel-i7-14700k.webp" alt="INTEL I7 14700K">
-                            </a>
-                            <p>INTEL I7 14700K</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="intel-i7-14700k"
-                            data-prezzo="X" data-immagine="img/GPU/intel-i7-14700k.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=intel-i9-14900k">
-                                <img src="img/CPU/intel-i9-14900k.webp" alt="INTEL I9 14900K">
-                            </a>
-                            <p>INTEL I9 14900K</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="intel-i9-14900k"
-                            data-prezzo="X" data-immagine="img/GPU/intel-i9-14900k.webp">Agiungi al Carrello</button>
-                        </div>
-                    </div>
-                
+                    <div class="riga-foto" data-categoria="CPU"></div>
                 </section>
-            
+
                 <section id="schede-madri">
                     <h2>Reparto Schede Madri</h2>
-                    <div class="riga-foto">
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=atx-x670e">
-                                <img src="img/MOBO/atx-x670e.webp" alt="ATX X670E">
-                            </a>
-                            <p>ATX X670E</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="atx-x670e"
-                            data-prezzo="X" data-immagine="img/GPU/atx-x670e.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=atx-z790">
-                                <img src="img/MOBO/atx-z790.webp" alt="ATX Z790">
-                            </a>
-                            <p>ATX Z790</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="atx-z790"
-                            data-prezzo="X" data-immagine="img/GPU/atx-z790.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=entry-h610">
-                                <img src="img/MOBO/entry-h610.webp" alt="ENTRY H610">
-                            </a>
-                            <p>ENTRY H610</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="entry-h610"
-                            data-prezzo="X" data-immagine="img/GPU/entry-h610.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=microatx-b650">
-                                <img src="img/MOBO/microatx-b650.webp" alt="MICROATX B650">
-                            </a>
-                            <p>MICROATX B650</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="microatx-b650"
-                            data-prezzo="X" data-immagine="img/GPU/microatx-b650.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=microatx-b760">
-                                <img src="img/MOBO/microatx-b760.webp" alt="MICROATX B760">
-                            </a>
-                            <p>MICROATX B760</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="microatx-b760"
-                            data-prezzo="X" data-immagine="img/GPU/microatx-b760.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=minitx-b760">
-                                <img src="img/MOBO/minitx-b760.webp" alt="MINITX B760">
-                            </a>
-                            <p>MINITX B760</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="minitx-b760"
-                            data-prezzo="X" data-immagine="img/GPU/minitx-b760.webp">Agiungi al Carrello</button>
-                        </div>
-                    </div>
+                    <div class="riga-foto" data-categoria="Scheda Madre"></div>
                 </section>
-            
+
                 <section id="alimentatori">
                     <h2>Reparto Alimentatori</h2>
-                    <div class="riga-foto">
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=550w-bronze">
-                                <img src="img/PSU/550w-bronze.webp" alt="550W BRONZE">
-                            </a>
-                            <p>550W BRONZE</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="550w-bronze"
-                            data-prezzo="X" data-immagine="img/GPU/550w-bronze.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=650w-bronze">
-                                <img src="img/PSU/650w-bronze.webp" alt="650W BRONZE">
-                            </a>
-                            <p>650W BRONZE</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="650w-bronze"
-                            data-prezzo="X" data-immagine="img/GPU/650w-bronze.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=750w-gold">
-                                <img src="img/PSU/750w-gold.webp" alt="750W GOLD">
-                            </a>
-                            <p>750W GOLD</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="750w-gold"
-                            data-prezzo="X" data-immagine="img/GPU/750w-gold.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=850w-gold">
-                                <img src="img/PSU/850w-gold.webp" alt="850W GOLD">
-                            </a>
-                            <p>850W GOLD</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="850w-gold"
-                            data-prezzo="X" data-immagine="img/GPU/850w-gold.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=1000w-platinum">
-                                <img src="img/PSU/1000w-platinum.webp" alt="1000W PLATINUM">
-                            </a>
-                            <p>1000W PLATINUM</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="1000w-platinum"
-                            data-prezzo="X" data-immagine="img/GPU/1000w-platinum.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=1200w-platinum">
-                                <img src="img/PSU/1200w-platinum.webp" alt="1200W PLATINUM">
-                            </a>
-                            <p>1200W PLATINUM</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="1200w-platinum"
-                            data-prezzo="X" data-immagine="img/GPU/1200w-platinum.webp">Agiungi al Carrello</button>
-                        </div>
-                    </div>
+                    <div class="riga-foto" data-categoria="Alimentatore"></div>
                 </section>
-            
+
                 <section id="ssd">
                     <h2>Reparto SSD</h2>
-                    <div class="riga-foto">
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvme-gen3-1tb">
-                                <img src="img/SSD/nvme-gen3-1tb.webp" alt="NVME GEN3 1TB">
-                            </a>
-                            <p>NVME GEN3 1TB</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvme-gen3-1tb"
-                            data-prezzo="X" data-immagine="img/GPU/nvme-gen3-1tb.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvme-gen4-1tb">
-                                <img src="img/SSD/nvme-gen4-1tb.webp" alt="NVME GEN4 1TB">
-                            </a>
-                            <p>NVME GEN4 1TB</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvme-gen4-1tb"
-                            data-prezzo="X" data-immagine="img/GPU/nvme-gen4-1tb.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvme-gen4-2tb">
-                                <img src="img/SSD/nvme-gen4-2tb.webp" alt="NVME GEN4 2TB">
-                            </a>
-                            <p>NVME GEN4 2TB</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvme-gen4-2tb"
-                            data-prezzo="X" data-immagine="img/GPU/nvme-gen4-2tb.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=nvme-gen5-2tb">
-                                <img src="img/SSD/nvme-gen5-2tb.webp" alt="NVME GEN5 2TB">
-                            </a>
-                            <p>NVME GEN5 2TB</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="nvme-gen5-2tb"
-                            data-prezzo="X" data-immagine="img/GPU/nvme-gen5-2tb.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=sata-1tb">
-                                <img src="img/SSD/sata-1tb.webp" alt="SATA 1TB">
-                            </a>
-                            <p>SATA 1TB</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="sata-1tb"
-                            data-prezzo="X" data-immagine="img/GPU/sata-1tb.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=sata-500gb">
-                                <img src="img/SSD/sata-500gb.webp" alt="SATA 500GB">
-                            </a>
-                            <p>SATA 500GB</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="sata-500gb"
-                            data-prezzo="X" data-immagine="img/GPU/sata-500gb.webp">Agiungi al Carrello</button>
-                        </div>
-                    </div>
+                    <div class="riga-foto" data-categoria="SSD"></div>
                 </section>
-        
+
                 <section id="harddisk">
                     <h2>Reparto HardDisk</h2>
-                    <div class="riga-foto">
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=1tb-7200rpm">
-                                <img src="img/HDD/1tb-7200rpm.webp" alt="1TB 7200RPM">
-                            </a> 
-                            <p>1TB 7200RPM</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-rx-7600"
-                            data-prezzo="X" data-immagine="img/GPU/1tb-7200rpm.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=2tb-7200rpm">
-                                <img src="img/HDD/2tb-7200rpm.webp" alt="2TB 7200RPM">
-                            </a>
-
-                            <p>2TB 7200RPM</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-rx-7600"
-                            data-prezzo="X" data-immagine="img/GPU/2tb-7200rpm.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=4tb-5400rpm">
-                                <img src="img/HDD/4tb-5400rpm.webp" alt="4TB 5400RPM">
-                            </a>
-                            <p>4TB 5400RPM</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-rx-7600"
-                            data-prezzo="X" data-immagine="img/GPU/4tb-5400rpm.webp">Agiungi al Carrello</button>
-                        </div>
-                    
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=8tb-nas">
-                                <img src="img/HDD/4tb-5400rpm.webp" alt="8TB NAS">
-                            </a>
-                            <p>8TB NAS</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-rx-7600"
-                            data-prezzo="X" data-immagine="img/GPU/4tb-5400rpm.webp">Agiungi al Carrello</button>
-                        </div>
-
-                        <div class="prodotto">
-                            <a href="prodotto.html?id=12tb-nas">
-                                <img src="img/HDD/12tb-nas.webp" alt="12TB NAS">
-                            </a>
-                            <p>12TB NAS</p>
-                            <button class="btn-aggiungi-al-carrello" data-nome="amd-rx-7600"
-                            data-prezzo="X" data-immagine="img/GPU/12tb-nas.webp">Agiungi al Carrello</button>
-                        </div>
-                    </div>
+                    <div class="riga-foto" data-categoria="Hard Disk"></div>
                 </section>
+
             </main>
 
             <!--colonna carrello a destra-->
@@ -467,24 +131,16 @@
                     <h2>Subtotale: </h2>
                     <button class="btn-compra">Vai al Carrello</button>
                 </div>
-                <!--lista degli oggetti nel carrello-->
-                <div class="oggetti-nel-carrello">
-                    <img src="img/prodotto.jpg" alt="Prodotto">
-                    <p> X soldi da rendere dinamici(al momento i pezzi non esistono)</p>
-                    <div class="quantità">
-                        <button>-</button> <span>1</span> <button>+</button>
-                    </div>
-                </div>
             </aside>
         </div>
 
         <footer>
             <p class="footer">
                 &copy; 2026 AK INFORMATICA TECH S.P.A.
-                &middot; P.IVA / C.F. 03172330163 <!--valori casuali da modificare-->
-                &middot; REA BG-355654 <!--valori casuali da modificare-->
-                &middot; CAP. SOC. <!--valori casuali da modificare-->
-                &euro;100.000 i.v. <!--valori casuali da modificare-->
+                &middot; P.IVA / C.F. 03172330163
+                &middot; REA BG-355654
+                &middot; CAP. SOC.
+                &euro;100.000 i.v.
             </p>
         </footer>
     </body>

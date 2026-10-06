@@ -1,6 +1,6 @@
 const Prodotto = require('./Prodotto');
 
-class alimentatore extends Prodotto {
+class Alimentatore extends Prodotto {
     constructor(dati){
         super(dati);
         this.watt = dati.watt;
@@ -13,10 +13,9 @@ class alimentatore extends Prodotto {
         return [
             { nome: 'Watt', valore: this.watt},
             { nome: 'Certificazione', valore: this.certificazione},
-            { nome: 'Modulare', valore: this.modulare},            
-        ] 
+            { nome: 'Modulare', valore: this.modulare},
+        ]
     }
 }
 
-
-module.exports = alimentatore;
+module.exports = Alimentatore;

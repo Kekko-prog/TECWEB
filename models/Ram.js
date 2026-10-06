@@ -1,6 +1,6 @@
 const Prodotto = require('./Prodotto');
 
-class ram extends Prodotto {
+class Ram extends Prodotto {
     constructor(dati){
         super(dati);
         this.tipo = dati.tipo;
@@ -13,9 +13,9 @@ class ram extends Prodotto {
         return [
             { nome: 'Tipo', valore: this.tipo},
             { nome: 'Capacita', valore: `${this.capacita} GB`},
-            { nome: 'Velocita', valore: `${this.velocita} MHz`},            
-        ] 
+            { nome: 'Velocita', valore: `${this.velocita} MHz`},
+        ]
     }
 }
 
-module.exports = ram;
+module.exports = Ram;

@@ -12,64 +12,65 @@
       await db.exec('PRAGMA foreign_keys = ON');
 
       await db.exec(`
+          -- Campi comuni a TUTTI i prodotti
           CREATE TABLE IF NOT EXISTS prodotti (
-              id          INTEGER PRIMARY KEY AUTOINCREMENT,
-              slug        TEXT    NOT NULL UNIQUE,
-              nome        TEXT    NOT NULL,
-              marca       TEXT,
-              categoria   TEXT    NOT NULL,
-              prezzo      REAL    NOT NULL,
-              immagine    TEXT,
-              descrizione TEXT,
-              stock       INTEGER NOT NULL DEFAULT 0
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            slug        TEXT    NOT NULL UNIQUE,   -- 'amd-rx-7600' -> URL ?id=
+            nome        TEXT    NOT NULL,
+            marca       TEXT,
+            categoria   TEXT    NOT NULL,          -- vedi TABELLA DI VERITA'
+            prezzo      REAL    NOT NULL,          -- numero, NON "€ 299.00"
+            immagine    TEXT,                      -- percorso relativo al front-end
+            descrizione TEXT,
+            stock       INTEGER NOT NULL DEFAULT 0
           );
-  
+
           CREATE TABLE IF NOT EXISTS gpu (
-              id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              vram        INTEGER,    -- GB
-              chipset     TEXT
+            id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            vram        INTEGER,   -- GB
+            chipset     TEXT
           );
 
           CREATE TABLE IF NOT EXISTS cpu (
-              id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              core        INTEGER,
-              thread      INTEGER,
-              socket      TEXT
+            id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            core        INTEGER,
+            thread      INTEGER,
+            socket      TEXT
           );
 
           CREATE TABLE IF NOT EXISTS schede_madri (
-              id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              chipset     TEXT,
-              formato     TEXT,
-              socket      TEXT
+            id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            chipset     TEXT,
+            formato     TEXT,      -- ATX / micro-ATX / mini-ITX
+            socket      TEXT
           );
 
           CREATE TABLE IF NOT EXISTS alimentatori (
-              id_prodotto     INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              watt            INTEGER,
-              certificazione  TEXT,   -- 80+ Bronze / Gold / Platinum
-              modulare        INTEGER NOT NULL DEFAULT 0
+            id_prodotto     INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            watt            INTEGER,
+            certificazione  TEXT,  -- '80+ Bronze' / '80+ Gold' / '80+ Platinum'
+            modulare        INTEGER NOT NULL DEFAULT 0   -- 0/1, SQLite non ha boolean
           );
 
           CREATE TABLE IF NOT EXISTS ssd (
-              id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              capacita    INTEGER,    -- GB
-              interfaccia TEXT,       -- SATA / NVMe
-              velocita    INTEGER     -- MB/s
+            id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            capacita    INTEGER,   -- GB
+            interfaccia TEXT,      -- 'SATA' / 'NVMe PCIe 4.0' / ...
+            velocita    INTEGER    -- MB/s
           );
 
           CREATE TABLE IF NOT EXISTS hard_disk (
-              id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              capacita    INTEGER,
-              rpm         INTEGER,
-              cache       INTEGER
+            id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            capacita    INTEGER,   -- GB
+            rpm         INTEGER,
+            cache       INTEGER    -- MB
           );
 
           CREATE TABLE IF NOT EXISTS ram (
-              id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
-              tipo        TEXT,       -- DDR4 / DDR5
-              capacita    INTEGER,    -- GB
-              velocita    INTEGER     -- MHz
+            id_prodotto INTEGER PRIMARY KEY REFERENCES prodotti(id) ON DELETE CASCADE,
+            tipo        TEXT,      -- DDR4 / DDR5
+            capacita    INTEGER,   -- GB
+            velocita    INTEGER    -- MHz
           );
       `);
 

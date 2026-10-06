@@ -1,6 +1,6 @@
 const Prodotto = require('./Prodotto');
 
-class hard_disk extends Prodotto {
+class HardDisk extends Prodotto {
     constructor(dati) {
         super(dati);
         this.capacita = dati.capacita;
@@ -18,4 +18,4 @@ class hard_disk extends Prodotto {
     }
 }
 
-module.exports = hard_disk;
+module.exports = HardDisk;
